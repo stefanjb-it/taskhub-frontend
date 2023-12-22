@@ -1,0 +1,34 @@
+$colorOrange: #fc9c60;
+$colorRed: #ea504c;
+$colorPurple: #68548d;
+$textWhite: #faf9f6;
+
+@font-face {
+    font-family: 'ralewayBold';
+    src: url("../fonts/Raleway-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'ralewayLight';
+    src: url("../fonts/Raleway-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'ralewayThin';
+    src: url("../fonts/Raleway-Thin.ttf") format("truetype");
+}
+
+.content{
+    background: linear-gradient(to right top, #fc9c60, #f98f5a, #f78255, #f47451, #f0654e, #eb5959, #e34e63, #d8466d, #c14880, #a54d8c, #875290, #68548d);;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'ralewayLight', sans-serif;
+    font-weight: 300;
+    color: $textWhite;
+    text-align: center;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    animation: gradient 10s ease infinite;
+}
