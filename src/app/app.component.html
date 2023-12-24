@@ -1,5 +1,8 @@
 <div class="container-md content">
-  <p>This is a test</p>
+  <div>
+    <p>This is a test</p>
+    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button>
+  </div>
 </div>
 
 <router-outlet></router-outlet>

@@ -1,0 +1,19 @@
+@import '../../app.component.scss';
+
+.custom-button{
+    background: linear-gradient(45deg, $colorOrange, $colorRed);
+    font-family: 'ralewayLight', sans-serif;
+    font-weight: 300;
+    color: $textWhite;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 45px;
+    min-width: 150px;
+    border: 0px;
+}
+
+.custom-button:hover{
+    cursor: pointer;
+    filter: brightness(90%);
+}
