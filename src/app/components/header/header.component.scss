@@ -1,0 +1,20 @@
+@import '../../app.component.scss';
+
+c-header{
+  background: rgb(36, 42, 56, 0.75);
+  width: 100%;
+  border: 0;
+}
+
+c-header-text{
+    color: $textWhite;
+    font-family: 'ralewayBold', sans-serif;
+    font-size: 30px;
+}
+
+a{
+    color: $textWhite;
+    font-family: 'ralewayLight', sans-serif;
+    font-size: 24px;
+    text-decoration: none;
+}

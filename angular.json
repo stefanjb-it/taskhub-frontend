@@ -30,6 +30,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@coreui/icons/css/all.css",
+              "node_modules/@coreui/coreui/scss/coreui.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],

@@ -2,6 +2,7 @@ $colorOrange: #fc9c60;
 $colorRed: #ea504c;
 $colorPurple: #68548d;
 $textWhite: #faf9f6;
+$backgroundColor: #242a38;
 
 @font-face {
     font-family: 'ralewayBold';
@@ -21,9 +22,7 @@ $textWhite: #faf9f6;
 .content{
     background: linear-gradient(to right top, #fc9c60, #f98f5a, #f78255, #f47451, #f0654e, #eb5959, #e34e63, #d8466d, #c14880, #a54d8c, #875290, #68548d);;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
     font-family: 'ralewayLight', sans-serif;
     font-weight: 300;
     color: $textWhite;
