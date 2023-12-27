@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   readonly accessTokenLocalStorageKey = 'access_token';
   isLoggedIn$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) {
+  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private toastService: ToastrService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
@@ -32,6 +33,8 @@ export class UserService {
         },
         error: () => {
           // TODO: Show error message
+          this.toastService.warning('Invalid username or password', 'Login Failed',
+            {easeTime: 250, timeOut: 2000});
         }
       });
   }

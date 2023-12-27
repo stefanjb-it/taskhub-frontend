@@ -7,3 +7,5 @@ $backgroundColor: #242a38;
 body{
   background-color: $backgroundColor;
 }
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
