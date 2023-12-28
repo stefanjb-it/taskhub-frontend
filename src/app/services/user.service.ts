@@ -45,6 +45,10 @@ export class UserService {
     this.router.navigate(['/login']);
   }
 
+  /**
+   *
+   * @deprecated DONE IN BACKEND
+   */
   hasPermission(permission: string): boolean {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     const decodedToken = this.jwtHelperService.decodeToken(token ? token : '');
@@ -52,10 +56,26 @@ export class UserService {
     return permissions ? permission in permissions : false;
   }
 
+  /**
+   *
+   * @deprecated DONE IN BACKEND
+   */
   hasClaim(claim: string): boolean {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     const decodedToken = this.jwtHelperService.decodeToken(token ? token : '');
     const claims = decodedToken?.claims;
     return claims ? claim in claims : false;
+  }
+
+  /**
+   *
+   * @param sGroups group-name as string array
+   * @return boolean based on jwt groups[] contained in sGroups[]
+   */
+  hasGroup(sGroups: Array<string>): boolean {
+    const token: string|null = localStorage.getItem(this.accessTokenLocalStorageKey);
+    const decodedToken = this.jwtHelperService.decodeToken(token ? token: '');
+    const groups = decodedToken?.groups;
+    return groups.some((gr: string) => sGroups.includes(gr));
   }
 }
