@@ -32,9 +32,7 @@ export class UserService {
           this.router.navigate(['movie-list']);
         },
         error: () => {
-          // TODO: Show error message
-          this.toastService.warning('Invalid username or password', 'Login Failed',
-            {easeTime: 250, timeOut: 2000});
+          this.toastService.warning('Invalid username or password', 'Login Failed');
         }
       });
   }

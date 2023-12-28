@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { ButtonComponent } from './components/button/button.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from "./components/list/list.component";
-import {UserService} from "./services/user.service";
+import { UserService } from "./services/user.service";
 
 @Component({
   selector: 'app-root',
