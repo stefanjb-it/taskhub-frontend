@@ -11,13 +11,18 @@ import {ToastrService} from "ngx-toastr";
 export class UserService {
 
   readonly accessTokenLocalStorageKey = 'access_token';
+  readonly refreshTokenLocalStorageKey = 'refresh_token';
   isLoggedIn$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private toastService: ToastrService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
-      const tokenValid = !this.jwtHelperService.isTokenExpired(token);
+      let tokenValid = !this.jwtHelperService.isTokenExpired(token);
+      if (!tokenValid) {
+        this.refresh()
+        tokenValid = !this.jwtHelperService.isTokenExpired(token);
+      }
       this.isLoggedIn$.next(tokenValid);
     }
   }
@@ -28,6 +33,7 @@ export class UserService {
         next: (res: any) => {
           this.isLoggedIn$.next(true);
           localStorage.setItem('access_token', res.access);
+          localStorage.setItem('refresh_token', res.refresh);
           // TODO: change this to redirect to task list
           this.router.navigate(['movie-list']);
         },
@@ -42,6 +48,21 @@ export class UserService {
     this.isLoggedIn$.next(false);
     this.router.navigate(['/login']);
   }
+
+  refresh(): void {
+    this.http.post('/api/token/refresh', JSON.stringify("{ refresh: " + localStorage.getItem(this.refreshTokenLocalStorageKey) + " }"))
+      .subscribe({
+        next: (res: any) => {
+          this.isLoggedIn$.next(true);
+          localStorage.setItem('access_token', res.access);
+        },
+        error: () => {
+          // TODO: Show error message
+          this.toastService.warning('Token refresh failed', 'Authentication error',
+            {easeTime: 250, timeOut: 2000});
+        }
+      });
+}
 
   /**
    *
@@ -67,7 +88,7 @@ export class UserService {
 
   /**
    *
-   * @param sGroups group-name as string array
+   * @param sGroups group-names as string array
    * @return boolean based on jwt groups[] contained in sGroups[]
    */
   hasGroup(sGroups: Array<string>): boolean {
