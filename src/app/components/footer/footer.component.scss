@@ -1,0 +1,16 @@
+@import '../../app.component.scss';
+
+c-footer{
+  background: rgb(36, 42, 56, 0.75);
+  width: 100%;
+  border: 0;
+  margin-top: auto;
+  color: $textWhite;
+}
+
+a{
+    color: $textWhite;
+    font-family: 'ralewayLight', sans-serif;
+    font-size: 24px;
+    text-decoration: none;
+}

@@ -1,9 +1,10 @@
-<div class="container-md content">
+<div class="container-md content-wrapper">
   <app-header></app-header>
-  <div>
-    <p>This is a test</p>
-    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button>
+  <div class="content">
+    <!-- <p>This is a test</p>
+    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button> -->
   </div>
+  <app-footer></app-footer>
 </div>
 
 <router-outlet></router-outlet>
