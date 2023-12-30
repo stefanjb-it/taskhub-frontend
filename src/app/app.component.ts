@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { ButtonComponent } from './components/button/button.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { ListComponent } from "./components/list/list.component";
 import {UserService} from "./services/user.service";
 
@@ -14,6 +15,7 @@ import {UserService} from "./services/user.service";
     RouterOutlet,
     ButtonComponent,
     HeaderComponent,
+    FooterComponent,
     ListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

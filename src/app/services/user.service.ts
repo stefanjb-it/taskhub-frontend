@@ -14,7 +14,7 @@ export class UserService {
   readonly refreshTokenLocalStorageKey = 'refresh_token';
   isLoggedIn$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private toastService: ToastrService) {
+  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
@@ -39,8 +39,8 @@ export class UserService {
         },
         error: () => {
           // TODO: Show error message
-          this.toastService.warning('Invalid username or password', 'Login Failed',
-            {easeTime: 250, timeOut: 2000});
+          // this.toastService.warning('Invalid username or password', 'Login Failed',
+          //   {easeTime: 250, timeOut: 2000});
         }
       });
   }
@@ -60,8 +60,8 @@ export class UserService {
         },
         error: () => {
           // TODO: Show error message
-          this.toastService.warning('Token refresh failed', 'Authentication error',
-            {easeTime: 250, timeOut: 2000});
+          // this.toastService.warning('Token refresh failed', 'Authentication error',
+          //   {easeTime: 250, timeOut: 2000});
         }
       });
 }

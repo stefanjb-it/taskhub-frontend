@@ -19,7 +19,7 @@ $backgroundColor: #242a38;
     src: url("../fonts/Raleway-Thin.ttf") format("truetype");
 }
 
-.content{
+.content-wrapper{
     background: linear-gradient(to right top, #fc9c60, #f98f5a, #f78255, #f47451, #f0654e, #eb5959, #e34e63, #d8466d, #c14880, #a54d8c, #875290, #68548d);;
     height: 100vh;
     padding: 0;
@@ -27,7 +27,19 @@ $backgroundColor: #242a38;
     font-weight: 300;
     color: $textWhite;
     text-align: center;
+    // margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-size: 24px;
     text-shadow: 0 0 10px rgba(0,0,0,0.5);
     animation: gradient 10s ease infinite;
+}
+
+.content{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

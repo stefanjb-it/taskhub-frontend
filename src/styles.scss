@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@coreui/icons/css/all.css';
 @import '@coreui/coreui/scss/coreui.scss';
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
 
 $backgroundColor: #242a38;
 
 body{
   background-color: $backgroundColor;
 }
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+
