@@ -14,7 +14,7 @@ export class UserService {
   readonly refreshTokenLocalStorageKey = 'refresh_token';
   isLoggedIn$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) {
+  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private toastService: ToastrService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
