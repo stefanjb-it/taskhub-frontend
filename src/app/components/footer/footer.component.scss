@@ -14,3 +14,34 @@ a{
     font-size: 24px;
     text-decoration: none;
 }
+
+svg{
+    width: 35px !important;
+    height: 35px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+@media (max-width: 767px) {
+  .mobile-view {
+    display: flex;
+    width: 100%;
+  }
+
+  .desktop-view {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-view {
+    display: none;
+  }
+
+  .desktop-view {
+    display: flex;
+    width: 100%;
+  }
+}

@@ -6,6 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ListComponent } from "./components/list/list.component";
 import { UserService } from "./services/user.service";
+import { IconSetService } from '@coreui/icons-angular';
+import { cilHome, cilUser, cilCheckCircle } from '@coreui/icons';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +25,8 @@ import { UserService } from "./services/user.service";
 export class AppComponent implements OnInit{
   title = 'taskhub-frontend';
 
-  constructor(public userService: UserService, private router: Router) {
-
+  constructor(public userService: UserService, private router: Router, public iconSet: IconSetService) {
+    iconSet.icons = { cilHome, cilUser, cilCheckCircle };
   }
 
   ngOnInit(): void {

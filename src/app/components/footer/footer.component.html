@@ -1,19 +1,27 @@
-<c-footer>
-    <div>
-      <span class="align-middle"> &copy; TaskHub 2024</span>
+<c-footer class="p-3">
+    <div class="desktop-view">
+      <div>
+        <span class="align-middle"> &copy; TaskHub 2024</span>
+      </div>
+      <div class="ms-auto">
+        <a href="#" class="me-4">
+          <span class="align-middle">Privacy</span>
+        </a>
+        <a href="#" class="me-4">
+          <span class="align-middle">Terms</span>
+        </a>
+        <a href="#" class="me-4">
+          <span class="align-middle">Contact</span>
+        </a>
+        <a href="https://github.com/stefanjb-it/taskhub-frontend" target="_blank" class="me-2">
+          <img src="../../../assets/svg/GitHub.svg" width="40" height="40"/>
+        </a>
+      </div>
     </div>
-    <div class="ms-auto">
-      <a href="https://coreui.io/pro/angular" target="_blank" class="me-4">
-        <span class="align-middle">Privacy</span>
-      </a>
-      <a href="https://coreui.io/pro/angular" target="_blank" class="me-4">
-        <span class="align-middle">Terms</span>
-      </a>
-      <a href="https://coreui.io/pro/angular" target="_blank" class="me-4">
-        <span class="align-middle">Contact</span>
-      </a>
-      <a href="https://github.com/stefanjb-it/taskhub-frontend" target="_blank" class="me-2">
-        <img src="../../../assets/svg/GitHub.svg" width="40" height="40"/>
-      </a>
+    <div class="mobile-view justify-content-around">
+      <!-- ToDo: Change crappy trash icons -->
+      <a href="#"><svg cIcon name="cilUser" title="User Profile Icon"></svg></a>
+      <a href="#"><svg cIcon name="cilHome" title="Home Icon"></svg></a>
+      <a href="#"><svg cIcon name="cilCheckCircle" title="Tasks Icon"></svg></a>
     </div>
-  </c-footer>
+</c-footer>
