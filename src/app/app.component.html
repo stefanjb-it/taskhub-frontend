@@ -1,8 +1,12 @@
 <div class="container-md content-wrapper">
   <app-header></app-header>
   <div class="content">
-    <!-- <p>This is a test</p>
-    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button> -->
+    <!-- <p>This is a test</p> -->
+    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button>
+    <br>
+    <app-inputfield [placeholder]="'Test'" [value]="'Murmeltier'" [type]="'text'" [svgType]="'name'"></app-inputfield>
+    <br>
+    <app-selectfield [list]="['one', 'two', 'three']" ></app-selectfield>
   </div>
   <app-footer></app-footer>
 </div>

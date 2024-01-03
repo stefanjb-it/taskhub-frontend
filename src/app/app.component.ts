@@ -8,6 +8,8 @@ import { ListComponent } from "./components/list/list.component";
 import { UserService } from "./services/user.service";
 import { IconSetService } from '@coreui/icons-angular';
 import { cilHome, cilUser, cilCheckCircle } from '@coreui/icons';
+import {InputfieldComponent} from "./components/inputfield/inputfield.component";
+import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,10 @@ import { cilHome, cilUser, cilCheckCircle } from '@coreui/icons';
     ButtonComponent,
     HeaderComponent,
     FooterComponent,
-    ListComponent],
+    ListComponent,
+    InputfieldComponent,
+    SelectfieldComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

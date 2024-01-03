@@ -1,0 +1,28 @@
+@import '../../app.component.scss';
+
+.igroup{
+  background-color: $colorGrey;
+  border-radius: 15px;
+  min-height: 40px;
+}
+
+.select-field{
+  color: $textWhite;
+  background-color: $colorGrey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: solid $colorGrey;
+  font-size: 16px;
+  min-width: 198px;
+  max-width: 250px;
+  &::-webkit-input-placeholder {
+    color: $backgroundColor;
+  };
+  &::selection{
+    background-color: $colorPurple;
+    color: $backgroundColor;
+  };
+  &:focus{
+    outline: none;
+  }
+}
