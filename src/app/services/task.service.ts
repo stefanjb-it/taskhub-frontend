@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {ChangeTask, Task, TaskList} from "../models/Task";
 
-const baseurl: string = "/api/tasks/"
+const baseurl: string = "/api/tasks"
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class TaskService {
   }
 
   getTask(id: number) {
-    return this.http.get<Task>(baseurl + id + "/")
+    return this.http.get<Task>(baseurl + "/" + id)
   }
 
   createTask(task: ChangeTask) {
@@ -31,6 +31,6 @@ export class TaskService {
   }
 
   deleteTask(id: number) {
-    return this.http.delete(baseurl + id + "/")
+    return this.http.delete(baseurl + "/" + id)
   }
 }

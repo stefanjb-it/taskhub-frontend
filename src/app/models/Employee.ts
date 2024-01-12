@@ -4,7 +4,7 @@ export interface Employee {
   first_name: string
   last_name: string
   email: string
-  groups: string[]
+  groups: Group[]
   is_active: boolean
   employee_type: string
   address: string
@@ -27,4 +27,9 @@ export interface ChangeEmployee {
   birth_date?: string
   gender?: string
   drivers_license_status?: boolean
+}
+
+export interface Group {
+  id: number
+  name: string
 }

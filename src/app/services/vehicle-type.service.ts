@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {VehicleType} from "../models/VehicleType";
 
-const baseurl: string = "/api/vehicletypes/"
+const baseurl: string = "/api/vehicletypes"
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,6 @@ export class VehicleTypeService {
   }
 
   getVehicleType(id: number) {
-    return this.http.get<VehicleType>(baseurl + id + "/")
+    return this.http.get<VehicleType>(baseurl + "/" + id)
   }
 }

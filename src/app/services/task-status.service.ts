@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TaskStatus} from "../models/TaskStatus";
 
-const baseurl: string = "/api/taskstatuses/"
+const baseurl: string = "/api/taskstatuses"
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,6 @@ export class TaskStatusService {
   }
 
   getTaskStatus(id: number) {
-    return this.http.get<TaskStatus>(baseurl + id + "/")
+    return this.http.get<TaskStatus>(baseurl + "/" + id)
   }
 }

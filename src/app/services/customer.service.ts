@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ChangeCustomer, Customer} from "../models/Customer";
 
-const baseurl: string = "/api/customers/"
+const baseurl: string = "/api/customers"
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class CustomerService {
   }
 
   getCustomer(id: number){
-    return this.http.get<Customer>(baseurl+ id +"/")
+    return this.http.get<Customer>(baseurl + '/' + id)
   }
 
   createCustomer(customer: ChangeCustomer) {
@@ -24,10 +24,10 @@ export class CustomerService {
   }
 
   changeCustomer(customer: ChangeCustomer, id: number) {
-    return this.http.put(baseurl + id + "/", customer)
+    return this.http.put(baseurl + '/' + id, customer)
   }
 
   deleteCustomer(id: number) {
-    return this.http.delete(baseurl + id + "/")
+    return this.http.delete(baseurl + '/' + id)
   }
 }

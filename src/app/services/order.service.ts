@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ChangeOrder, Order} from "../models/Order";
 
-const baseurl: string = "/api/orders/"
+const baseurl: string = "/api/orders"
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class OrderService {
   }
 
   getCustomer(id: number) {
-    return this.http.get<Order>(baseurl + id + "/")
+    return this.http.get<Order>(baseurl + '/' + id)
   }
 
   createCustomer(changeCustomer: ChangeOrder) {
@@ -25,10 +25,10 @@ export class OrderService {
   }
 
   changeCustomer(id: number, changeCustomer: ChangeOrder) {
-    return this.http.put(baseurl + id + "/", changeCustomer)
+    return this.http.put(baseurl + '/' + id, changeCustomer)
   }
 
   deleteCustomers(id: number) {
-    return this.http.delete(baseurl + id + "/")
+    return this.http.delete(baseurl + "/" + id)
   }
 }

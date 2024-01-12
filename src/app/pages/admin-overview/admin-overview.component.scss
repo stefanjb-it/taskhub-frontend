@@ -1,6 +1,6 @@
 @import '../../app.component.scss';
 
-svg{
+.headerSvg{
     width: 100px !important;
     height: 100px !important;
     display: flex;
@@ -8,6 +8,13 @@ svg{
     justify-content: center;
     fill: $textWhite;
     filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+a, p{
+    color: $textWhite;
+    font-family: 'ralewayLight', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
 }
 
 @media (max-width: 768px) {
@@ -29,7 +36,7 @@ svg{
     }
 }
 
-p{
+.search-head{
     margin: 0;
     font-family: 'ralewayBold', sans-serif;
     font-weight: bold;
@@ -50,4 +57,32 @@ p{
 
 ::placeholder {
     color: $textWhite;
+}
+
+.list-group-item{
+  background-color: $colorGrey;
+  border-color: $backgroundColor;
+  border-radius: 20px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.fac-list-item{
+  text-align: center;
+  margin: auto;
+  line-height: 3em;
+  background-color: $colorGrey;
+}
+.fac-image{
+  height: 2.25em;
+}
+.list-group{
+  background-color: $backgroundColor;
+}
+.text-white{
+  color: $textWhite;
+}
+.fac-icon{
+  fill: $textWhite;
+  height: 1.5em;
 }

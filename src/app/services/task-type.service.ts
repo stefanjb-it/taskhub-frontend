@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { TaskType } from '../models/TaskType';
 
-const baseurl: string = "/api/tasktypes/"
+const baseurl: string = "/api/tasktypes"
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,6 @@ export class TaskTypeService {
   }
 
   getTaskType(id: number) {
-    return this.http.get<TaskType>(baseurl + id + "/")
+    return this.http.get<TaskType>(baseurl + "/" + id)
   }
 }
