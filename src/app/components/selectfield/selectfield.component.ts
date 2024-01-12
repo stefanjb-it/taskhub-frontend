@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,9 +10,17 @@ import { CommonModule } from '@angular/common';
 })
 export class SelectfieldComponent implements OnInit {
   @Input() list: string[] = [];
+  @Input() id: string = 'testSelect';
+  @Output() getValue = new EventEmitter<string>();
+  value: string = '';
 
   constructor() {
   }
   ngOnInit() {
+  }
+
+  emitEvent() {
+    this.value = (<HTMLInputElement>document.getElementById(this.id)).value;
+    this.getValue.emit(this.value);
   }
 }

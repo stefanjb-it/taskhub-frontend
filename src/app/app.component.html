@@ -2,13 +2,12 @@
   <app-header></app-header>
   <div class="content">
     <!-- <p>This is a test</p> -->
-    <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button>
+    <!-- <app-button [buttonText]="'Test'" (OnClick)="sendMessage($event)"></app-button>
     <br>
-    <app-inputfield [placeholder]="'Test'" [value]="'Murmeltier'" [type]="'text'" [svgType]="'name'"></app-inputfield>
-    <br>
-    <app-selectfield [list]="['one', 'two', 'three']" ></app-selectfield>
+    <app-inputfield [id]="'testField'" [placeholder]="'Test'" (getValue)="sendMessage($event)" [type]="'text'" [svgType]="'murmeltier'"></app-inputfield>
+    <app-selectfield [id]="'testSelect'" (getValue)="sendMessage($event)" [list]="['one', 'two', 'three']" ></app-selectfield> -->
+    <app-admin-overview style="width: 100%;" class="content"></app-admin-overview>
+    <router-outlet style="width: 100%;"></router-outlet>
   </div>
   <app-footer></app-footer>
 </div>
-
-<router-outlet></router-outlet>

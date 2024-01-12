@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
@@ -13,7 +13,9 @@ export class InputfieldComponent implements OnInit {
   @Input() value: string = '';
   @Input() type: string = 'text';
   @Input() placeholder: string = 'Enter Text here';
+  @Input() id: string = '';
   @Input() svgType: string = '';
+  @Output() getValue = new EventEmitter<string>()
   // @ts-ignore
   svg:SafeHtml;
 
@@ -59,6 +61,10 @@ export class InputfieldComponent implements OnInit {
         this.svg = this.sanitizer.bypassSecurityTrustHtml("<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" height=\"1em\" width=\"1em\"><path d=\"M8.707 19.707L18 10.414 13.586 6l-9.293 9.293a1.003 1.003 0 00-.263.464L3 21l5.242-1.03c.176-.044.337-.135.465-.263zM21 7.414a2 2 0 000-2.828L19.414 3a2 2 0 00-2.828 0L15 4.586 19.414 9 21 7.414z\"></path></svg>");
         break;
     }
+  }
 
+  emitEvent() {
+    this.value = (<HTMLInputElement>document.getElementById(this.id)).value;
+    this.getValue.emit(this.value);
   }
 }
