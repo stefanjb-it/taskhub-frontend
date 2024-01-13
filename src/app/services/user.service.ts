@@ -38,7 +38,7 @@ export class UserService {
           this.router.navigate(['movie-list']);
         },
         error: () => {
-          this.toastService.warning('Invalid username or password', 'Login Failed');
+          alert("Login failed! Username or Password wrong.")
         }
       });
   }

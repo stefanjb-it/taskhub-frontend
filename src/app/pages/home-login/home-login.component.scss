@@ -1,0 +1,31 @@
+@import '../../app.component.scss';
+
+.contentBox{
+  background-color: $backgroundColor;
+  border-radius: 50px;
+  width: 80%;
+}
+
+.wwdp{
+  color: $textWhite;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.featurebox{
+  background-color: $colorGrey;
+  border-radius: 50px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+svg{
+  width: 50px;
+  fill: $textWhite;
+}
+
+.ftp{
+  color: $textWhite;
+  font-size: 20px;
+  font-weight: 300;
+}

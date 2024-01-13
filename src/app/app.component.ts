@@ -11,23 +11,25 @@ import { cilHome, cilUser, cilCheckCircle } from '@coreui/icons';
 import {InputfieldComponent} from "./components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
 import { AdminOverviewComponent } from "./pages/admin-overview/admin-overview.component";
+import {HomeLoginComponent} from "./pages/home-login/home-login.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [
-        CommonModule,
-        RouterOutlet,
-        ButtonComponent,
-        HeaderComponent,
-        FooterComponent,
-        ListComponent,
-        InputfieldComponent,
-        SelectfieldComponent,
-        AdminOverviewComponent
-    ]
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    ButtonComponent,
+    HeaderComponent,
+    FooterComponent,
+    ListComponent,
+    InputfieldComponent,
+    SelectfieldComponent,
+    AdminOverviewComponent,
+    HomeLoginComponent
+  ]
 })
 export class AppComponent implements OnInit{
   title = 'taskhub-frontend';

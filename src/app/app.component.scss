@@ -5,12 +5,12 @@
 
 @font-face {
     font-family: 'ralewayLight';
-    src: "../assets/fonts/Raleway/Raleway-Light.ttf" format("truetype");
+    src: url("../assets/fonts/Raleway/Raleway-Light.ttf") format("truetype");
 }
 
 @font-face {
     font-family: 'ralewayThin';
-    src: "../assets/fonts/Raleway/Raleway-Thin.ttf" format("truetype");
+    src: url("../assets/fonts/Raleway/Raleway-Thin.ttf") format("truetype");
 }
 
 $colorOrange: #fc9c60;
