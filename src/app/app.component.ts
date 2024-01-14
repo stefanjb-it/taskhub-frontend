@@ -12,6 +12,7 @@ import {InputfieldComponent} from "./components/inputfield/inputfield.component"
 import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
 import { AdminOverviewComponent } from "./pages/admin-overview/admin-overview.component";
 import {HomeLoginComponent} from "./pages/home-login/home-login.component";
+import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.component";
 
 @Component({
     selector: 'app-root',
@@ -28,7 +29,8 @@ import {HomeLoginComponent} from "./pages/home-login/home-login.component";
     InputfieldComponent,
     SelectfieldComponent,
     AdminOverviewComponent,
-    HomeLoginComponent
+    HomeLoginComponent,
+    VehicleDetailComponent
   ]
 })
 export class AppComponent implements OnInit{

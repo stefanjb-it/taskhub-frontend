@@ -1,0 +1,12 @@
+@import '../../app.component.scss';
+
+.contentBox{
+  background-color: $backgroundColor;
+  border-radius: 50px;
+  width: 80%;
+}
+
+.checkText{
+  font-size: 20px;
+  color: $textWhite;
+}
