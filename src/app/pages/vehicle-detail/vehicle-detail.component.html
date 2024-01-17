@@ -1,35 +1,27 @@
-<div class="contentBox p-3 mt-4 mb-4">
-  <h2 class="pb-2">New Vehicle</h2>
-  <div class="row ps-2 pb-2">
-    <div class="col-7 ps-4">
-      <div class="row pt-2 pb-2">
-        <div class="col-10">
+<div class="contentBox p-3">
+  <p class="title-head my-3">New Vehicle</p>
+  <div class="row">
+    <div class="col-md-8 mb-3 mb-md-0">
+      <div class="row mt-2 mb-3">
           <app-inputfield [id]="'name'" placeholder="Vehicle Name" (getValue)="getName($event)" [type]="'text'" [svgType]="'vehiclename'"></app-inputfield>
-        </div>
       </div>
-      <div class="row pt-2 pb-2">
-        <div class="col-10">
+      <div class="row mb-3">
           <app-inputfield [id]="'model'" placeholder="Model Type" (getValue)="getModel($event)" [type]="'text'" [svgType]="'vehiclemodel'"></app-inputfield>
-        </div>
       </div>
-      <div class="row pt-2 pb-2">
-        <div class="col-10">
+      <div class="row mb-3">
           <app-inputfield [id]="'loadLength'" placeholder="Max Load Length" (getValue)="getloadLength($event)" [type]="'number'" [svgType]="'length'"></app-inputfield>
-        </div>
       </div>
-      <div class="row pt-2 pb-2">
-        <div class="col-10">
+      <div class="row mb-3">
           <app-inputfield [id]="'loadWeigth'" placeholder="Max Load Weigth" (getValue)="getloadWeigth($event)" [type]="'number'" [svgType]="'weigth'"></app-inputfield>
-        </div>
       </div>
     </div>
-    <div class="col-5">
-      <div class="row">
-        <img src="assets/svg/Truck_white.svg" style="width: 250px">
-      </div>
-      <div class="row">
-        <app-button buttonText="Submit" (OnClick)="createVehicle()"></app-button>
+    <div class="col-md-4 mb-3 mb-md-0 d-flex align-items-center">
+      <div class="row justify-content-center">
+        <img src="assets/svg/Truck_white.svg" class="detail-image">
       </div>
     </div>
+  </div>
+  <div class="row mb-3 mb-md-0">
+    <app-button class="d-flex justify-content-md-end justify-content-center" buttonText="Submit" (OnClick)="createVehicle()"></app-button>
   </div>
 </div>

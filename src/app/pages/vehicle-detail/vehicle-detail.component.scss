@@ -10,3 +10,22 @@
   font-size: 20px;
   color: $textWhite;
 }
+
+.title-head{
+  margin: 0;
+  font-size: 48px;
+  font-family: 'ralewayBold', sans-serif;
+  font-weight: bold;
+  // border-bottom: 1px solid $textWhite;
+  width: 100%;
+}
+
+.detail-image{
+  width: 80%;
+}
+
+@media (max-width: 768px) {
+  .detail-image{
+    width: 60%;
+  }
+}

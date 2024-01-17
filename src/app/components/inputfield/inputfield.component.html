@@ -1,9 +1,14 @@
-<div class="row igroup">
-  <div class="col-10">
+<!-- <div class="row igroup">
+  <div class="col-11">
     <div class="row pt-1 pb-1 ps-1">
       <input id="{{id}}" class="input-field" type="{{type}}" (change)="emitEvent()" placeholder="{{placeholder}}">
     </div>
   </div>
-  <div *ngIf="type!='date'" class="col-2" [innerHTML]="svg">
+  <div *ngIf="type!='date'" class="col-1 p-0 d-flex justify-content-center align-items-center" [innerHTML]="svg">
   </div>
+</div> -->
+
+<div class="igroup d-flex justify-content-between">
+  <input id="{{id}}" class="input-field ms-3" type="{{type}}" (change)="emitEvent()" placeholder="{{placeholder}}">
+  <div *ngIf="type!='date'" class="me-3 p-0 d-flex justify-content-center align-items-center" [innerHTML]="svg">
 </div>

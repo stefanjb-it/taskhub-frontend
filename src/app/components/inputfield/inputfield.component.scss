@@ -11,13 +11,14 @@
   padding-top: 5px;
   padding-bottom: 5px;
   border: solid $colorGrey;
+  width: 75%;
   font-size: 16px;
   &::-webkit-input-placeholder {
     color: $backgroundColor;
   };
   &::selection{
     background-color: $colorPurple;
-    color: $backgroundColor;
+    color: $textWhite;
   };
   &:focus{
     outline: none;
