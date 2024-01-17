@@ -16,19 +16,19 @@ export class OrderService {
     return this.http.get<Order[]>(baseurl)
   }
 
-  getCustomer(id: number) {
+  getOrder(id: number) {
     return this.http.get<Order>(baseurl + '/' + id)
   }
 
-  createCustomer(changeCustomer: ChangeOrder) {
-    return this.http.post(baseurl, changeCustomer)
+  createOrder(changeOrder: ChangeOrder) {
+    return this.http.post(baseurl, changeOrder)
   }
 
-  changeCustomer(id: number, changeCustomer: ChangeOrder) {
-    return this.http.put(baseurl + '/' + id, changeCustomer)
+  changeOrder(id: number, changeOrder: ChangeOrder) {
+    return this.http.put(baseurl + '/' + id, changeOrder)
   }
 
-  deleteCustomers(id: number) {
+  deleteOrder(id: number) {
     return this.http.delete(baseurl + "/" + id)
   }
 }

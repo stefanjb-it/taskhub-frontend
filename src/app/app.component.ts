@@ -13,6 +13,9 @@ import {SelectfieldComponent} from "./components/selectfield/selectfield.compone
 import { AdminOverviewComponent } from "./pages/admin-overview/admin-overview.component";
 import {HomeLoginComponent} from "./pages/home-login/home-login.component";
 import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.component";
+import {CustomerOverviewComponent} from "./pages/customer-overview/customer-overview.component";
+import {VehicleOverviewComponent} from "./pages/vehicle-overview/vehicle-overview.component";
+import {OrderOverviewComponent} from "./pages/order-overview/order-overview.component";
 
 @Component({
     selector: 'app-root',
@@ -30,7 +33,10 @@ import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.comp
     SelectfieldComponent,
     AdminOverviewComponent,
     HomeLoginComponent,
-    VehicleDetailComponent
+    VehicleDetailComponent,
+    CustomerOverviewComponent,
+    VehicleOverviewComponent,
+    OrderOverviewComponent
   ]
 })
 export class AppComponent implements OnInit{

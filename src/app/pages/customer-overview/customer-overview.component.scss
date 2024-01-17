@@ -1,0 +1,90 @@
+@import '../../app.component.scss';
+
+.headerSvg{
+  width: 100px !important;
+  height: 100px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: $textWhite;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+a, p{
+  color: $textWhite;
+  font-family: 'ralewayLight', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  svg{
+    width: 130px !important;
+    height: 130px !important;
+  }
+}
+
+.contentBox{
+  background-color: $backgroundColor;
+  border-radius: 50px;
+  width: 80%;
+}
+
+@media (max-width: 992px) {
+  .searchview {
+    width: 95%;
+  }
+}
+
+.search-head{
+  margin: 0;
+  font-family: 'ralewayBold', sans-serif;
+  font-weight: bold;
+  border-bottom: 1px solid $textWhite;
+  width: 100%;
+}
+
+.customSearchField{
+  width: 100%;
+}
+
+.customSearch{
+  background-color: $colorPurple;
+  color: $textWhite;
+  border: 0;
+  border-radius: 12px;
+}
+
+::placeholder {
+  color: $textWhite;
+}
+
+.list-group-item{
+  background-color: $colorGrey;
+  border-color: $backgroundColor;
+  border-radius: 20px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.fac-list-item{
+  text-align: center;
+  margin: auto;
+  line-height: 3em;
+  background-color: $colorGrey;
+}
+.fac-image{
+  height: 2.25em;
+  fill: $textWhite;
+}
+.list-group{
+  background-color: $backgroundColor;
+}
+.text-white{
+  color: $textWhite;
+  text-decoration: none;
+}
+.fac-icon{
+  fill: $textWhite;
+  height: 1.5em;
+}
