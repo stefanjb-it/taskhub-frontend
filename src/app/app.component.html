@@ -6,14 +6,15 @@
     <br>
     <app-inputfield [id]="'username'" [placeholder]="'username'" (getValue)="sendMessage($event)" [type]="'text'" [svgType]="'name'"></app-inputfield>
     <app-selectfield [id]="'testSelect'" (getValue)="sendMessage($event)" [list]="['one', 'two', 'three']" ></app-selectfield>
-    <app-home-login style="width: 100%;" class="content"></app-home-login> -->
+     -->
     <!-- <app-vehicle-detail style="width: 100%;" class="content"></app-vehicle-detail> -->
     <!-- <app-admin-overview style="width: 100%;" class="content"></app-admin-overview> -->
     <!-- <app-customer-overview style="width: 100%;" class="content"></app-customer-overview> -->
     <!-- <app-vehicle-overview style="width: 100%;" class="content"></app-vehicle-overview> -->
     <!-- <app-order-overview style="width: 100%;" class="content"></app-order-overview> -->
     <!-- <app-vehicle-detail style="width: 100%;" class="content"></app-vehicle-detail> -->
-    <app-employee-detail style="width: 100%;" class="content"></app-employee-detail>
+    <!-- <app-employee-detail style="width: 100%;" class="content"></app-employee-detail> -->
+    <app-home-login></app-home-login>
     <router-outlet style="width: 100%;"></router-outlet>
   </div>
   <app-footer></app-footer>

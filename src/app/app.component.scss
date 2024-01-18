@@ -22,7 +22,7 @@ $colorGrey: #4E5970;
 
 .content-wrapper{
     background: linear-gradient(to right top, #fc9c60, #f98f5a, #f78255, #f47451, #f0654e, #eb5959, #e34e63, #d8466d, #c14880, #a54d8c, #875290, #68548d);;
-    height: 100vh;
+    min-height: 100vh;
     padding: 0;
     // font-family: 'ralewayLight', sans-serif;
     font-weight: 300;

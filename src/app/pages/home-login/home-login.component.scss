@@ -3,7 +3,11 @@
 .contentBox{
   background-color: $backgroundColor;
   border-radius: 50px;
-  width: 80%;
+}
+
+.taskhub-logo{
+  width: 90%;
+  height: 90%;
 }
 
 .wwdp{
@@ -28,4 +32,53 @@ svg{
   color: $textWhite;
   font-size: 20px;
   font-weight: 300;
+}
+
+.feature-icon{
+  width: 40px;
+  height: 40px;
+  fill: $textWhite;
+}
+
+.centerBox{
+  width: 60%;
+}
+
+.leftBox{
+  width: 50%;
+}
+
+.rightBox{
+  width: 50%;
+}
+
+@media (max-width: 992px) {
+  .centerBox{
+    width: 75%;
+  }
+  .leftBox{
+    width: 75%;
+  }
+  .rightBox{
+    width: 75%;
+  }
+}
+
+@media (max-width: 768px) {
+  .centerBox{
+    width: 90%;
+  }
+  .leftBox{
+    width: 90%;
+  }
+  .rightBox{
+    width: 90%;
+  }
+  .taskhub-logo{
+    width: 80%;
+    height: 80%;
+  }
+  .ftp{
+    font-size: 14px;
+  }
 }

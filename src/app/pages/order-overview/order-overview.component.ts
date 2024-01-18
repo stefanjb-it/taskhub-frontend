@@ -21,7 +21,9 @@ export class OrderOverviewComponent {
   }
 
   ngOnInit() {
-
+    this.orderService.getOrders().subscribe((orders) => {
+      this.orders = orders;
+    });
   }
 
   alert(key:string){

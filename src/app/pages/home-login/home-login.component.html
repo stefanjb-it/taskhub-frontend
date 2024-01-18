@@ -1,106 +1,107 @@
-<div class="contentBox p-3 mt-4 mb-4">
-  <div class="row pt-2 pb-2">
-    <div class="col-5">
-      <img src="assets/image/Truck.png" style="height: 200px">
-    </div>
-    <div class="col-7 ">
-      <div class="row pb-4">
-        <h2 class="col-10">Login to our System</h2>
-      </div>
-      <div class="row pb-2">
-        <div class="col-10">
-          <app-inputfield [id]="'username'" [placeholder]="'username'" (getValue)="getUsername($event)" [type]="'text'" [svgType]="'name'"></app-inputfield>
+<div>
+  <div class="row justify-content-center mx-auto">
+    <div class="contentBox centerBox p-3 mt-4 mb-4 justify-content-center">
+      <div class="row pt-2 pb-2">
+        <div class="col-md-5 d-flex justify-content-center align-items-center">
+          <img src="assets/svg/Truck.svg" class="taskhub-logo">
         </div>
-      </div>
-      <div class="row pt-2">
-        <div class="col-10">
-          <app-inputfield [id]="'password'" [placeholder]="'password'" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
-        </div>
-      </div>
-      <div class="row pt-4">
-        <div class="col-10" align="end">
-          <app-button [buttonText]="'Login'" (OnClick)="userlogin()"></app-button>
+        <div class="col-md-7 px-3">
+          <div class="row mb-4">
+            <h2>Login to our System</h2>
+          </div>
+          <div class="row mb-4">
+              <app-inputfield [id]="'username'" [placeholder]="'username'" (getValue)="getUsername($event)" [type]="'text'" [svgType]="'name'"></app-inputfield>
+          </div>
+          <div class="row mb-4">
+              <app-inputfield [id]="'password'" [placeholder]="'password'" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
+          </div>
+          <div class="row">
+              <app-button [buttonText]="'Login'" (OnClick)="userlogin()" class="d-flex justify-content-end"></app-button>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="row justify-content-md-start justify-content-center ms-md-3 mx-auto">
+    <div class="contentBox leftBox p-4 mb-4">
+        <div class="row">
+          <h2 class="text-start">&#60;What we do &#47;&#62;</h2>
+        </div>
+        <div class="row">
+          <p class="wwdp text-start">An Application to keep track of orders and ressources in an organisation. Focus lies on creating and managing orders, updating their status, uploading corresponding data on MS Azure.</p>
+        </div>
+    </div>
+  </div>
+  <div class="row justify-content-md-end justify-content-center me-md-3 mx-auto">
+    <div class="contentBox rightBox p-4 mb-4">
+        <div class="row mx-2">
+          <h2 class="text-start p-0">Our Features</h2>
+        </div>
+        <div class="mx-3 pt-2 pb-2">
+          <div class="row featurebox">
+            <div class="col-2">
+              <svg viewBox="0 0 16 16" class="feature-icon">
+                <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+              </svg>
+            </div>
+            <div class="col-8  d-flex justify-content-center">
+              <p class="ftp my-auto">Manage your Employees</p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-3  pt-2 pb-2">
+          <div class="row featurebox">
+            <div class="col-2">
+              <svg viewBox="0 0 24 24" class="feature-icon">
+                <path d="M10 13H4a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1zm-1 6H5v-4h4zM20 3h-6a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1zm-1 6h-4V5h4zm1 7h-2v-2a1 1 0 00-2 0v2h-2a1 1 0 000 2h2v2a1 1 0 002 0v-2h2a1 1 0 000-2zM10 3H4a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1zM9 9H5V5h4z"></path>
+              </svg>
+            </div>
+            <div class="col-8 d-flex justify-content-center">
+              <p class="ftp my-auto">Create and Update Tasks</p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-3 pt-2 pb-2">
+          <div class="row featurebox">
+            <div class="col-2">
+              <svg viewBox="0 0 24 24" class="feature-icon">
+                <path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2z"></path>
+              </svg>
+            </div>
+            <div class="col-8 d-flex justify-content-center">
+              <p class="ftp my-auto ">Group Tasks in Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-3 pt-2 pb-2">
+          <div class="row featurebox">
+            <div class="col-2">
+              <svg viewBox="0 0 576 512" class="feature-icon">
+                <path d="M24 0C10.7 0 0 10.7 0 24s10.7 24 24 24h52.1l60.3 316.5c2.2 11.3 12.1 19.5 23.6 19.5h328c13.3 0 24-10.7 24-24s-10.7-24-24-24H179.9l-9.1-48h317c14.3 0 26.9-9.5 30.8-23.3l54-192C578.3 52.3 563 32 541.8 32H122l-2.4-12.5C117.4 8.2 107.5 0 96 0H24zm152 512c26.5 0 48-21.5 48-48s-21.5-48-48-48-48 21.5-48 48 21.5 48 48 48zm336-48c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48z"></path>
+              </svg>
+            </div>
+            <div class="col-8 d-flex justify-content-center">
+              <p class="ftp my-auto">Add new Customers</p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-3 pt-2 pb-2">
+          <div class="row featurebox">
+            <div class="col-2">
+              <svg viewBox="0 0 24 24" class="feature-icon">
+                <path d="M19.15 8a2 2 0 00-1.72-1H15V5a1 1 0 00-1-1H4a2 2 0 00-2 2v10a2 2 0 001 1.73 3.49 3.49 0 007 .27h3.1a3.48 3.48 0 006.9 0 2 2 0 002-2v-3a1.07 1.07 0 00-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 118 17.5 1.5 1.5 0 016.5 19zm10 0a1.5 1.5 0 111.5-1.5 1.5 1.5 0 01-1.5 1.5z"></path>
+              </svg>
+            </div>
+            <div class="col-8 d-flex justify-content-center">
+              <p class="ftp my-auto">Orchestrate your Vehicles</p>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 
-<div class="contentBox p-3 mb-4">
-  <div class="col-10">
-    <div class="row">
-      <h2 class="col-4 ps-4" align="start">&#60;What we do &#47;&#62;</h2>
-    </div>
-    <div class="row">
-      <p class="col-8 ps-4 wwdp" align="start">An Application to keep track of orders and ressources in an organisation. Focus lies on creating and managing orders, updating their status, uploading corresponding data on MS Azure.</p>
-    </div>
-  </div>
-</div>
 
-<div class="contentBox p-3 mb-4">
-  <div class="col-10">
-    <div class="row">
-      <h2 class="col-6 ps-5" align="start">Our Features</h2>
-    </div>
-    <div class="ps-5 pt-4 pb-2">
-      <div class="row featurebox">
-        <div class="col-2">
-          <svg viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-          </svg>
-        </div>
-        <div class="col-8">
-          <p class="ftp">Manage your Employees</p>
-        </div>
-      </div>
-    </div>
-    <div class="ps-5 pt-2 pb-2">
-      <div class="row featurebox">
-        <div class="col-2">
-          <svg viewBox="0 0 24 24">
-            <path d="M10 13H4a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1zm-1 6H5v-4h4zM20 3h-6a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1zm-1 6h-4V5h4zm1 7h-2v-2a1 1 0 00-2 0v2h-2a1 1 0 000 2h2v2a1 1 0 002 0v-2h2a1 1 0 000-2zM10 3H4a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1zM9 9H5V5h4z"></path>
-          </svg>
-        </div>
-        <div class="col-8">
-          <p class="ftp">Create and Update Tasks</p>
-        </div>
-      </div>
-    </div>
-    <div class="ps-5 pt-2 pb-2">
-      <div class="row featurebox">
-        <div class="col-2">
-          <svg viewBox="0 0 24 24">
-            <path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2z"></path>
-          </svg>
-        </div>
-        <div class="col-8">
-          <p class="ftp">Group Tasks in Orders</p>
-        </div>
-      </div>
-    </div>
-    <div class="ps-5 pt-2 pb-2">
-      <div class="row featurebox">
-        <div class="col-2">
-          <svg viewBox="0 0 576 512">
-            <path d="M24 0C10.7 0 0 10.7 0 24s10.7 24 24 24h52.1l60.3 316.5c2.2 11.3 12.1 19.5 23.6 19.5h328c13.3 0 24-10.7 24-24s-10.7-24-24-24H179.9l-9.1-48h317c14.3 0 26.9-9.5 30.8-23.3l54-192C578.3 52.3 563 32 541.8 32H122l-2.4-12.5C117.4 8.2 107.5 0 96 0H24zm152 512c26.5 0 48-21.5 48-48s-21.5-48-48-48-48 21.5-48 48 21.5 48 48 48zm336-48c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48z"></path>
-          </svg>
-        </div>
-        <div class="col-8">
-          <p class="ftp">Add new Customers</p>
-        </div>
-      </div>
-    </div>
-    <div class="ps-5 pt-2 pb-2">
-      <div class="row featurebox">
-        <div class="col-2">
-          <svg viewBox="0 0 24 24">
-            <path d="M19.15 8a2 2 0 00-1.72-1H15V5a1 1 0 00-1-1H4a2 2 0 00-2 2v10a2 2 0 001 1.73 3.49 3.49 0 007 .27h3.1a3.48 3.48 0 006.9 0 2 2 0 002-2v-3a1.07 1.07 0 00-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 118 17.5 1.5 1.5 0 016.5 19zm10 0a1.5 1.5 0 111.5-1.5 1.5 1.5 0 01-1.5 1.5z"></path>
-          </svg>
-        </div>
-        <div class="col-8">
-          <p class="ftp">Orchestrate your Vehicles</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
