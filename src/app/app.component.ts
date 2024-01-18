@@ -16,6 +16,7 @@ import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.comp
 import {CustomerOverviewComponent} from "./pages/customer-overview/customer-overview.component";
 import {VehicleOverviewComponent} from "./pages/vehicle-overview/vehicle-overview.component";
 import {OrderOverviewComponent} from "./pages/order-overview/order-overview.component";
+import {EmployeeDetailComponent} from "./pages/employee-detail/employee-detail.component";
 
 @Component({
     selector: 'app-root',
@@ -36,7 +37,8 @@ import {OrderOverviewComponent} from "./pages/order-overview/order-overview.comp
     VehicleDetailComponent,
     CustomerOverviewComponent,
     VehicleOverviewComponent,
-    OrderOverviewComponent
+    OrderOverviewComponent,
+    EmployeeDetailComponent
   ]
 })
 export class AppComponent implements OnInit{

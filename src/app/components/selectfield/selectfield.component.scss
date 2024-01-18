@@ -3,7 +3,6 @@
 .igroup{
   background-color: $colorGrey;
   border-radius: 15px;
-  min-height: 40px;
 }
 
 .select-field{
@@ -13,14 +12,13 @@
   padding-bottom: 5px;
   border: solid $colorGrey;
   font-size: 16px;
-  min-width: 198px;
-  max-width: 250px;
+  width: 87%;
   &::-webkit-input-placeholder {
     color: $backgroundColor;
   };
   &::selection{
     background-color: $colorPurple;
-    color: $backgroundColor;
+    color: $textWhite;
   };
   &:focus{
     outline: none;
