@@ -1,0 +1,88 @@
+@import '../../app.component.scss';
+
+.contentBox{
+    background-color: $backgroundColor;
+    border-radius: 50px;
+    width: 80%;
+    margin: auto;
+}
+
+@media (max-width: 992px) {
+    .contentBox{
+        width: 90%;
+    }
+}
+
+.search-head{
+    margin: 0;
+    font-family: 'ralewayBold', sans-serif;
+    font-weight: bold;
+    border-bottom: 1px solid $textWhite;
+    width: 100%;
+}
+
+.management-box{
+    background-color: $colorGrey;
+    border-radius: 60px;
+}
+
+.cardSvg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: $textWhite;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+@media (max-width: 768px) {
+    .cardSvg{
+        width: 50%;
+    }
+}
+
+.card-text{
+    color: $textWhite;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: left;
+}
+
+.card-head{
+    font-family: 'ralewayBold', sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    color: $textWhite;
+}
+
+@media (max-width: 768px) {
+    .card-text{
+        font-size: 16px;
+    }
+
+    .card-head{
+        font-size: 20px;
+    }
+}
+
+.image-wrapper{
+    width: 80%;
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+.image-size{
+    width: 70%;
+}
+
+@media (max-width: 1400px) {
+    .image-size{
+        width: 80%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .image-size{
+        width: 100%;
+    }
+}
