@@ -1,0 +1,32 @@
+<div class="contentBox p-3">
+  <p class="title-head my-3">New Order</p>
+  <div class="col">
+    <div class="row">
+      <div class="col-md-8 mb-3 mb-md-0">
+        <div class="row mt-2 mb-3">
+          <app-inputfield [id]="'name'" [value]="newOrder.order_nr.toString()" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'" [svgType]="'default'"></app-inputfield>
+        </div>
+        <div class="row mb-3">
+          <app-inputfield [id]="'title'" [value]="newOrder.title" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+        </div>
+        <div class="row mb-3">
+          <app-selectfield [id]="'customer'" placeholder="Select Customer" (getValue)="getCustomer($event)" [list]="customers"></app-selectfield>
+        </div>
+        <div class="row mb-3">
+          <app-inputfield [id]="'date'" [value]="newOrder.order_date" placeholder="Address" (getValue)="getDate($event)" [type]="'date'" [svgType]="'date'"></app-inputfield>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 mb-md-0">
+        <div class="row justify-content-center d-flex align-items-center">
+          <svg viewBox="0 0 16 16" class="cardSvg">
+            <path d="M14.5 3a.5.5 0 01.5.5v9a.5.5 0 01-.5.5h-13a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h13zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z"></path><path d="M5 8a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7A.5.5 0 015 8zm0-2.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0 5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm-1-5a.5.5 0 11-1 0 .5.5 0 011 0zM4 8a.5.5 0 11-1 0 .5.5 0 011 0zm0 2.5a.5.5 0 11-1 0 .5.5 0 011 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex mb-3">
+    <app-selectfield [id]="'completed'" placeholder="Order Completed" class="me-auto select-field" (getValue)="getStatus($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
+    <app-button buttonText="Submit" (OnClick)="createOrEditOrder()"></app-button>
+  </div>
+</div>

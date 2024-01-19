@@ -19,7 +19,7 @@ export interface ChangeEmployee {
   first_name?: string
   last_name?: string
   email?: string
-  groups?: string[]
+  groups?: Group[]
   is_active?: boolean
   employee_type?: string
   address?: string

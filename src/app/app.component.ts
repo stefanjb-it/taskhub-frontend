@@ -17,6 +17,9 @@ import {CustomerOverviewComponent} from "./pages/customer-overview/customer-over
 import {VehicleOverviewComponent} from "./pages/vehicle-overview/vehicle-overview.component";
 import {OrderOverviewComponent} from "./pages/order-overview/order-overview.component";
 import {EmployeeDetailComponent} from "./pages/employee-detail/employee-detail.component";
+import {TaskDetailComponent} from "./pages/task-detail/task-detail.component";
+import {OrderDetailComponent} from "./pages/order-detail/order-detail.component";
+import {CustomerDetailsComponent} from "./pages/customer-details/customer-details.component";
 
 @Component({
     selector: 'app-root',
@@ -38,7 +41,10 @@ import {EmployeeDetailComponent} from "./pages/employee-detail/employee-detail.c
     CustomerOverviewComponent,
     VehicleOverviewComponent,
     OrderOverviewComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    TaskDetailComponent,
+    OrderDetailComponent,
+    CustomerDetailsComponent
   ]
 })
 export class AppComponent implements OnInit{

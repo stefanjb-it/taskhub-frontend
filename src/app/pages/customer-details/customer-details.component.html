@@ -1,0 +1,29 @@
+<div class="contentBox p-3">
+  <p class="title-head my-3">New Customer</p>
+  <div class="col">
+    <div class="row">
+      <div class="col-md-8 mb-3 mb-md-0">
+        <div class="row mt-2 mb-3">
+          <app-inputfield [id]="'name'" [value]="newCustomer.name" placeholder="Enter Name" (getValue)="getName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+        </div>
+        <div class="row mb-3">
+          <app-inputfield [id]="'address'" [value]="newCustomer.address" placeholder="Add Address" (getValue)="getAddress($event)" [type]="'text'" [svgType]="'address'"></app-inputfield>
+        </div>
+        <div class="row mb-3">
+          <app-inputfield [id]="'phoneNumber'" [value]="newCustomer.phone" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'" [svgType]="'phone'"></app-inputfield>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 mb-md-0">
+        <div class="row justify-content-center d-flex align-items-center">
+          <svg viewBox="0 0 576 512" class="cardSvg">
+            <path d="M24 0C10.7 0 0 10.7 0 24s10.7 24 24 24h52.1l60.3 316.5c2.2 11.3 12.1 19.5 23.6 19.5h328c13.3 0 24-10.7 24-24s-10.7-24-24-24H179.9l-9.1-48h317c14.3 0 26.9-9.5 30.8-23.3l54-192C578.3 52.3 563 32 541.8 32H122l-2.4-12.5C117.4 8.2 107.5 0 96 0H24zm152 512c26.5 0 48-21.5 48-48s-21.5-48-48-48-48 21.5-48 48 21.5 48 48 48zm336-48c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex mb-3">
+    <app-selectfield [id]="'company'" placeholder="Company" class="me-auto select-field" (getValue)="getStatus($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
+    <app-button buttonText="Submit" (OnClick)="createOrEditOrder()"></app-button>
+  </div>
+</div>

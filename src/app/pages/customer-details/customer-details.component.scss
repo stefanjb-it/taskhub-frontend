@@ -1,0 +1,47 @@
+@import '../../app.component.scss';
+
+.contentBox{
+  background-color: $backgroundColor;
+  border-radius: 50px;
+  width: 80%;
+}
+
+.checkText{
+  font-size: 20px;
+  color: $textWhite;
+}
+
+.title-head{
+  margin: 0;
+  font-size: 48px;
+  font-family: 'ralewayBold', sans-serif;
+  font-weight: bold;
+  width: 100%;
+}
+
+.cardSvg{
+  width: 55% !important;
+  height: 55% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: $textWhite;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+}
+
+@media (max-width: 768px) {
+  .cardSvg{
+    width: 40% !important;
+    height: 40% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    fill: $textWhite;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+  }
+}
+
+.select-field{
+  width: 50%;
+}
+

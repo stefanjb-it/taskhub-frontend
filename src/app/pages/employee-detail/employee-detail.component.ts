@@ -19,15 +19,15 @@ export class EmployeeDetailComponent {
     'id': 0,
     'username': '',
     'first_name': '',
-    'last_name': 'Murmeltier',
-    'email': 'Murmeltier@gmail.at',
-    'groups': [{id: 0, name: 'Murmeltier'}],
+    'last_name': '',
+    'email': '',
+    'groups': [],
     'is_active': true,
-    'employee_type': 'Full-Time',
-    'address': 'Murmeltierstraße 1, 1234 Murmeltierhausen',
-    'phone': '0123456789',
-    'birth_date': '01.01.2041',
-    'gender': 'Murmeltier',
+    'employee_type': '',
+    'address': '',
+    'phone': '',
+    'birth_date': '',
+    'gender': '',
     'drivers_license_status': true
   };
 
@@ -69,6 +69,14 @@ export class EmployeeDetailComponent {
 
   getPhone($event: string) {
     this.newEmployee.phone = $event;
+  }
+
+  getLicense($event: string) {
+    if ($event === 'Yes') {
+      this.newEmployee.drivers_license_status = true;
+    } else {
+      this.newEmployee.drivers_license_status = false;
+    }
   }
 
   createOrEditEmployee() {

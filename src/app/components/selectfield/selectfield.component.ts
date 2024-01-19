@@ -9,8 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './selectfield.component.scss'
 })
 export class SelectfieldComponent implements OnInit {
-  @Input() list: string[] = [];
+  @Input() list: any[] = [];
   @Input() id: string = 'testSelect';
+  @Input() placeholder: string = 'Select';
   @Output() getValue = new EventEmitter<string>();
   value: string = '';
 
