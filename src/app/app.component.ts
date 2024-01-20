@@ -20,6 +20,7 @@ import {EmployeeDetailComponent} from "./pages/employee-detail/employee-detail.c
 import {TaskDetailComponent} from "./pages/task-detail/task-detail.component";
 import {OrderDetailComponent} from "./pages/order-detail/order-detail.component";
 import {CustomerDetailsComponent} from "./pages/customer-details/customer-details.component";
+import {ManagementOverviewComponent} from './pages/management-overview/management-overview.component';
 
 @Component({
     selector: 'app-root',
@@ -44,7 +45,8 @@ import {CustomerDetailsComponent} from "./pages/customer-details/customer-detail
     EmployeeDetailComponent,
     TaskDetailComponent,
     OrderDetailComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    ManagementOverviewComponent
   ]
 })
 export class AppComponent implements OnInit{
