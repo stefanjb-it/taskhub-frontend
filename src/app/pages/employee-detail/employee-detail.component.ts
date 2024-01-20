@@ -4,7 +4,9 @@ import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {UserService} from "../../services/user.service";
 import {EmployeeService} from "../../services/employee.service";
-import {ChangeEmployee, Employee, Group} from "../../models/Employee";
+import {ChangeEmployee} from "../../models/Employee";
+import {EmployeeType} from "../../models/EmployeeType";
+import {EmployeeGroup} from "../../models/EmployeeGroup";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 
 @Component({
@@ -20,7 +22,7 @@ export class EmployeeDetailComponent {
     'first_name': undefined,
     'last_name': undefined,
     'email': undefined,
-    'groups': [1],
+    'groups': [],
     'is_active': undefined,
     'employee_type': undefined,
     'address': undefined,
@@ -63,7 +65,7 @@ export class EmployeeDetailComponent {
 
   getEmployeeType($event: string) {
     if ($event != '-1') {
-      this.newEmployee.employee_type = $event;
+      //
     }
   }
 

@@ -1,3 +1,6 @@
+import {EmployeeGroup} from "./EmployeeGroup";
+import {EmployeeType} from "./EmployeeType";
+
 export interface Employee {
   id: number
   username: string
@@ -5,9 +8,9 @@ export interface Employee {
   last_name: string
   email: string
   password: string
-  groups: Group[]
+  groups: EmployeeGroup[]
   is_active: boolean
-  employee_type: string
+  employee_type: EmployeeType
   address: string
   phone: string
   birth_date: string
@@ -21,17 +24,12 @@ export interface ChangeEmployee {
   last_name?: string
   email?: string
   password?: string
-  groups?: number[]
+  groups?: string[]
   is_active?: boolean
-  employee_type?: string
+  employee_type?: number
   address?: string
   phone?: string
   birth_date?: string
   gender?: string
   drivers_license_status?: boolean
-}
-
-export interface Group {
-  id: number
-  name: string
 }

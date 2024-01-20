@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Group} from "../models/Employee";
+import { EmployeeGroup} from "../models/EmployeeGroup";
 
 @Pipe({
   name: 'unobjecting',
@@ -7,7 +7,7 @@ import {Group} from "../models/Employee";
 })
 export class UnobjectingPipe implements PipeTransform {
 
-  transform(groups: Group[]): string {
+  transform(groups: EmployeeGroup[]): string {
     if (groups.length == 0) {
       return "";
     } else {
