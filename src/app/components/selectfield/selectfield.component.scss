@@ -24,3 +24,7 @@
     outline: none;
   }
 }
+
+select option[disabled] {
+  color: $backgroundColor;
+}
