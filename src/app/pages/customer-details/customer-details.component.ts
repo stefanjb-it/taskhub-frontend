@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {Customer} from "../../models/Customer";
+import {ChangeCustomer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {CustomerService} from "../../services/customer.service";
 
@@ -15,8 +15,7 @@ import {CustomerService} from "../../services/customer.service";
   styleUrl: './customer-details.component.scss'
 })
 export class CustomerDetailsComponent {
-  newCustomer : Customer = {
-    id: 0,
+  newCustomer : ChangeCustomer = {
     name: '',
     address: '',
     phone: '',
@@ -24,7 +23,6 @@ export class CustomerDetailsComponent {
   }
 
   constructor(public userService:UserService, public customerService:CustomerService) {
-
   }
 
   getName($event: string) {
@@ -48,6 +46,8 @@ export class CustomerDetailsComponent {
   }
 
   createOrEditOrder() {
-    console.log(this.newCustomer);
+    this.customerService.createCustomer(this.newCustomer).subscribe((customer: ChangeCustomer) => {
+      console.log(customer);
+    });
   }
 }

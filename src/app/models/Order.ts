@@ -12,6 +12,7 @@ export interface Order {
 export interface ChangeOrder {
   order_nr?: number
   title?: string
+  customer?: number
   order_date?: string
   is_completed?: boolean
 }

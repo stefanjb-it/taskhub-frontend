@@ -20,6 +20,16 @@ export class SelectfieldComponent implements OnInit {
   ngOnInit() {
   }
 
+  getName(item: any) {
+    if (item.name) {
+      return item.name;
+    } else if (item.title) {
+      return item.title;
+    } else {
+      return item.last_name + ', ' + item.first_name;
+    }
+  }
+
   emitEvent() {
     this.value = (<HTMLInputElement>document.getElementById(this.id)).value;
     this.getValue.emit(this.value);

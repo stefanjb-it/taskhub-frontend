@@ -1,7 +1,7 @@
 <div class="igroup d-flex justify-content-between">
-  <select id="{{id}}" class="select-field ms-3" (change)="emitEvent()">
+  <select id="{{id}}" class="select-field ms-3 me-3" (change)="emitEvent()">
     <option value="-1">{{placeholder}}</option>
-    <option *ngFor="let item of list" value="{{item.id}}">{{item.title}}</option>
+    <option *ngFor="let item of list" value="{{item.id}}">{{getName(item)}}</option>
   </select>
 </div>
 

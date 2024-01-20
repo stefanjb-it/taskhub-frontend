@@ -4,13 +4,13 @@
     <div class="row">
       <div class="col-md-8 mb-3 mb-md-0">
         <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'name'" [value]="newEmployee.first_name" placeholder="First Name" (getValue)="getFirstName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+          <app-inputfield [id]="'name'" placeholder="First Name" (getValue)="getFirstName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'model'" [value]="newEmployee.last_name" placeholder="Last Name" (getValue)="getLastName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+          <app-inputfield [id]="'model'" placeholder="Last Name" (getValue)="getLastName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'loadLength'" [value]="newEmployee.address" placeholder="Address" (getValue)="getAddress($event)" [type]="'number'" [svgType]="'address'"></app-inputfield>
+          <app-inputfield [id]="'address'" placeholder="Address" (getValue)="getAddress($event)" [type]="'text'" [svgType]="'address'"></app-inputfield>
         </div>
       </div>
       <div class="col-md-4 mb-3 mb-md-0">
@@ -24,10 +24,10 @@
     <div class="row">
       <div class="col-md-6 mb-3 mb-md-0">
         <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'birthdate'" [value]="newEmployee.birth_date" (getValue)="getBDate($event)" [type]="'date'" [svgType]="'default'"></app-inputfield>
+          <app-inputfield [id]="'birthdate'" (getValue)="getBDate($event)" [type]="'date'" [svgType]="'default'"></app-inputfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'password'" [value]="''" placeholder="Password" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
+          <app-inputfield [id]="'password'" placeholder="Password" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
         </div>
         <div class="row mb-3">
           <app-selectfield [id]="'genderBender'" placeholder="Select Gender" (getValue)="getGender($event)" [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
@@ -35,10 +35,10 @@
       </div>
       <div class="col-md-6 mb-3 mb-md-0">
         <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'email'" [value]="newEmployee.email" placeholder="Email" (getValue)="getEmail($event)" [type]="'text'" [svgType]="'email'"></app-inputfield>
+          <app-inputfield [id]="'email'" placeholder="Email" (getValue)="getEmail($event)" [type]="'text'" [svgType]="'email'"></app-inputfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'phone'" [value]="newEmployee.phone" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'" [svgType]="'text'"></app-inputfield>
+          <app-inputfield [id]="'phone'" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'" [svgType]="'text'"></app-inputfield>
         </div>
         <div class="row mb-3">
           <app-selectfield [id]="'empType'" placeholder="Select Type" (getValue)="getEmployeeType($event)" [list]="[{id:0, name:'Full-Time'}]"></app-selectfield>

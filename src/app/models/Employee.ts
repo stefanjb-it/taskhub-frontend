@@ -4,6 +4,7 @@ export interface Employee {
   first_name: string
   last_name: string
   email: string
+  password: string
   groups: Group[]
   is_active: boolean
   employee_type: string
@@ -19,7 +20,8 @@ export interface ChangeEmployee {
   first_name?: string
   last_name?: string
   email?: string
-  groups?: Group[]
+  password?: string
+  groups?: number[]
   is_active?: boolean
   employee_type?: string
   address?: string

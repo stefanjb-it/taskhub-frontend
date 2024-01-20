@@ -4,16 +4,16 @@
     <div class="row">
       <div class="col-md-8 mb-3 mb-md-0">
         <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'name'" [value]="newOrder.order_nr.toString()" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'" [svgType]="'default'"></app-inputfield>
+          <app-inputfield [id]="'name'" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'" [svgType]="'default'"></app-inputfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'title'" [value]="newOrder.title" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+          <app-inputfield [id]="'title'" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
         </div>
         <div class="row mb-3">
           <app-selectfield [id]="'customer'" placeholder="Select Customer" (getValue)="getCustomer($event)" [list]="customers"></app-selectfield>
         </div>
         <div class="row mb-3">
-          <app-inputfield [id]="'date'" [value]="newOrder.order_date" placeholder="Address" (getValue)="getDate($event)" [type]="'date'" [svgType]="'date'"></app-inputfield>
+          <app-inputfield [id]="'date'"  placeholder="Address" (getValue)="getDate($event)" [type]="'date'" [svgType]="'date'"></app-inputfield>
         </div>
       </div>
       <div class="col-md-4 mb-3 mb-md-0">

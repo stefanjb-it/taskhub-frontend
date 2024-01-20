@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {Order} from "../../models/Order";
+import {ChangeOrder, Order} from "../../models/Order";
 import {Customer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {OrderService} from "../../services/order.service";
@@ -17,12 +17,11 @@ import {CustomerService} from "../../services/customer.service";
   styleUrl: './order-detail.component.scss'
 })
 export class OrderDetailComponent {
-  newOrder : Order = {
-    id: 0,
-    order_nr: 12345,
-    title: '',
-    order_date: '',
-    customer: {id: 0, name: '', address: '', phone: '', is_company: false},
+  newOrder : ChangeOrder = {
+    order_nr: undefined,
+    title: undefined,
+    customer: undefined,
+    order_date: undefined,
     is_completed: false
   }
   customers: Customer[] = [];
@@ -50,9 +49,10 @@ export class OrderDetailComponent {
   }
 
   getCustomer($event: string) {
-    this.customerService.getCustomer(parseInt($event)).subscribe((customer: Customer) => {
-      this.newOrder.customer = customer;
-    });
+    if ($event != '-1') {
+      this.newOrder.customer = parseInt($event);
+      console.log(this.newOrder.customer);
+    }
   }
 
   getStatus($event: string) {
@@ -64,6 +64,8 @@ export class OrderDetailComponent {
   }
 
   createOrEditOrder() {
-    console.log(this.newOrder);
+    this.orderService.createOrder(this.newOrder).subscribe(order => {
+      console.log(order);
+    });
   }
 }

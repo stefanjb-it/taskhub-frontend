@@ -6,7 +6,7 @@
           <app-inputfield [id]="'name'" placeholder="Vehicle Name" (getValue)="getName($event)" [type]="'text'" [svgType]="'vehiclename'"></app-inputfield>
       </div>
       <div class="row mb-3">
-          <app-inputfield [id]="'model'" placeholder="Model Type" (getValue)="getModel($event)" [type]="'text'" [svgType]="'vehiclemodel'"></app-inputfield>
+          <app-selectfield [id]="'modeltype'" placeholder="Select Tasktype" (getValue)="getModel($event)" [list]="vehicleTypes"></app-selectfield>
       </div>
       <div class="row mb-3">
           <app-inputfield [id]="'loadLength'" placeholder="Max Load Length" (getValue)="getloadLength($event)" [type]="'number'" [svgType]="'length'"></app-inputfield>

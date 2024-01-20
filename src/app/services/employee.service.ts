@@ -19,7 +19,7 @@ export class EmployeeService {
     return this.http.get<Employee>(baseurl + '/' + id)
   }
 
-  createEmployee(employee: Employee) {
+  createEmployee(employee: ChangeEmployee) {
     return this.http.post(baseurl, employee)
   }
 

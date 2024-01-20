@@ -30,8 +30,8 @@ export interface Task {
 
 export interface ChangeTask {
   title?: string
-  task_type?: string
-  task_status?: string
+  task_type?: number
+  task_status?: number
   vehicles?: number[]
   order?: number
   employees?: number[]

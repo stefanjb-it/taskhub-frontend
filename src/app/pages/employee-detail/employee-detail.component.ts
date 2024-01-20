@@ -4,7 +4,7 @@ import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {UserService} from "../../services/user.service";
 import {EmployeeService} from "../../services/employee.service";
-import {Employee, Group} from "../../models/Employee";
+import {ChangeEmployee, Employee, Group} from "../../models/Employee";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 
 @Component({
@@ -15,19 +15,18 @@ import {SelectfieldComponent} from "../../components/selectfield/selectfield.com
   styleUrl: './employee-detail.component.scss'
 })
 export class EmployeeDetailComponent {
-  newEmployee: Employee = {
-    'id': 0,
-    'username': '',
-    'first_name': '',
-    'last_name': '',
-    'email': '',
-    'groups': [],
-    'is_active': true,
-    'employee_type': '',
-    'address': '',
-    'phone': '',
-    'birth_date': '',
-    'gender': '',
+  newEmployee: ChangeEmployee = {
+    'username': undefined,
+    'first_name': undefined,
+    'last_name': undefined,
+    'email': undefined,
+    'groups': [1],
+    'is_active': undefined,
+    'employee_type': undefined,
+    'address': undefined,
+    'phone': undefined,
+    'birth_date': undefined,
+    'gender': undefined,
     'drivers_license_status': true
   };
 
@@ -56,15 +55,16 @@ export class EmployeeDetailComponent {
 
   getBDate($event: string) {
     this.newEmployee.birth_date = $event;
-    console.log(this.newEmployee.birth_date);
   }
 
   getPassword($event: string) {
-
+    this.newEmployee.password = $event;
   }
 
   getEmployeeType($event: string) {
-    this.newEmployee.employee_type = $event;
+    if ($event != '-1') {
+      this.newEmployee.employee_type = $event;
+    }
   }
 
   getPhone($event: string) {
@@ -80,7 +80,14 @@ export class EmployeeDetailComponent {
   }
 
   createOrEditEmployee() {
+    if (this.newEmployee.first_name != undefined && this.newEmployee.last_name != undefined) {
+      this.newEmployee.username = this.newEmployee.first_name?.substring(0,3).toLowerCase()
+        + this.newEmployee.last_name?.substring(0,3).toLowerCase() + '24';
+    }
 
+    this.employeeService.createEmployee(this.newEmployee).subscribe(data => {
+      console.log(data);
+    });
   }
 
   uploadPicture() {

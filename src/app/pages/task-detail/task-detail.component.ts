@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {Task} from "../../models/Task";
+import {ChangeTask, Task} from "../../models/Task";
 import {TaskType} from "../../models/TaskType";
 import {TaskStatus} from "../../models/TaskStatus";
 import {Order} from "../../models/Order";
@@ -26,20 +26,17 @@ import {TaskStatusService} from "../../services/task-status.service";
   styleUrl: './task-detail.component.scss'
 })
 export class TaskDetailComponent {
-  newTask : Task = {
-    id: 0,
-    title: '',
-    task_type: {id: 0, title: ''},
-    task_status: {id: 0, title: ''},
-    order: {id: 0, order_nr: 0, title: '', order_date: '', customer: {id: 0, name: '', address: '', phone: '',
-        is_company: false}, is_completed: false},
-    employees: [],
-    vehicles: [],
-    images: [],
-    scheduled_from: '',
-    from_shift: '',
-    scheduled_to: '',
-    to_shift: ''
+  newTask : ChangeTask = {
+    title: undefined,
+    task_type: undefined,
+    task_status: undefined,
+    order: undefined,
+    employees: undefined,
+    vehicles: undefined,
+    scheduled_from: undefined,
+    from_shift: undefined,
+    scheduled_to: undefined,
+    to_shift: undefined
   };
   taskTypes: TaskType[] = [];
   orders: Order[] = [];
@@ -77,51 +74,54 @@ export class TaskDetailComponent {
 
   getTaskType($event: string) {
     if ($event != '-1') {
-      this.taskTypeService.getTaskType(parseInt($event)).subscribe((taskType: TaskType) => {
-        this.newTask.task_type = taskType;
-      });
+      this.newTask.task_type = parseInt($event);
     }
   }
 
   getOrder($event: string) {
     if ($event != '-1') {
-      this.orderService.getOrder(parseInt($event)).subscribe((order: Order) => {
-        this.newTask.order = order;
-      });
+      this.newTask.order = parseInt($event);
     }
   }
 
   getEmployee($event: string) {
     if ($event != '-1') {
-      this.employeeService.getEmployee(parseInt($event)).subscribe((employee: Employee) => {
-        console.log(employee);
-        this.newTask.employees.push(employee);
-      });
+      this.newTask.employees = [];
+      this.newTask.employees?.push(parseInt($event));
     }
   }
 
   getVehicle($event: string) {
     if ($event != '-1') {
-      this.vehicleService.getVehicle(parseInt($event)).subscribe((vehicle: Vehicle) => {
-        this.newTask.vehicles.push(vehicle);
-      });
+      this.newTask.vehicles = [];
+      this.newTask.vehicles?.push(parseInt($event));
     }
   }
 
   getTaskStatus($event: string) {
     if ($event != '-1') {
-      this.taskStatusService.getTaskStatus(parseInt($event)).subscribe((taskStatus: TaskStatus) => {
-        this.newTask.task_status = taskStatus;
-      });
+      this.newTask.task_status = parseInt($event);
     }
   }
 
   getShiftFrom($event: string) {
-    this.newTask.from_shift = $event;
+    if ($event != '-1') {
+      if ($event == '0'){
+        this.newTask.from_shift = 'am';
+      } else {
+        this.newTask.from_shift = 'pm';
+      }
+    }
   }
 
   getShiftTo($event: string) {
-    this.newTask.to_shift = $event;
+    if ($event != '-1') {
+      if ($event == '0'){
+        this.newTask.to_shift = 'am';
+      } else {
+        this.newTask.to_shift = 'pm';
+      }
+    }
   }
 
   getSchedFrom($event: string) {
@@ -137,6 +137,8 @@ export class TaskDetailComponent {
   }
 
   createOrEditTask() {
-    console.log(this.newTask);
+    this.taskService.createTask(this.newTask).subscribe(task => {
+      console.log(task);
+    });
   }
 }

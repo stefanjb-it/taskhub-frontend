@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8 mb-3 mb-md-0">
         <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'name'" [value]="newTask.title" placeholder="Task Title" (getValue)="getTitle($event)" [type]="'text'" [svgType]="'task'"></app-inputfield>
+          <app-inputfield [id]="'name'" placeholder="Task Title" (getValue)="getTitle($event)" [type]="'text'" [svgType]="'task'"></app-inputfield>
         </div>
         <div class="row mb-3">
           <app-selectfield [id]="'tasktype'" placeholder="Select Tasktype" (getValue)="getTaskType($event)" [list]="taskTypes"></app-selectfield>
