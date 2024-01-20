@@ -11,7 +11,7 @@
   padding-top: 5px;
   padding-bottom: 5px;
   border: solid $colorGrey;
-  width: 75%;
+  width: 100%;
   font-size: 16px;
   &::-webkit-input-placeholder {
     color: $backgroundColor;
@@ -23,5 +23,7 @@
   &:focus{
     outline: none;
   }
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
 }
-
