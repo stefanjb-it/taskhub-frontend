@@ -5,15 +5,15 @@
       <div class="row">
         <div class="col-md-8 mb-4 mb-md-0">
           <div class="row mt-2 mb-4">
-            <app-inputfield [id]="'name'" placeholder="Enter Name" (getValue)="getName($event)" [type]="'text'"
+            <app-inputfield [id]="'name'" [value]="newCustomer.name ? newCustomer.name : ''" placeholder="Enter Name" (getValue)="getName($event)" [type]="'text'"
               [svgType]="'default'"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <app-inputfield [id]="'address'" placeholder="Add Address" (getValue)="getAddress($event)" [type]="'text'"
+            <app-inputfield [id]="'address'" [value]="newCustomer.address ? newCustomer.address : ''" placeholder="Add Address" (getValue)="getAddress($event)" [type]="'text'"
               [svgType]="'address'"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <app-inputfield [id]="'phoneNumber'" placeholder="Phone Number" (getValue)="getPhone($event)"
+            <app-inputfield [id]="'phoneNumber'" [value]="newCustomer.phone ? newCustomer.phone : ''" placeholder="Phone Number" (getValue)="getPhone($event)"
               [type]="'text'" [svgType]="'phone'"></app-inputfield>
           </div>
         </div>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="d-flex mb-3">
-      <app-selectfield [id]="'company'" placeholder="Company" class="me-auto select-field"
+      <app-selectfield [id]="'company'" placeholder="is Company?" class="me-auto select-field"
         (getValue)="getStatus($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
       <app-button buttonText="Submit" (OnClick)="createOrEditOrder()"></app-button>
     </div>

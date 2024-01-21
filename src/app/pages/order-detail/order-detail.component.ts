@@ -8,6 +8,8 @@ import {Customer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {OrderService} from "../../services/order.service";
 import {CustomerService} from "../../services/customer.service";
+import {ActivatedRoute} from "@angular/router";
+import {cibTopcoder} from "@coreui/icons";
 
 @Component({
   selector: 'app-order-detail',
@@ -17,16 +19,11 @@ import {CustomerService} from "../../services/customer.service";
   styleUrl: './order-detail.component.scss'
 })
 export class OrderDetailComponent {
-  newOrder : ChangeOrder = {
-    order_nr: undefined,
-    title: undefined,
-    customer: undefined,
-    order_date: undefined,
-    is_completed: false
-  }
+  newOrder : ChangeOrder = {}
   customers: Customer[] = [];
+  selection : string | undefined | null;
   constructor(public userService:UserService, public customerService:CustomerService,
-              public orderService:OrderService) {
+              public orderService:OrderService, private route:ActivatedRoute) {
 
   }
 
@@ -34,6 +31,16 @@ export class OrderDetailComponent {
     this.customerService.getCustomers().subscribe((customers: Customer[]) => {
       this.customers = customers;
     });
+    this.selection = this.route.snapshot.paramMap.get('id');
+    if (this.selection) {
+      this.orderService.getOrder(parseInt(this.selection)).subscribe(order => {
+        this.newOrder.title = order.title
+        this.newOrder.order_nr = order.order_nr
+        this.newOrder.order_date = order.order_date.length > 10 ? order.order_date.substring(0, 10) : order.order_date
+        this.newOrder.customer = order.customer.id
+        this.newOrder.is_completed = order.is_completed
+      })
+    }
   }
 
   getOrderNumber($event: string) {
@@ -55,6 +62,14 @@ export class OrderDetailComponent {
     }
   }
 
+  getStatusId(isCompleted:boolean) : number {
+    if (isCompleted) {
+      return 1
+    } else {
+      return 0
+    }
+  }
+
   getStatus($event: string) {
     if ($event == 'Yes') {
       this.newOrder.is_completed = true;
@@ -64,8 +79,16 @@ export class OrderDetailComponent {
   }
 
   createOrEditOrder() {
-    this.orderService.createOrder(this.newOrder).subscribe(order => {
-      console.log(order);
-    });
+    if (this.selection) {
+      this.orderService.changeOrder(parseInt(this.selection), this.newOrder).subscribe(order => {
+        console.log(order);
+      });
+    } else {
+      this.orderService.createOrder(this.newOrder).subscribe(order => {
+        console.log(order);
+      });
+    }
   }
+
+  protected readonly parseInt = parseInt;
 }

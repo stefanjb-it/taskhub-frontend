@@ -1,4 +1,4 @@
 <div class="igroup d-flex justify-content-between">
-  <input id="{{id}}" class="input-field ms-3 me-3" type="{{type}}" (change)="emitEvent()" placeholder="{{placeholder}}">
+  <input id="{{id}}" class="input-field ms-3 me-3" value="{{value}}" type="{{type}}" (change)="emitEvent()" placeholder="{{placeholder}}">
   <div *ngIf="type!='date'" class="me-3 p-0 d-flex justify-content-center align-items-center" [innerHTML]="svg"></div>
 </div>

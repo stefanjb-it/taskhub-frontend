@@ -10,7 +10,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
   styleUrl: './inputfield.component.scss'
 })
 export class InputfieldComponent implements OnInit {
-  @Input() value: string = '';
+  @Input() value: string | undefined;
   @Input() type: string = 'text';
   @Input() placeholder: string = 'Enter Text here';
   @Input() id: string = '';

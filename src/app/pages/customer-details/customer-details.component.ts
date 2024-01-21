@@ -6,6 +6,7 @@ import {SelectfieldComponent} from "../../components/selectfield/selectfield.com
 import {ChangeCustomer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {CustomerService} from "../../services/customer.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-customer-details',
@@ -15,14 +16,23 @@ import {CustomerService} from "../../services/customer.service";
   styleUrl: './customer-details.component.scss'
 })
 export class CustomerDetailsComponent {
-  newCustomer : ChangeCustomer = {
-    name: '',
-    address: '',
-    phone: '',
-    is_company: false
+  newCustomer : ChangeCustomer = {}
+  selection : string | undefined | null;
+
+  constructor(public userService:UserService, public customerService:CustomerService, private route:ActivatedRoute) {
+
   }
 
-  constructor(public userService:UserService, public customerService:CustomerService) {
+  ngOnInit(){
+    this.selection = this.route.snapshot.paramMap.get('id');
+    if (this.selection) {
+      this.customerService.getCustomer(parseInt(this.selection)).subscribe(customer => {
+        this.newCustomer.name = customer.name
+        this.newCustomer.address = customer.address
+        this.newCustomer.phone = customer.phone
+        this.newCustomer.is_company = customer.is_company
+      });
+    }
   }
 
   getName($event: string) {
@@ -46,8 +56,14 @@ export class CustomerDetailsComponent {
   }
 
   createOrEditOrder() {
-    this.customerService.createCustomer(this.newCustomer).subscribe((customer: ChangeCustomer) => {
-      console.log(customer);
-    });
+    if (this.selection) {
+      this.customerService.changeCustomer(this.newCustomer, parseInt(this.selection)).subscribe( data => {
+        console.log(data);
+      })
+    } else {
+      this.customerService.createCustomer(this.newCustomer).subscribe((customer: ChangeCustomer) => {
+        console.log(customer);
+      });
+    }
   }
 }

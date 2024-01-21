@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col-md-8 mb-3 mb-md-0">
           <div class="row mt-2 mb-4">
-            <app-inputfield [id]="'name'" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'"
-              [svgType]="'default'"></app-inputfield>
+            <app-inputfield [id]="'orderNr'" [value]="newOrder.order_nr ? newOrder.order_nr.toString() : ''" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'"
+                            [svgType]="'default'"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <app-inputfield [id]="'title'" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'"
+            <app-inputfield [id]="'title'" [value]="newOrder.title ? newOrder.title : ''" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'"
               [svgType]="'default'"></app-inputfield>
           </div>
           <div class="row mb-4">
@@ -16,7 +16,7 @@
               [list]="customers"></app-selectfield>
           </div>
           <div class="row mb-4">
-            <app-inputfield [id]="'date'" placeholder="Address" (getValue)="getDate($event)" [type]="'date'"
+            <app-inputfield [id]="'date'"  [value]="newOrder.order_date ? newOrder.order_date : ''"  placeholder="Address" (getValue)="getDate($event)" [type]="'date'"
               [svgType]="'date'"></app-inputfield>
           </div>
         </div>

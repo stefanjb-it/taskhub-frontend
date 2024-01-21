@@ -28,7 +28,7 @@ export class VehicleService {
     return this.http.post(baseurl, vehicle)
   }
 
-  changeVehicle(vehicle: ChangeVehicle, id: number) {
+  changeVehicle(id: number, vehicle: ChangeVehicle) {
     return this.http.put(baseurl + "/" + id, vehicle)
   }
 

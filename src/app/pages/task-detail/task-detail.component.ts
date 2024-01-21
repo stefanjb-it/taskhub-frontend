@@ -17,6 +17,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {TaskService} from "../../services/task.service";
 import {TaskTypeService} from "../../services/task-type.service";
 import {TaskStatusService} from "../../services/task-status.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-task-detail',
@@ -43,11 +44,12 @@ export class TaskDetailComponent {
   employees: Employee[] = [];
   vehicles: Vehicle[] = [];
   taskstatuses: TaskStatus[] = [];
+  selection : string | undefined | null;
 
   constructor(public userService:UserService, public orderService:OrderService,
               public vehicleService:VehicleService, public employeeService:EmployeeService,
               public taskTypeService:TaskTypeService, public taskStatusService:TaskStatusService,
-              public taskService:TaskService) {
+              public taskService:TaskService, private route:ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -66,6 +68,23 @@ export class TaskDetailComponent {
     this.taskStatusService.getTaskStatuses().subscribe((taskstatuses: TaskStatus[]) => {
       this.taskstatuses = taskstatuses;
     });
+
+    this.selection = this.route.snapshot.paramMap.get('id');
+    if(this.selection) {
+      this.taskService.getTask(parseInt(this.selection)).subscribe( task => {
+        this.newTask.title = task.title
+        this.newTask.task_type = task.task_type.id
+        this.newTask.task_status = task.task_status.id
+        this.newTask.order = task.order.id
+        task.employees.forEach(employee => { this.newTask.employees?.push(employee.id) })
+        task.vehicles.forEach(vehicle => { this.newTask.vehicles?.push(vehicle.id) })
+        this.newTask.scheduled_from = task.scheduled_from.length > 10 ? task.scheduled_from.substring(0,10) : task.scheduled_from
+        this.newTask.scheduled_to = task.scheduled_to.length > 10 ? task.scheduled_to.substring(0,10) : task.scheduled_to
+        this.newTask.from_shift = task.from_shift
+        this.newTask.to_shift = task.to_shift
+
+      });
+    }
   }
 
   getTitle($event: string) {
@@ -124,6 +143,14 @@ export class TaskDetailComponent {
     }
   }
 
+  getShiftId(shift:string) : number {
+    if (shift == 'am') {
+      return 0
+    } else {
+      return 1
+    }
+  }
+
   getSchedFrom($event: string) {
     this.newTask.scheduled_from = $event;
   }
@@ -137,8 +164,14 @@ export class TaskDetailComponent {
   }
 
   createOrEditTask() {
-    this.taskService.createTask(this.newTask).subscribe(task => {
-      console.log(task);
-    });
+    if(this.selection) {
+      this.taskService.changeTask(parseInt(this.selection), this.newTask).subscribe(task => {
+        console.log(task);
+      });
+    } else {
+      this.taskService.createTask(this.newTask).subscribe(task => {
+        console.log(task);
+      });
+    }
   }
 }

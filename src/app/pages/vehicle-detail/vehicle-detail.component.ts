@@ -8,6 +8,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {VehicleTypeService} from "../../services/vehicle-type.service";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 import {VehicleType} from "../../models/VehicleType";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -24,9 +25,10 @@ export class VehicleDetailComponent {
     max_load_weight: 0
   }
   vehicleTypes: VehicleType[] = [];
+  selection : string | undefined | null;
 
   constructor(public userService:UserService, public vehicleService:VehicleService,
-              public vehicleTypeService:VehicleTypeService){
+              public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute) {
 
   }
 
@@ -34,6 +36,15 @@ export class VehicleDetailComponent {
     this.vehicleTypeService.getVehicleTypes().subscribe((vehicleTypes: VehicleType[]) => {
       this.vehicleTypes = vehicleTypes;
     });
+    this.selection = this.route.snapshot.paramMap.get('id');
+    if (this.selection) {
+      this.vehicleService.getVehicle(parseInt(this.selection)).subscribe(vehicle => {
+        this.newVehicle.title = vehicle.title;
+        vehicle.vehicle_type.forEach((vehicleType: VehicleType) => { this.newVehicle.vehicle_type.push(vehicleType.id) });
+        this.newVehicle.max_load_length = vehicle.max_load_length;
+        this.newVehicle.max_load_weight = vehicle.max_load_weight;
+      });
+    }
   }
 
   getName($event: string) {
@@ -56,9 +67,16 @@ export class VehicleDetailComponent {
   }
 
   createVehicle() {
-    console.log(this.newVehicle);
-    this.vehicleService.createVehicle(this.newVehicle).subscribe((vehicle: any) => {
-      console.log(vehicle);
-    });
+    if (this.selection) {
+      this.vehicleService.changeVehicle(parseInt(this.selection), this.newVehicle).subscribe((vehicle: any) => {
+        console.log(vehicle);
+      });
+
+    } else {
+      this.vehicleService.createVehicle(this.newVehicle).subscribe((vehicle: any) => {
+        console.log(vehicle);
+      });
+    }
+
   }
 }
