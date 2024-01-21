@@ -1,55 +1,69 @@
-<div class="contentBox p-3">
-  <p class="title-head my-3">New Employee</p>
-  <div class="col">
-    <div class="row">
-      <div class="col-md-8 mb-3 mb-md-0">
-        <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'name'" placeholder="First Name" (getValue)="getFirstName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
+<div class="row justify-content-center mx-auto">
+  <div class="contentBox p-3">
+    <p class="title-head my-3">New Employee</p>
+    <div class="col">
+      <div class="row">
+        <div class="col-md-8 mb-3 mb-md-0">
+          <div class="row mt-2 mb-3">
+            <app-inputfield [id]="'name'" placeholder="First Name" (getValue)="getFirstName($event)" [type]="'text'"
+              [svgType]="'default'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-inputfield [id]="'model'" placeholder="Last Name" (getValue)="getLastName($event)" [type]="'text'"
+              [svgType]="'default'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-inputfield [id]="'address'" placeholder="Address" (getValue)="getAddress($event)" [type]="'text'"
+              [svgType]="'address'"></app-inputfield>
+          </div>
         </div>
-        <div class="row mb-3">
-          <app-inputfield [id]="'model'" placeholder="Last Name" (getValue)="getLastName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
-        </div>
-        <div class="row mb-3">
-          <app-inputfield [id]="'address'" placeholder="Address" (getValue)="getAddress($event)" [type]="'text'" [svgType]="'address'"></app-inputfield>
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="row justify-content-center d-flex align-items-center">
+            <svg viewBox="0 0 512 512" class="cardSvg">
+              <path
+                d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
+              </path>
+            </svg>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 mb-3 mb-md-0">
-        <div class="row justify-content-center d-flex align-items-center">
-          <svg viewBox="0 0 512 512" class="cardSvg">
-            <path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z"></path>
-          </svg>
+      <div class="row">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="row mt-2 mb-3">
+            <app-inputfield [id]="'birthdate'" (getValue)="getBDate($event)" [type]="'date'"
+              [svgType]="'default'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-inputfield [id]="'password'" placeholder="Password" (getValue)="getPassword($event)"
+              [type]="'password'" [svgType]="'password'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-selectfield [id]="'genderBender'" placeholder="Select Gender" (getValue)="getGender($event)"
+              [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="row mt-2 mb-3">
+            <app-inputfield [id]="'email'" placeholder="Email" (getValue)="getEmail($event)" [type]="'text'"
+              [svgType]="'email'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-inputfield [id]="'phone'" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'"
+              [svgType]="'text'"></app-inputfield>
+          </div>
+          <div class="row mb-3">
+            <app-selectfield [id]="'empType'" placeholder="Select Type" (getValue)="getEmployeeType($event)"
+              [list]="[{id:0, name:'Full-Time'}]"></app-selectfield>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'birthdate'" (getValue)="getBDate($event)" [type]="'date'" [svgType]="'default'"></app-inputfield>
-        </div>
-        <div class="row mb-3">
-          <app-inputfield [id]="'password'" placeholder="Password" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
-        </div>
-        <div class="row mb-3">
-          <app-selectfield [id]="'genderBender'" placeholder="Select Gender" (getValue)="getGender($event)" [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
-        </div>
-      </div>
-      <div class="col-md-6 mb-3 mb-md-0">
-        <div class="row mt-2 mb-3">
-          <app-inputfield [id]="'email'" placeholder="Email" (getValue)="getEmail($event)" [type]="'text'" [svgType]="'email'"></app-inputfield>
-        </div>
-        <div class="row mb-3">
-          <app-inputfield [id]="'phone'" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'" [svgType]="'text'"></app-inputfield>
-        </div>
-        <div class="row mb-3">
-          <app-selectfield [id]="'empType'" placeholder="Select Type" (getValue)="getEmployeeType($event)" [list]="[{id:0, name:'Full-Time'}]"></app-selectfield>
-        </div>
-      </div>
+    <div class="d-flex mb-3">
+      <app-selectfield [id]="'license'" placeholder="Drivers License" class="me-auto select-field"
+        (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
+      <!-- add Form because of Image -->
+      <app-button buttonText="Upload Picture" class="me-3" (OnClick)="uploadPicture()"></app-button>
+      <app-button buttonText="Submit" (OnClick)="createOrEditEmployee()"></app-button>
     </div>
-  </div>
-  <div class="d-flex mb-3">
-    <app-selectfield [id]="'license'" placeholder="Drivers License" class="me-auto select-field" (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
-    <!-- add Form because of Image -->
-    <app-button buttonText="Upload Picture" class="me-3" (OnClick)="uploadPicture()"></app-button>
-    <app-button buttonText="Submit" (OnClick)="createOrEditEmployee()"></app-button>
   </div>
 </div>
