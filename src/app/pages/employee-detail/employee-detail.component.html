@@ -56,19 +56,23 @@
         </div>
       </div>
     <div class="row">
-      <div class="col-lg-6 mb-4">
+      <div class="col-md-6 mb-4">
         <app-selectfield [id]="'license'" placeholder="Drivers License" class="me-auto select-field" (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
       </div>
 
-      <div class="col-lg-6 mb-4">
-        <div class="d-flex justify-content-center">
-          <div class="row">
-            <div class="col-md-6 mb-md-0 mb-4">
-              <app-button buttonText="Upload Picture" class="me-md-3 me-0" (OnClick)="uploadPicture()"></app-button>
-            </div>
-            <div class="col-md-6">
-              <app-button buttonText="Submit" (OnClick)="createOrEditEmployee()"></app-button>
-            </div>
+      <div class="col-md-6 mb-4">
+        <app-selectfield [id]="'license'" placeholder="Group Type" class="me-auto select-field" (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="d-flex justify-content-md-end justify-content-center">
+        <div class="row">
+          <div class="col-md-6 mb-md-0 mb-4">
+            <app-button buttonText="Upload Picture" class="me-md-3 me-0" (OnClick)="uploadPicture()"></app-button>
+          </div>
+          <div class="col-md-6">
+            <app-button buttonText="Submit" (OnClick)="createOrEditEmployee()"></app-button>
           </div>
         </div>
       </div>
