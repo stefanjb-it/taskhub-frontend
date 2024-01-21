@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {UnobjectingPipe} from "../../pipes/unobjecting.pipe";
@@ -14,7 +14,7 @@ import {CustomerService} from "../../services/customer.service";
   templateUrl: './customer-overview.component.html',
   styleUrl: './customer-overview.component.scss'
 })
-export class CustomerOverviewComponent {
+export class CustomerOverviewComponent implements OnInit {
   customers: Customer[] = [];
 
   constructor(public customerService: CustomerService, public userService: UserService) {

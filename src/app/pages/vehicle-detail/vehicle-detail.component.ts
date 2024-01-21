@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {ButtonComponent} from "../../components/button/button.component";
@@ -17,7 +17,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.scss'
 })
-export class VehicleDetailComponent {
+export class VehicleDetailComponent implements OnInit {
   newVehicle : ChangeVehicle = {
     title: '',
     vehicle_type: [],

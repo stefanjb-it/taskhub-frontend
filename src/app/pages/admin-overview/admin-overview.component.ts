@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../../components/button/button.component";
 import { Employee } from 'src/app/models/Employee';
@@ -14,7 +14,7 @@ import {UserService} from "../../services/user.service";
     styleUrl: './admin-overview.component.scss',
   imports: [CommonModule, ButtonComponent, RouterLink, UnobjectingPipe]
 })
-export class AdminOverviewComponent {
+export class AdminOverviewComponent implements OnInit {
     employees: Employee[] = [];
 
     constructor(public employeeService: EmployeeService, public userService: UserService) {

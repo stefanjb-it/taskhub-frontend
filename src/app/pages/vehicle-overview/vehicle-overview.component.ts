@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {UserService} from "../../services/user.service";
@@ -14,7 +14,7 @@ import {UnvehicletypePipe} from "../../pipes/unvehicletype.pipe";
   templateUrl: './vehicle-overview.component.html',
   styleUrl: './vehicle-overview.component.scss'
 })
-export class VehicleOverviewComponent {
+export class VehicleOverviewComponent implements OnInit {
   vehicles: Vehicle[] = [];
 
   constructor(public vehicleService: VehicleService, public userService: UserService) {

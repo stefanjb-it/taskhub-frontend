@@ -34,8 +34,7 @@ export class UserService {
           this.isLoggedIn$.next(true);
           localStorage.setItem('access_token', res.access);
           localStorage.setItem('refresh_token', res.refresh);
-          // TODO: change this to redirect to task list
-          this.router.navigate(['movie-list']);
+          this.router.navigate(['management']);
         },
         error: () => {
           alert("Login failed! Username or Password wrong.")

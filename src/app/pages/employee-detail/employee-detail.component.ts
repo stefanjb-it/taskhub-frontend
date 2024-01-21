@@ -79,7 +79,7 @@ export class EmployeeDetailComponent {
 
   getEmployeeType($event: string) {
     if ($event != '-1') {
-      //
+      this.newEmployee.employee_type = parseInt($event);
     }
   }
 
@@ -109,6 +109,7 @@ export class EmployeeDetailComponent {
   }
 
   createOrEditEmployee() {
+    console.log(this.selection)
     if (this.selection) {
       this.employeeService.changeEmployee(this.newEmployee, parseInt(this.selection)).subscribe( data => {
         console.log(data);

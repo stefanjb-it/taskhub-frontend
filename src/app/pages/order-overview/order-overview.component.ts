@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {UnvehicletypePipe} from "../../pipes/unvehicletype.pipe";
@@ -14,7 +14,7 @@ import {OrderService} from "../../services/order.service";
   templateUrl: './order-overview.component.html',
   styleUrl: './order-overview.component.scss'
 })
-export class OrderOverviewComponent {
+export class OrderOverviewComponent implements OnInit {
   orders: Order[] = [];
 
   constructor(public orderService: OrderService, public userService: UserService) {

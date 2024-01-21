@@ -10,6 +10,7 @@ import {OrderDetailComponent} from "./pages/order-detail/order-detail.component"
 import {TaskDetailComponent} from "./pages/task-detail/task-detail.component";
 import {VehicleOverviewComponent} from "./pages/vehicle-overview/vehicle-overview.component";
 import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.component";
+import {TaskOverviewComponent} from "./pages/task-overview/task-overview.component";
 
 export const routes: Routes = [
   { path: '', component: HomeLoginComponent },
@@ -23,7 +24,7 @@ export const routes: Routes = [
   { path: 'order-overview', component: OrderOverviewComponent},
   { path: 'create-order', component: OrderDetailComponent},
   { path: 'edit-order/:id', component: OrderDetailComponent},
-  { path: 'task-overview', component: TaskDetailComponent},
+  { path: 'task-overview', component: TaskOverviewComponent},
   { path: 'create-task', component: TaskDetailComponent},
   { path: 'edit-task/:id', component: TaskDetailComponent},
   { path: 'vehicle-overview', component: VehicleOverviewComponent},

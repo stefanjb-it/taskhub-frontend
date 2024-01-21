@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
@@ -18,7 +18,7 @@ import {cibTopcoder} from "@coreui/icons";
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })
-export class OrderDetailComponent {
+export class OrderDetailComponent implements OnInit {
   newOrder : ChangeOrder = {}
   customers: Customer[] = [];
   selection : string | undefined | null;

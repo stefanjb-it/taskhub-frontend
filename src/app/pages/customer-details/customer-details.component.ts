@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
@@ -15,7 +15,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './customer-details.component.html',
   styleUrl: './customer-details.component.scss'
 })
-export class CustomerDetailsComponent {
+export class CustomerDetailsComponent  implements OnInit {
   newCustomer : ChangeCustomer = {}
   selection : string | undefined | null;
 

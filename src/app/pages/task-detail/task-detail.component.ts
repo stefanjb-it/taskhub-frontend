@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
@@ -26,7 +26,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss'
 })
-export class TaskDetailComponent {
+export class TaskDetailComponent implements OnInit {
   newTask : ChangeTask = {
     title: undefined,
     task_type: undefined,
