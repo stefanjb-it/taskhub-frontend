@@ -12,6 +12,6 @@ export class EmployeeGroupService {
   constructor(private http:HttpClient) { }
 
   getEmployeeGroups() {
-    return this.http.get<EmployeeGroup>(baseurl)
+    return this.http.get<EmployeeGroup[]>(baseurl)
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 import {setThrowInvalidWriteToSignalError} from "@angular/core/primitives/signals";
 import {Observable} from "rxjs";
 import {EmployeeTypeService} from "../../services/employee-type.service";
+import {EmployeeGroupService} from "../../services/employee-group.service";
 
 @Component({
   selector: 'app-employee-detail',
@@ -20,18 +21,24 @@ import {EmployeeTypeService} from "../../services/employee-type.service";
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
-export class EmployeeDetailComponent {
+export class EmployeeDetailComponent implements OnInit {
   newEmployee: ChangeEmployee = {};
   selection : string | undefined | null;
   employeeTypes : EmployeeType[] = [];
+  employeeGroups : EmployeeGroup[] = [];
 
-  constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService, public employeeService:EmployeeService, private route:ActivatedRoute) {
+  constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
+              public employeeService:EmployeeService, private route:ActivatedRoute,
+              public employeeGroupService: EmployeeGroupService) {
   }
 
   ngOnInit(){
     this.employeeTypeService.getEmployeeTypes().subscribe( employeeTypes => {
       this.employeeTypes = employeeTypes
-    })
+    });
+    this.employeeGroupService.getEmployeeGroups().subscribe( employeeGroups => {
+      this.employeeGroups = employeeGroups
+    });
     this.selection = this.route.snapshot.paramMap.get('id');
     if (this.selection) {
       this.employeeService.getEmployee(parseInt(this.selection)).subscribe( employee => {
@@ -95,6 +102,11 @@ export class EmployeeDetailComponent {
     }
   }
 
+  getEmployeeGroup($event: string) {
+    this.newEmployee.groups = [];
+    this.newEmployee.groups?.push($event)
+  }
+
   getGenderId(gender: string) : number{
     switch (gender) {
       case 'diverse':
@@ -129,4 +141,5 @@ export class EmployeeDetailComponent {
   uploadPicture() {
 
   }
+
 }

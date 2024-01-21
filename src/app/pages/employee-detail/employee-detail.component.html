@@ -61,7 +61,7 @@
       </div>
 
       <div class="col-md-6 mb-4">
-        <app-selectfield [id]="'license'" placeholder="Group Type" class="me-auto select-field" (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
+        <app-selectfield [id]="'group'" placeholder="Group Type" class="me-auto select-field" (getValue)="getEmployeeGroup($event)" [list]="employeeGroups"></app-selectfield>
       </div>
     </div>
 
