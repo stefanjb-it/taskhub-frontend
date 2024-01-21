@@ -26,6 +26,7 @@ export class EmployeeDetailComponent implements OnInit {
   selection : string | undefined | null;
   employeeTypes : EmployeeType[] = [];
   employeeGroups : EmployeeGroup[] = [];
+  newEmpTypeTitle : string | undefined;
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
@@ -53,6 +54,11 @@ export class EmployeeDetailComponent implements OnInit {
         this.newEmployee.employee_type = employee.employee_type.id
         this.newEmployee.drivers_license_status = employee.drivers_license_status
       });
+      try {
+        this.newEmpTypeTitle = this.employeeTypes.filter(type => type.id == this.newEmployee.employee_type)[0].title
+      } catch {
+        this.newEmpTypeTitle = '';
+      }
     }
   }
 

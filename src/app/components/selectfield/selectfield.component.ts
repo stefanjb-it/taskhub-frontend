@@ -12,6 +12,7 @@ export class SelectfieldComponent implements OnInit {
   @Input() list: any[] = [];
   @Input() id: string = 'testSelect';
   @Input() placeholder: string = 'Select';
+  @Input() currentItem : any = '';
   @Output() getValue = new EventEmitter<string>();
   value: string = '';
 
@@ -27,6 +28,16 @@ export class SelectfieldComponent implements OnInit {
       return item.title;
     } else {
       return item.last_name + ', ' + item.first_name;
+    }
+  }
+
+  checkIfSelected(item: any){
+    if (item.name) {
+      return item.name === this.currentItem;
+    } else if (item.title) {
+      return item.title === this.currentItem;
+    } else {
+      return false;
     }
   }
 
