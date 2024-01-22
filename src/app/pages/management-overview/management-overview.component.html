@@ -11,7 +11,7 @@
                 <div class="col-md-8">
                     <p class="card-head mb-4">Create and Update Orders</p>
                     <p class="card-text mb-4">Group related Tasks togehter and connect them to specific customers.</p>
-                    <app-button [buttonText]="'Manage Orders'" (OnClick)="alert()" class="d-flex justify-content-end"></app-button>
+                    <app-button [buttonText]="'Manage Orders'" [routerLink]="'/order-overview'" class="d-flex justify-content-end"></app-button>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                 <div class="col-md-8">
                     <p class="card-head mb-4">Create and Update Tasks</p>
                     <p class="card-text mb-4">Assign and manage Tasks according to your company's needs.</p>
-                    <app-button [buttonText]="'Manage Tasks'" (OnClick)="alert()" class="d-flex justify-content-end"></app-button>
+                    <app-button [buttonText]="'Manage Tasks'" [routerLink]="'/task-overview'" class="d-flex justify-content-end"></app-button>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="col-md-8">
                     <p class="card-head mb-4">Add new Customers</p>
                     <p class="card-text mb-4">Expand your services to new Customers and assign them to orders.</p>
-                    <app-button [buttonText]="'Manage Customers'" (OnClick)="alert()" class="d-flex justify-content-end"></app-button>
+                    <app-button [buttonText]="'Manage Customers'" [routerLink]="'/customer-overview'" class="d-flex justify-content-end"></app-button>
                 </div>
             </div>
         </div>
@@ -58,9 +58,9 @@
                     <img src="assets/svg/Truck_white.svg" class="cardSvg image-wrapper"/>
                 </div>
                 <div class="col-md-8">
-                    <p class="card-head mb-4">Create and Update Tasks</p>
-                    <p class="card-text mb-4">Assign and manage Tasks according to your company's needs.</p>
-                    <app-button [buttonText]="'Manage Tasks'" (OnClick)="alert()" class="d-flex justify-content-end"></app-button>
+                    <p class="card-head mb-4">Govern your Vehicles</p>
+                    <p class="card-text mb-4">Display and manage a dedicated overview of your ressources and vehicles.</p>
+                    <app-button [buttonText]="'Manage Tasks'" [routerLink]="'/vehicle-overview'" class="d-flex justify-content-end"></app-button>
                 </div>
             </div>
         </div>

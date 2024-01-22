@@ -1,19 +1,23 @@
 <c-header class="navbar-expand-lg">
-    <c-container fluid>
-        <a class="header-brand align-items-center justify-content-center d-flex" href="#">
-            <img src="../../../assets/svg/Truck.svg" width="44" height="44" class="me-3"/>
-            <c-header-text>TaskHub</c-header-text>
-        </a>
-        <c-header-nav class="ms-auto d-none d-md-flex">
-            <c-nav-item class="me-4 my-auto">
-                <a cNavLink routerLink="">About Us</a>
-            </c-nav-item>
-            <c-nav-item class="me-4 my-auto">
-                <a cNavLink routerLink="">Features</a>
-            </c-nav-item>
-            <c-nav-item class="me-2 my-auto">
-                <app-button [buttonText]="'Login'" (OnClick)="sendMessage($event)"></app-button>
-            </c-nav-item>
-        </c-header-nav>
-    </c-container>
+  <c-container fluid>
+    <a class="header-brand align-items-center justify-content-center d-flex" [routerLink]="''">
+        <img src="../../../assets/svg/Truck.svg" width="44" height="44" class="me-3"/>
+        <c-header-text>TaskHub</c-header-text>
+    </a>
+    <c-header-nav class="ms-auto d-none d-md-flex">
+      <c-nav-item *ngIf="userService.isLoggedIn$" class="me-4 my-auto">
+        <a cNavLink [routerLink]="'admin-overview'">User Administration</a>
+      </c-nav-item>
+      <c-nav-item class="me-4 my-auto">
+          <a cNavLink routerLink="">About Us</a>
+      </c-nav-item>
+      <c-nav-item class="me-4 my-auto">
+          <a cNavLink routerLink="">Features</a>
+      </c-nav-item>
+      <c-nav-item class="me-2 my-auto">
+        <app-button *ngIf="!userService.isLoggedIn$" [buttonText]="'Login'" [routerLink]="''"></app-button>
+        <app-button *ngIf="userService.isLoggedIn$" [buttonText]="'Logout'" (OnClick)="userService.logout()"></app-button>
+      </c-nav-item>
+    </c-header-nav>
+  </c-container>
 </c-header>

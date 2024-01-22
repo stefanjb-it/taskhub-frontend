@@ -26,7 +26,7 @@ export class VehicleOverviewComponent implements OnInit {
     });
   }
 
-  alert(key:string){
-    alert(key)
+  deleteVehicle(id: number) {
+    // TODO: implement with check
   }
 }

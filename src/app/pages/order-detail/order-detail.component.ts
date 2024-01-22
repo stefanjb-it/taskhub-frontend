@@ -8,7 +8,7 @@ import {Customer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {OrderService} from "../../services/order.service";
 import {CustomerService} from "../../services/customer.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {cibTopcoder} from "@coreui/icons";
 
 @Component({
@@ -23,7 +23,7 @@ export class OrderDetailComponent implements OnInit {
   customers: Customer[] = [];
   selection : string | undefined | null;
   constructor(public userService:UserService, public customerService:CustomerService,
-              public orderService:OrderService, private route:ActivatedRoute) {
+              public orderService:OrderService, private route:ActivatedRoute, private router: Router) {
 
   }
 
@@ -88,7 +88,7 @@ export class OrderDetailComponent implements OnInit {
         console.log(order);
       });
     }
+    this.router.navigate(['order-overview'])
   }
 
-  protected readonly parseInt = parseInt;
 }

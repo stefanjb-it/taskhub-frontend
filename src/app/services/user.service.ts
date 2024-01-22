@@ -37,15 +37,17 @@ export class UserService {
           this.router.navigate(['management']);
         },
         error: () => {
-          alert("Login failed! Username or Password wrong.")
+          this.toastService.error('Token refresh failed', 'Authentication error',
+          {easeTime: 250, timeOut: 2000});
         }
       });
   }
 
   logout(): void {
     localStorage.removeItem(this.accessTokenLocalStorageKey);
+    localStorage.removeItem(this.refreshTokenLocalStorageKey);
     this.isLoggedIn$.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
 
   refresh(): void {

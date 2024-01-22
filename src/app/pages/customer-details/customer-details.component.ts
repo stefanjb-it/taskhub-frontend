@@ -6,7 +6,7 @@ import {SelectfieldComponent} from "../../components/selectfield/selectfield.com
 import {ChangeCustomer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {CustomerService} from "../../services/customer.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-customer-details',
@@ -19,7 +19,8 @@ export class CustomerDetailsComponent  implements OnInit {
   newCustomer : ChangeCustomer = {}
   selection : string | undefined | null;
 
-  constructor(public userService:UserService, public customerService:CustomerService, private route:ActivatedRoute) {
+  constructor(public userService:UserService, public customerService:CustomerService,
+              private route:ActivatedRoute, private router: Router) {
 
   }
 
@@ -65,5 +66,6 @@ export class CustomerDetailsComponent  implements OnInit {
         console.log(customer);
       });
     }
+    this.router.navigate(['customer-overview'])
   }
 }

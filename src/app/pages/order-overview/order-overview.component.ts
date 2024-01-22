@@ -26,7 +26,7 @@ export class OrderOverviewComponent implements OnInit {
     });
   }
 
-  alert(key:string){
-    alert(key)
+  deleteOrder(id: number) {
+    // TODO: implement with check
   }
 }

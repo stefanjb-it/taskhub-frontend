@@ -8,7 +8,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {VehicleTypeService} from "../../services/vehicle-type.service";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 import {VehicleType} from "../../models/VehicleType";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -28,7 +28,7 @@ export class VehicleDetailComponent implements OnInit {
   selection : string | undefined | null;
 
   constructor(public userService:UserService, public vehicleService:VehicleService,
-              public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute) {
+              public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute, private router: Router) {
 
   }
 
@@ -77,6 +77,6 @@ export class VehicleDetailComponent implements OnInit {
         console.log(vehicle);
       });
     }
-
+    this.router.navigate(['vehicle-overview'])
   }
 }

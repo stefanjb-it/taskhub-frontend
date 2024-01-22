@@ -17,7 +17,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {TaskService} from "../../services/task.service";
 import {TaskTypeService} from "../../services/task-type.service";
 import {TaskStatusService} from "../../services/task-status.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-detail',
@@ -49,7 +49,7 @@ export class TaskDetailComponent implements OnInit {
   constructor(public userService:UserService, public orderService:OrderService,
               public vehicleService:VehicleService, public employeeService:EmployeeService,
               public taskTypeService:TaskTypeService, public taskStatusService:TaskStatusService,
-              public taskService:TaskService, private route:ActivatedRoute) {
+              public taskService:TaskService, private route:ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -173,5 +173,6 @@ export class TaskDetailComponent implements OnInit {
         console.log(task);
       });
     }
+    this.router.navigate(['task-overview'])
   }
 }

@@ -8,9 +8,7 @@ import {ChangeEmployee, Employee} from "../../models/Employee";
 import {EmployeeType} from "../../models/EmployeeType";
 import {EmployeeGroup} from "../../models/EmployeeGroup";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {ActivatedRoute} from "@angular/router";
-import {setThrowInvalidWriteToSignalError} from "@angular/core/primitives/signals";
-import {Observable} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
 
@@ -30,7 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
-              public employeeGroupService: EmployeeGroupService) {
+              public employeeGroupService: EmployeeGroupService, private router: Router) {
   }
 
   ngOnInit(){
@@ -79,7 +77,21 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   getGender($event: string) {
-    this.newEmployee.gender = $event;
+    switch ($event) {
+      case '0':
+        this.newEmployee.gender = 'diverse';
+        break;
+      case '1':
+        this.newEmployee.gender = 'female';
+        break;
+      case '2':
+        this.newEmployee.gender = 'male';
+        break;
+      default:
+        this.newEmployee.gender = 'diverse';
+        break;
+
+    }
   }
 
   getBDate($event: string) {
@@ -127,7 +139,6 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   createOrEditEmployee() {
-    console.log(this.selection)
     if (this.selection) {
       this.employeeService.changeEmployee(this.newEmployee, parseInt(this.selection)).subscribe( data => {
         console.log(data);
@@ -137,11 +148,12 @@ export class EmployeeDetailComponent implements OnInit {
         this.newEmployee.username = this.newEmployee.first_name?.substring(0,3).toLowerCase()
           + this.newEmployee.last_name?.substring(0,3).toLowerCase() + '24';
       }
-
+      console.log(this.newEmployee)
       this.employeeService.createEmployee(this.newEmployee).subscribe(data => {
         console.log(data);
       });
     }
+    this.router.navigate(['admin-overview'])
   }
 
   uploadPicture() {

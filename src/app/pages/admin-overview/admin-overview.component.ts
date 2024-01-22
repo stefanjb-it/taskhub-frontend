@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../../components/button/button.component";
 import { Employee } from 'src/app/models/Employee';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
 import {UnobjectingPipe} from "../../pipes/unobjecting.pipe";
 import {UserService} from "../../services/user.service";
@@ -15,18 +15,18 @@ import {UserService} from "../../services/user.service";
   imports: [CommonModule, ButtonComponent, RouterLink, UnobjectingPipe]
 })
 export class AdminOverviewComponent implements OnInit {
-    employees: Employee[] = [];
+  employees: Employee[] = [];
 
-    constructor(public employeeService: EmployeeService, public userService: UserService) {
-    }
+  constructor(public employeeService: EmployeeService, public userService: UserService, public router: Router) {
+  }
 
-    ngOnInit() {
-      this.employeeService.getEmployees().subscribe(employees => {
-        this.employees = employees;
-      });
-    }
+  ngOnInit() {
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.employees = employees;
+    });
+  }
 
-    yo(message: string) {
-      alert(message);
-    }
+  checkDelete(id:number) {
+    // TODO: check if user is deleting himself
+  }
 }

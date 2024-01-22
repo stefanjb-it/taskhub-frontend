@@ -46,4 +46,8 @@ export class TaskOverviewComponent implements OnInit {
   getTaskTypeFilter($event: string) {
     this.typeFilter = $event;
   }
+
+  deleteTask(id: number) {
+    // TODO: implement with check
+  }
 }

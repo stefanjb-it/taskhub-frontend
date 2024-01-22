@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet} from '@angular/router';
 import { HeaderModule, ContainerComponent, HeaderBrandComponent, HeaderNavComponent, NavItemComponent, HeaderTextComponent } from '@coreui/angular';
 import { ButtonComponent } from '../button/button.component';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { ButtonComponent } from '../button/button.component';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  sendMessage(message: string) {
-    alert(message);
+
+  constructor(public userService:UserService) {
   }
+
 }
