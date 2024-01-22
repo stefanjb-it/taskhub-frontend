@@ -55,19 +55,13 @@ import {MultipleSelectFieldComponent} from "./components/multiple-select-field/m
 })
 export class AppComponent implements OnInit{
   title = 'taskhub-frontend';
-  testFormGroup: FormGroup;
 
 
   constructor(public userService: UserService, private router: Router, public iconSet: IconSetService) {
-    this.testFormGroup = new FormGroup({
-      testFormControl: new FormControl('test'),
-      secondTest: new FormControl('test2')
-    });
     iconSet.icons = { cilHome, cilUser, cilCheckCircle };
   }
 
   ngOnInit(): void {
-    this.testFormGroup.valueChanges.subscribe(console.log);
   }
 
   registerChange($event: any) {
