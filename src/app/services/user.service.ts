@@ -50,7 +50,7 @@ export class UserService {
   }
 
   refresh(): void {
-    this.http.post('/api/token/refresh', JSON.stringify("{ refresh: " + localStorage.getItem(this.refreshTokenLocalStorageKey) + " }"))
+    this.http.post('/api/token/refresh/', JSON.stringify("{ refresh: " + localStorage.getItem(this.refreshTokenLocalStorageKey) + " }"))
       .subscribe({
         next: (res: any) => {
           this.isLoggedIn$.next(true);

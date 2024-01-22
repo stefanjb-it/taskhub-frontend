@@ -11,6 +11,7 @@ import {SelectfieldComponent} from "../../components/selectfield/selectfield.com
 import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-employee-detail',
@@ -25,10 +26,12 @@ export class EmployeeDetailComponent implements OnInit {
   employeeTypes : EmployeeType[] = [];
   employeeGroups : EmployeeGroup[] = [];
   newEmpTypeTitle : string | undefined;
+  pfpLink : string | undefined;
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
-              public employeeGroupService: EmployeeGroupService, private router: Router) {
+              public employeeGroupService: EmployeeGroupService, private router: Router,
+              private imageService: ImageService) {
   }
 
   ngOnInit(){
@@ -51,6 +54,9 @@ export class EmployeeDetailComponent implements OnInit {
         this.newEmployee.gender = employee.gender
         this.newEmployee.employee_type = employee.employee_type.id
         this.newEmployee.drivers_license_status = employee.drivers_license_status
+        if (employee.has_image) {
+          this.pfpLink = "/api/users/" + this.selection + "/image"
+        }
       });
       try {
         this.newEmpTypeTitle = this.employeeTypes.filter(type => type.id == this.newEmployee.employee_type)[0].title
@@ -167,8 +173,21 @@ export class EmployeeDetailComponent implements OnInit {
     }
   }
 
-  uploadPicture() {
+  uploadPicture(event: any) {
 
+    const file:File = event.target.files[0];
+    const formData:FormData = new FormData();
+    formData.append('upload', file)
+    console.log(file.name)
+    console.log(this.selection)
+    if (this.selection) {
+      this.imageService.uploadProfilePicture(Number(this.selection), formData).subscribe(
+        res => {
+        }, error => {
+          console.log(error)
+        }
+      )
+    }
   }
 
 }

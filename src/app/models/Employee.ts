@@ -16,6 +16,7 @@ export interface Employee {
   birth_date: string
   gender: string
   drivers_license_status: boolean
+  has_image: boolean
 }
 
 export interface ChangeEmployee {

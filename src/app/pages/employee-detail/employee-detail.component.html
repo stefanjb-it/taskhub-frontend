@@ -17,11 +17,12 @@
         </div>
         <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
           <div class="d-flex justify-content-center my-auto">
-            <svg viewBox="0 0 512 512" class="cardSvg">
+            <svg viewBox="0 0 512 512" class="cardSvg" *ngIf="!pfpLink">
               <path
                 d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
               </path>
             </svg>
+            <img class="cardSvg" src={{pfpLink}} *ngIf="pfpLink">
           </div>
         </div>
       </div>
@@ -69,7 +70,7 @@
       <div class="d-flex justify-content-md-end justify-content-center">
         <div class="row">
           <div class="col-md-6 mb-md-0 mb-4">
-            <app-button buttonText="Upload Picture" class="me-md-3 me-0" (OnClick)="uploadPicture()"></app-button>
+            <input type="file" class="me-md-3 me-0" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
           </div>
           <div class="col-md-6">
             <app-button buttonText="Submit" (OnClick)="createOrEditEmployee()"></app-button>
