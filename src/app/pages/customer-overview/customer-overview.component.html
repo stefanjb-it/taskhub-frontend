@@ -11,7 +11,7 @@
       <div class="col-md-7 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Customer Overview</p>
         <form class="customSearchField mb-4 mb-md-0">
-          <input class="form-control customSearch" type="search" placeholder="Search Customer" aria-label="Search">
+          <input class="form-control customSearch" type="search" [formControl]="filterFormControl" placeholder="Search Customer" aria-label="Search">
         </form>
       </div>
       <div class="col-md-3 d-flex justify-content-center align-items-end">
@@ -19,10 +19,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="customers.length" class="contentBox">
+  <div *ngIf="filteredCustomers.length" class="contentBox">
     <ul class="list-group m-4">
-      <!-- LIST BEGIN -->
-      <li *ngFor="let customer of customers" class="list-group-item">
+      <li *ngFor="let customer of filteredCustomers" class="list-group-item">
         <div class="row">
           <div class="col-2 col-sm-1 fac-list-item">
             <svg viewBox="0 0 576 512" class="fac-image">
@@ -39,7 +38,7 @@
             <p *ngIf="!customer.is_company" class="my-auto text-white">Individual Customer</p>
           </div>
           <div class="col-2 fac-list-item d-flex justify-content-around justify-content-sm-evenly px-0">
-            <!-- EDIT BUTTON TODO: add *ngIf="userService.hasGroup()" and set ROUTERLINK -->
+            <!-- EDIT BUTTON TODO: add *ngIf="userService.hasGroup()"-->
             <a [routerLink]="'/edit-customer/' + customer.id">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon">
                 <path

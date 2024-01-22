@@ -14,7 +14,7 @@
       <div class="col-md-7 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Order Overview</p>
         <form class="customSearchField mb-4 mb-md-0">
-          <input class="form-control customSearch" type="search" placeholder="Search Order" aria-label="Search">
+          <input class="form-control customSearch" type="search" [formControl]="filterFormControl" placeholder="Search Order" aria-label="Search">
         </form>
       </div>
       <div class="col-md-3 d-flex justify-content-center align-items-end">
@@ -22,9 +22,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="orders.length" class="contentBox">
+  <div *ngIf="filteredOrders.length" class="contentBox">
     <ul class="list-group m-4">
-      <li *ngFor="let order of orders" class="list-group-item">
+      <li *ngFor="let order of filteredOrders" class="list-group-item">
         <div class="row">
           <div class="col-2 col-sm-1 fac-list-item">
             <svg viewBox="0 0 16 16" class="fac-image">
@@ -37,7 +37,6 @@
             </svg>
           </div>
           <div class="col-4 my-auto" style="word-wrap:break-word;">
-            <!-- TODO: set ROUTERLINK -->
             <a class="my-auto text-white" [routerLink]="'/edit-order/' + order.id">{{order.title}}</a>
           </div>
           <div class="col-4 col-sm-5 my-auto">
@@ -45,7 +44,7 @@
             <p *ngIf="!order.is_completed" class="my-auto text-white">Uncompleted</p>
           </div>
           <div class="col-2 fac-list-item d-flex justify-content-around justify-content-sm-evenly px-0">
-            <!-- EDIT BUTTON TODO: add *ngIf="userService.hasGroup()" and set ROUTERLINK -->
+            <!-- EDIT BUTTON TODO: add *ngIf="userService.hasGroup()"-->
             <a [routerLink]="'/edit-order/' + order.id">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon">
                 <path

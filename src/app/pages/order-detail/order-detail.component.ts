@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {ChangeOrder, Order} from "../../models/Order";
+import {ChangeOrder} from "../../models/Order";
 import {Customer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {OrderService} from "../../services/order.service";
 import {CustomerService} from "../../services/customer.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {cibTopcoder} from "@coreui/icons";
 
 @Component({
   selector: 'app-order-detail',
