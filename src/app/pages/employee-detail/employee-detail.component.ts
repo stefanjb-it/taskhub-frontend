@@ -12,6 +12,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
 import {ImageService} from "../../services/image.service";
+import {combineLatestWith} from "rxjs";
 
 @Component({
   selector: 'app-employee-detail',
@@ -35,7 +36,48 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.employeeTypeService.getEmployeeTypes().subscribe( employeeTypes => {
+
+    // TK Fix Race Condition
+
+    // Attempt #1
+    // Route Mapping
+    this.selection = this.route.snapshot.paramMap.get('id');
+    if (!this.selection) return; // TODO: go back to management on error
+
+    this.employeeTypeService.getEmployeeTypes().pipe(
+      combineLatestWith(
+        this.employeeService.getEmployee(parseInt(this.selection))
+      ),
+      combineLatestWith(
+        this.employeeGroupService.getEmployeeGroups()
+      )
+    ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
+        console.log(employeeTypes, employee, employeeGroups);
+        this.employeeTypes = employeeTypes
+        this.employeeGroups = employeeGroups
+
+        // employee details
+        this.newEmployee.first_name = employee.first_name
+        this.newEmployee.last_name = employee.last_name
+        this.newEmployee.address = employee.address
+        this.newEmployee.birth_date = employee.birth_date?.length ?? 0 > 10 ? employee.birth_date?.substring(0,10) : employee.birth_date ?? undefined
+        this.newEmployee.email = employee.email
+        this.newEmployee.password = employee.password
+        this.newEmployee.phone = employee.phone
+        this.newEmployee.gender = employee.gender
+        this.newEmployee.employee_type = employee.employee_type?.id ?? undefined
+        this.newEmployee.drivers_license_status = employee.drivers_license_status
+        if (employee.has_image) {
+          this.pfpLink = "/api/users/" + this.selection + "/image"
+        }
+      }
+    )
+
+    // ----- ----- ----- ----- -----
+
+
+
+    /*this.employeeTypeService.getEmployeeTypes().subscribe( employeeTypes => {
       this.employeeTypes = employeeTypes
     });
     this.employeeGroupService.getEmployeeGroups().subscribe( employeeGroups => {
@@ -63,7 +105,7 @@ export class EmployeeDetailComponent implements OnInit {
       } catch {
         this.newEmpTypeTitle = '';
       }
-    }
+    }*/
   }
 
   getFirstName($event: string) {

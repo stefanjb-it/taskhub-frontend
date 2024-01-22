@@ -7,16 +7,16 @@ export interface Employee {
   first_name: string
   last_name: string
   email: string
-  password: string
+  password: string | undefined;
   groups: EmployeeGroup[]
   is_active: boolean
-  employee_type: EmployeeType
-  address: string
-  phone: string
-  birth_date: string
-  gender: string
-  drivers_license_status: boolean
-  has_image: boolean
+  employee_type: EmployeeType | undefined;
+  address: string | undefined;
+  phone: string | undefined;
+  birth_date: string | undefined;
+  gender: string | undefined;
+  drivers_license_status: boolean | undefined;
+  has_image: boolean;
 }
 
 export interface ChangeEmployee {
