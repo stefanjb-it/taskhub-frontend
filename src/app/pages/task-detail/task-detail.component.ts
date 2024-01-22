@@ -165,14 +165,25 @@ export class TaskDetailComponent implements OnInit {
 
   createOrEditTask() {
     if(this.selection) {
-      this.taskService.changeTask(parseInt(this.selection), this.newTask).subscribe(task => {
-        console.log(task);
-      });
+      this.taskService.changeTask(parseInt(this.selection), this.newTask).subscribe(
+        res => {
+          alert('Task updated successfully!')
+          this.router.navigate(['task-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      );
     } else {
-      this.taskService.createTask(this.newTask).subscribe(task => {
-        console.log(task);
-      });
+      this.taskService.createTask(this.newTask).subscribe(
+        res => {
+          alert('Task created successfully!')
+          this.router.navigate(['task-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      );
     }
-    this.router.navigate(['task-overview'])
   }
 }

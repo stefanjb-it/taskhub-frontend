@@ -27,6 +27,13 @@ export class AdminOverviewComponent implements OnInit {
   }
 
   checkDelete(id:number) {
-    // TODO: check if user is deleting himself
+    if (id.toString() != this.userService.getUserId()) {
+      this.employeeService.deleteEmployee(id).subscribe(
+        res => alert('Employee deleted successfully!'),
+        err => alert('Error occured!')
+      )
+    } else {
+      alert("Can't delete own User Account. Please ask your Administrator!")
+    }
   }
 }

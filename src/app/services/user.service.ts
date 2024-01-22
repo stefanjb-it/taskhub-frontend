@@ -37,8 +37,7 @@ export class UserService {
           this.router.navigate(['management']);
         },
         error: () => {
-          this.toastService.error('Token refresh failed', 'Authentication error',
-          {easeTime: 250, timeOut: 2000});
+          alert('Login failed, wrong username or password!')
         }
       });
   }
@@ -97,5 +96,11 @@ export class UserService {
     const decodedToken = this.jwtHelperService.decodeToken(token ? token: '');
     const groups = decodedToken?.groups;
     return groups.some((gr: string) => sGroups.includes(gr));
+  }
+
+  getUserId() : string {
+    const token: string|null = localStorage.getItem(this.accessTokenLocalStorageKey);
+    const decodedToken = this.jwtHelperService.decodeToken(token ? token: '');
+    return decodedToken?.user_id
   }
 }

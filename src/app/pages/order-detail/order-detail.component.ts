@@ -80,15 +80,25 @@ export class OrderDetailComponent implements OnInit {
 
   createOrEditOrder() {
     if (this.selection) {
-      this.orderService.changeOrder(parseInt(this.selection), this.newOrder).subscribe(order => {
-        console.log(order);
-      });
+      this.orderService.changeOrder(parseInt(this.selection), this.newOrder).subscribe(
+        res => {
+          alert('Order updated successfully!')
+          this.router.navigate(['order-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      );
     } else {
-      this.orderService.createOrder(this.newOrder).subscribe(order => {
-        console.log(order);
-      });
+      this.orderService.createOrder(this.newOrder).subscribe(
+        res => {
+          alert('Order created successfully!')
+          this.router.navigate(['order-overview'])
+        },
+        err => {
+          alert(err.header)
+        });
     }
-    this.router.navigate(['order-overview'])
   }
 
 }

@@ -68,15 +68,25 @@ export class VehicleDetailComponent implements OnInit {
 
   createVehicle() {
     if (this.selection) {
-      this.vehicleService.changeVehicle(parseInt(this.selection), this.newVehicle).subscribe((vehicle: any) => {
-        console.log(vehicle);
-      });
+      this.vehicleService.changeVehicle(parseInt(this.selection), this.newVehicle).subscribe(
+        res => {
+          alert('Vehicle updated successfully!')
+          this.router.navigate(['vehicle-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      );
 
     } else {
-      this.vehicleService.createVehicle(this.newVehicle).subscribe((vehicle: any) => {
-        console.log(vehicle);
-      });
+      this.vehicleService.createVehicle(this.newVehicle).subscribe(
+        res => {
+          alert('Vehicle created successfully!')
+          this.router.navigate(['vehicle-overview'])
+        },
+        err => {
+          alert(err.header)
+        });
     }
-    this.router.navigate(['vehicle-overview'])
   }
 }

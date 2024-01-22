@@ -17,4 +17,10 @@ export class HeaderComponent {
   constructor(public userService:UserService) {
   }
 
+  logout() {
+    console.log(this.userService.isLoggedIn$)
+    this.userService.logout();
+    console.log(this.userService.isLoggedIn$)
+  }
+
 }

@@ -58,14 +58,25 @@ export class CustomerDetailsComponent  implements OnInit {
 
   createOrEditOrder() {
     if (this.selection) {
-      this.customerService.changeCustomer(this.newCustomer, parseInt(this.selection)).subscribe( data => {
-        console.log(data);
-      })
+      this.customerService.changeCustomer(this.newCustomer, parseInt(this.selection)).subscribe(
+        res => {
+          alert('Customer updated successfully!')
+          this.router.navigate(['customer-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      )
     } else {
-      this.customerService.createCustomer(this.newCustomer).subscribe((customer: ChangeCustomer) => {
-        console.log(customer);
-      });
+      this.customerService.createCustomer(this.newCustomer).subscribe(
+        res => {
+          alert('Customer created successfully!')
+          this.router.navigate(['customer-overview'])
+        },
+          err => {
+            alert(err.header)
+          }
+      );
     }
-    this.router.navigate(['customer-overview'])
   }
 }

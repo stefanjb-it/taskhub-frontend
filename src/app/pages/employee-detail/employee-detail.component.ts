@@ -140,20 +140,31 @@ export class EmployeeDetailComponent implements OnInit {
 
   createOrEditEmployee() {
     if (this.selection) {
-      this.employeeService.changeEmployee(this.newEmployee, parseInt(this.selection)).subscribe( data => {
-        console.log(data);
-      })
+      this.employeeService.changeEmployee(this.newEmployee, parseInt(this.selection)).subscribe(
+        res => {
+          alert('Employee updated successfully!')
+          this.router.navigate(['admin-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      )
     } else {
       if (this.newEmployee.first_name != undefined && this.newEmployee.last_name != undefined) {
         this.newEmployee.username = this.newEmployee.first_name?.substring(0,3).toLowerCase()
           + this.newEmployee.last_name?.substring(0,3).toLowerCase() + '24';
       }
-      console.log(this.newEmployee)
-      this.employeeService.createEmployee(this.newEmployee).subscribe(data => {
-        console.log(data);
-      });
+
+      this.employeeService.createEmployee(this.newEmployee).subscribe(
+        res => {
+          alert('Employee created successfully!')
+          this.router.navigate(['admin-overview'])
+        },
+        err => {
+          alert('Enter or Select a value for each Field.')
+        }
+      );
     }
-    this.router.navigate(['admin-overview'])
   }
 
   uploadPicture() {
