@@ -21,6 +21,8 @@ import {TaskDetailComponent} from "./pages/task-detail/task-detail.component";
 import {OrderDetailComponent} from "./pages/order-detail/order-detail.component";
 import {CustomerDetailsComponent} from "./pages/customer-details/customer-details.component";
 import {ManagementOverviewComponent} from "./pages/management-overview/management-overview.component";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {MultipleSelectFieldComponent} from "./components/multiple-select-field/multiple-select-field.component";
 
 @Component({
     selector: 'app-root',
@@ -46,18 +48,30 @@ import {ManagementOverviewComponent} from "./pages/management-overview/managemen
     TaskDetailComponent,
     OrderDetailComponent,
     CustomerDetailsComponent,
-    ManagementOverviewComponent
+    ManagementOverviewComponent,
+    MultipleSelectFieldComponent,
+    ReactiveFormsModule
   ]
 })
 export class AppComponent implements OnInit{
   title = 'taskhub-frontend';
+  testFormGroup: FormGroup;
+
 
   constructor(public userService: UserService, private router: Router, public iconSet: IconSetService) {
+    this.testFormGroup = new FormGroup({
+      testFormControl: new FormControl('test'),
+      secondTest: new FormControl('test2')
+    });
     iconSet.icons = { cilHome, cilUser, cilCheckCircle };
   }
 
   ngOnInit(): void {
+    this.testFormGroup.valueChanges.subscribe(console.log);
+  }
 
+  registerChange($event: any) {
+    console.log($event);
   }
 
   sendMessage(message: string) {

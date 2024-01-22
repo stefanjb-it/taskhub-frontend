@@ -27,6 +27,7 @@ export class EmployeeDetailComponent implements OnInit {
   employeeTypes : EmployeeType[] = [];
   employeeGroups : EmployeeGroup[] = [];
   newEmpTypeTitle : string | undefined;
+  newEmpGender : string | undefined;
   pfpLink : string | undefined;
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
@@ -37,9 +38,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   ngOnInit(){
 
-    // TK Fix Race Condition
-
-    // Attempt #1
     // Route Mapping
     this.selection = this.route.snapshot.paramMap.get('id');
     if (!this.selection) return; // TODO: go back to management on error
@@ -70,42 +68,14 @@ export class EmployeeDetailComponent implements OnInit {
         if (employee.has_image) {
           this.pfpLink = "/api/users/" + this.selection + "/image"
         }
-      }
-    )
-
-    // ----- ----- ----- ----- -----
-
-
-
-    /*this.employeeTypeService.getEmployeeTypes().subscribe( employeeTypes => {
-      this.employeeTypes = employeeTypes
-    });
-    this.employeeGroupService.getEmployeeGroups().subscribe( employeeGroups => {
-      this.employeeGroups = employeeGroups
-    });
-    this.selection = this.route.snapshot.paramMap.get('id');
-    if (this.selection) {
-      this.employeeService.getEmployee(parseInt(this.selection)).subscribe( employee => {
-        this.newEmployee.first_name = employee.first_name
-        this.newEmployee.last_name = employee.last_name
-        this.newEmployee.address = employee.address
-        this.newEmployee.birth_date = employee.birth_date.length > 10 ? employee.birth_date.substring(0,10) : employee.birth_date
-        this.newEmployee.email = employee.email
-        this.newEmployee.password = employee.password
-        this.newEmployee.phone = employee.phone
-        this.newEmployee.gender = employee.gender
-        this.newEmployee.employee_type = employee.employee_type.id
-        this.newEmployee.drivers_license_status = employee.drivers_license_status
-        if (employee.has_image) {
-          this.pfpLink = "/api/users/" + this.selection + "/image"
-        }
-      });
       try {
         this.newEmpTypeTitle = this.employeeTypes.filter(type => type.id == this.newEmployee.employee_type)[0].title
       } catch {
         this.newEmpTypeTitle = '';
       }
-    }*/
+        this.newEmpGender = employee.gender;
+      }
+    )
   }
 
   getFirstName($event: string) {

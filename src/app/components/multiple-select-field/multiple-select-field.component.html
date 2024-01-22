@@ -1,0 +1,22 @@
+<!-- Implementation Side Structure
+<form [formGroup]="FORM_GROUP_NAME">
+  <app-multiple-select-field formControlName="FORM_CONTROL_NAME"></app-multiple-select-field>
+</form>
+-->
+
+<!-- Implementation Side Logic
+-- as property:
+FORM_GROUP_NAME: FormGroup;
+
+-- in constructor:
+this.FORM_GROUP_NAME = new FormGroup({
+  FORM_CONTROL_NAME: new FormControl(...),
+  ...
+});
+-->
+
+<div class="igroup d-flex justify-content-between">
+  <select multiple id="multitest" class="select-field ms-3 me-3" [formControl]="selection">
+    <option *ngFor="let item of list" value="{{item}}" [selected]="false">some string</option>
+  </select>
+</div>

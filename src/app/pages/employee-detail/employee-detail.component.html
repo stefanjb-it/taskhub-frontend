@@ -49,7 +49,7 @@
 
       <div class="row">
         <div class="col-md-6 mb-4">
-          <app-selectfield [id]="'genderBender'" [currentItem]="'male'" placeholder="Select Gender" (getValue)="getGender($event)" [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
+          <app-selectfield [id]="'genderBender'" [currentItem]="newEmpGender" placeholder="Select Gender" (getValue)="getGender($event)" [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
         </div>
 
         <div class="col-md-6 mb-4">
