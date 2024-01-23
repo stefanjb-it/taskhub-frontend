@@ -1,5 +1,5 @@
 <div class="row justify-content-center mx-auto">
-  <div class="contentBox p-3">
+  <div class="contentBox p-3 my-4">
     <p *ngIf="!this.selection" class="title-head my-3">New Vehicle</p>
     <p *ngIf="this.selection" class="title-head my-3">Edit Vehicle</p>
     <form (submit)="handleSubmit()" [formGroup]="formGroup">
