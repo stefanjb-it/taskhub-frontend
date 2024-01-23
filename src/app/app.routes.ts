@@ -34,4 +34,23 @@ export const routes: Routes = [
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
   { path: 'test', component: SimpleSelectFieldComponent}
+
+  //TODO: replace above with below after testing
+  /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: ['authGuard']},
+  { path: 'create-user', component: EmployeeDetailComponent, canActivate: ['authGuard']},
+  { path: 'edit-user/:id', component: EmployeeDetailComponent, canActivate: ['authGuard']},
+  { path: 'customer-overview', component: CustomerOverviewComponent, canActivate: ['authGuard']},
+  { path: 'create-customer', component: CustomerDetailsComponent, canActivate: ['authGuard']},
+  { path: 'edit-customer/:id', component: CustomerDetailsComponent, canActivate: ['authGuard']},
+  { path: 'management', component: ManagementOverviewComponent, canActivate: ['authGuard']},
+  { path: 'order-overview', component: OrderOverviewComponent, canActivate: ['authGuard']},
+  { path: 'create-order', component: OrderDetailComponent, canActivate: ['authGuard']},
+  { path: 'edit-order/:id', component: OrderDetailComponent, canActivate: ['authGuard']},
+  { path: 'task-overview', component: TaskOverviewComponent, canActivate: ['authGuard']},
+  { path: 'create-task', component: TaskDetailComponent, canActivate: ['authGuard']},
+  { path: 'edit-task/:id', component: TaskDetailComponent, canActivate: ['authGuard']},
+  { path: 'vehicle-overview', component: VehicleOverviewComponent, canActivate: ['authGuard']},
+  { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: ['authGuard']},
+  { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: ['authGuard']},
+  { path: 'test', component: SimpleSelectFieldComponent, canActivate: ['authGuard']}*/
 ];

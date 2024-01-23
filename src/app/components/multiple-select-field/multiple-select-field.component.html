@@ -17,7 +17,7 @@ this.formGroup.controls['multipleSelect'].patchValue(["1", "2"]); // here as str
 -->
 
 <div class="igroup d-flex justify-content-between">
-  <select multiple [id]="id" class="select-field ms-3 me-3" [formControl]="selection">
+  <select multiple [id]="id" size="3" class="select-field ms-3 me-3" [formControl]="selection">
     <option *ngFor="let item of items" value="{{item.id}}">{{getName(item)}}</option>
   </select>
 </div>

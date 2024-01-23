@@ -1,0 +1,24 @@
+@import '../../app.component.scss';
+
+.igroup {
+  background-color: $colorGrey;
+  border-radius: 15px;
+}
+
+.select-field {
+  color: $textWhite;
+  background-color: $colorGrey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: solid $colorGrey;
+  font-size: 16px;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+  option:checked {
+    color: $textWhite;
+    background: coral linear-gradient(0deg, coral 0%, coral 100%);
+    border-radius: 7px;
+  }
+}

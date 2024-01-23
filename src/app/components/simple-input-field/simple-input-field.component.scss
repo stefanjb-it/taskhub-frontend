@@ -17,7 +17,7 @@
     color: $backgroundColor;
   };
   &::selection{
-    background-color: $colorPurple;
+    background-color: coral;
     color: $textWhite;
   };
   &:focus{

@@ -9,11 +9,16 @@ import {VehicleTypeService} from "../../services/vehicle-type.service";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 import {VehicleType} from "../../models/VehicleType";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
+import {combineLatestWith} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-vehicle-detail',
   standalone: true,
-  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent],
+  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent],
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.scss'
 })
@@ -27,66 +32,62 @@ export class VehicleDetailComponent implements OnInit {
   vehicleTypes: VehicleType[] = [];
   selection : string | undefined | null;
 
+  formGroup: FormGroup;
+
   constructor(public userService:UserService, public vehicleService:VehicleService,
               public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute, private router: Router) {
-
+    this.formGroup = new FormGroup({
+      title: new FormControl(''),
+      vehicle_type: new FormControl(''),
+      max_load_length: new FormControl(''),
+      max_load_weight: new FormControl('')
+    });
   }
 
   ngOnInit() {
-    this.vehicleTypeService.getVehicleTypes().subscribe((vehicleTypes: VehicleType[]) => {
-      this.vehicleTypes = vehicleTypes;
-    });
     this.selection = this.route.snapshot.paramMap.get('id');
-    if (this.selection) {
-      this.vehicleService.getVehicle(parseInt(this.selection)).subscribe(vehicle => {
-        this.newVehicle.title = vehicle.title;
-        vehicle.vehicle_type.forEach((vehicleType: VehicleType) => { this.newVehicle.vehicle_type.push(vehicleType.id) });
-        this.newVehicle.max_load_length = vehicle.max_load_length;
-        this.newVehicle.max_load_weight = vehicle.max_load_weight;
-      });
+
+    if(!this.selection) {
+      this.vehicleTypeService.getVehicleTypes().subscribe(res => {
+        this.vehicleTypes = res;
+      })
+      return;
     }
+
+    this.vehicleTypeService.getVehicleTypes().pipe(
+      combineLatestWith(
+        this.vehicleService.getVehicle(parseInt(this.selection))
+      ),
+    ).subscribe(([vehicleTypes, vehicle]) => {
+      this.vehicleTypes = vehicleTypes;
+
+      this.formGroup.patchValue(vehicle);
+      this.formGroup.controls['vehicle_type'].setValue(vehicle.vehicle_type?.map(vehicleType => vehicleType.id.toString()));
+    });
+
   }
 
-  getName($event: string) {
-    this.newVehicle.title = $event;
-  }
+  handleSubmit() {
+    this.newVehicle = this.formGroup.value;
 
-  getModel($event: string) {
-    if ($event != '-1') {
-      this.newVehicle.vehicle_type = [];
-      this.newVehicle.vehicle_type.push(parseInt($event));
-    }
-  }
-
-  getloadLength($event: string) {
-    this.newVehicle.max_load_length = parseInt($event);
-  }
-
-  getloadWeigth($event: string) {
-    this.newVehicle.max_load_weight = parseInt($event);
-  }
-
-  createVehicle() {
     if (this.selection) {
       this.vehicleService.changeVehicle(parseInt(this.selection), this.newVehicle).subscribe(
         res => {
-          alert('Vehicle updated successfully!')
-          this.router.navigate(['vehicle-overview'])
+        this.router.navigate(['vehicle-overview']);
         },
         err => {
-          alert(err.header)
+          alert("Something went wrong, please try again.")
         }
       );
-
     } else {
       this.vehicleService.createVehicle(this.newVehicle).subscribe(
         res => {
-          alert('Vehicle created successfully!')
-          this.router.navigate(['vehicle-overview'])
+          this.router.navigate(['vehicle-overview']);
         },
         err => {
-          alert(err.header)
-        });
+          alert("Something went wrong, please try again.")
+        }
+      );
     }
   }
 }
