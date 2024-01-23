@@ -39,12 +39,14 @@
           </div>
         </div>
       </div>
-    <div class="d-flex mb-3">
-      <!--<app-selectfield [id]="'completed'" placeholder="Order Completed" class="me-auto select-field"
-        (getValue)="getStatus($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>-->
-      <app-simple-select-field id="is_completed" formControlName="is_completed" placeholder="Status" [items]="states"></app-simple-select-field>
-      <app-button buttonText="Submit" type="submit"></app-button>
-    </div>
+      <div class="row mb-4 my-auto">
+        <div class="col-md-8 mb-4 mb-md-0">
+          <app-simple-select-field id="is_completed" formControlName="is_completed" placeholder="Status" [items]="states"></app-simple-select-field>
+        </div>
+        <div class="col-md-4">
+          <app-button buttonText="Submit" type="submit"></app-button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
