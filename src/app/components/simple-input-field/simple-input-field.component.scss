@@ -27,3 +27,15 @@
     filter: invert(1);
   }
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: $textWhite;
+  background-color: $colorGrey;
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: 16px;
+}
