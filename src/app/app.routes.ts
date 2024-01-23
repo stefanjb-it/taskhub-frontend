@@ -14,6 +14,7 @@ import {TaskOverviewComponent} from "./pages/task-overview/task-overview.compone
 import {MultipleSelectFieldComponent} from "./components/multiple-select-field/multiple-select-field.component";
 import {SimpleSelectFieldComponent} from "./components/simple-select-field/simple-select-field.component";
 import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
+import {TaskImageCarouselComponent} from "./pages/task-image-carousel/task-image-carousel.component";
 
 export const routes: Routes = [
   { path: '', component: HomeLoginComponent },
@@ -33,7 +34,8 @@ export const routes: Routes = [
   { path: 'vehicle-overview', component: VehicleOverviewComponent},
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
-  { path: 'test', component: SimpleSelectFieldComponent}
+  { path: 'test', component: SimpleSelectFieldComponent},
+  { path: 'csl', component: TaskImageCarouselComponent}
 
   //TODO: replace above with below after testing
   /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: ['authGuard']},

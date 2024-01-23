@@ -6,30 +6,37 @@
       <div class="row">
         <div class="col-md-8 mb-3 mb-md-0">
           <div class="row mt-2 mb-4">
+            <label for="name" class="ms-2 mb-1 label-text">Enter Vehicle Name</label>
             <app-simple-input-field [required]="true" id="name" type="text" formControlName="title" svgType="vehiclename" placeholder="Vehicle Name"></app-simple-input-field>
           </div>
           <div class="row mb-4">
+            <label for="type" class="ms-2 mb-1 label-text">Select Vehicle Types</label>
             <app-multiple-select-field [required]="true" id="type" formControlName="vehicle_type" [items]="vehicleTypes"></app-multiple-select-field>
           </div>
           <div class="row mb-4">
+            <label for="max_load_length" class="ms-2 mb-1 label-text">Set Max Load Length</label>
             <app-simple-input-field [required]="true" id="maxLoadLength" type="number" formControlName="max_load_length" svgType="length" placeholder="Maximum Load Length"></app-simple-input-field>
           </div>
           <div class="row mb-4">
+            <label for="order_nr" class="ms-2 mb-1 label-text">Set Max Load Length</label>
             <app-simple-input-field [required]="true" id="maxLoadWeight" type="number" formControlName="max_load_weight" svgType="weight" placeholder="Maximum Load Weight"></app-simple-input-field>
           </div>
         </div>
-        <div class="col-md-4 mb-4 mb-md-0 d-flex align-items-center">
-          <div class="row justify-content-center">
+        <div class="col-md-4 my-auto">
+          <div class="row d-flex justify-content-center mb-4 mb-md-5">
             <img src="assets/svg/Truck_white.svg" class="detail-image">
+          </div>
+          <div class="row mb-4">
+            <app-button class="d-flex justify-content-center" buttonText="Submit" type="submit"></app-button>
           </div>
         </div>
       </div>
-      <div class="row mb-4 my-auto">
+      <!-- <div class="row mb-4 my-auto">
         <div class="col-md-8"></div>
         <div class="col-md-4">
           <app-button class="d-flex justify-content-center" buttonText="Submit" type="submit"></app-button>
         </div>
-      </div>
+      </div> -->
     </form>
   </div>
 </div>

@@ -6,22 +6,22 @@
       <div class="row">
         <div class="col-md-8 mb-4 mb-md-0">
           <div class="row mt-2 mb-4">
-            <label for="name" class="ms-2 mb-2 label-text">Enter Name</label>
+            <label for="name" class="ms-2 mb-1 label-text">Enter Name</label>
             <app-simple-input-field [required]="true" id="name" type="text" formControlName="name"
               placeholder="Enter Name" svgType="default"></app-simple-input-field>
           </div>
           <div class="row mb-4">
-            <label for="address" class="ms-2 mb-2 label-text">Add Address</label>
+            <label for="address" class="ms-2 mb-1 label-text">Add Address</label>
             <app-simple-input-field [required]="true" id="address" type="text" formControlName="address"
               placeholder="Add Address" svgType="address"></app-simple-input-field>
           </div>
           <div class="row mb-4">
-            <label for="phone" class="ms-2 mb-2 label-text">Add Phone Number</label>
+            <label for="phone" class="ms-2 mb-1 label-text">Add Phone Number</label>
             <app-simple-input-field [required]="true" id="phone" type="number" formControlName="phone"
               placeholder="Phone Number" svgType="phone"></app-simple-input-field>
           </div>
           <div class="row mb-4">
-            <label for="is_company" class="ms-2 mb-2 label-text">Is the customer a company?</label>
+            <label for="is_company" class="ms-2 mb-1 label-text">Is the customer a company?</label>
             <app-simple-select-field class="select-field" id="is_company" formControlName="is_company"
               placeholder="Is Company?" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-simple-select-field>
           </div>

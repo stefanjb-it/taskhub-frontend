@@ -7,6 +7,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import {UnobjectingPipe} from "../../pipes/unobjecting.pipe";
 import {UserService} from "../../services/user.service";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ImageService} from "../../services/image.service";
 
 @Component({
     selector: 'app-admin-overview',
@@ -21,7 +22,8 @@ export class AdminOverviewComponent implements OnInit {
 
   filterFormControl = new FormControl('')
 
-  constructor(public employeeService: EmployeeService, public userService: UserService, public router: Router) {
+  constructor(public employeeService: EmployeeService, public userService: UserService, public router: Router,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -44,6 +46,11 @@ export class AdminOverviewComponent implements OnInit {
 
   checkDelete(id:number) {
     if (id.toString() != this.userService.getUserId()) {
+      let user = this.employees.find(employee => employee.id == id)
+      if (user?.has_image) {
+        this.imageService.deleteProfilePicture(id).subscribe()
+      }
+
       this.employeeService.deleteEmployee(id).subscribe(
         res => alert('Employee deleted successfully!'),
         err => alert('Error occured!')
