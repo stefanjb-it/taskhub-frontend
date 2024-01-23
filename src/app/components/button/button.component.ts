@@ -11,10 +11,11 @@ import { CommonModule } from '@angular/common';
 export class ButtonComponent implements OnInit {
 
   @Input() buttonText: string = 'Button';
+  @Input() isDisabled: boolean = false;
   @Output() OnClick = new EventEmitter<string>();
 
   constructor() {
-    
+
   }
 
   ngOnInit(): void {

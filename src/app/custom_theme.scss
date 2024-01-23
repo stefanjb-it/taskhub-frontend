@@ -599,8 +599,8 @@ html {
 html {
   --mdc-filled-text-field-caret-color: #fc9c60;
   --mdc-filled-text-field-focus-active-indicator-color: #fc9c60;
-  --mdc-filled-text-field-focus-label-text-color: rgba(123, 31, 162, 0.87);
-  --mdc-filled-text-field-container-color: #4a4a4a;
+  --mdc-filled-text-field-focus-label-text-color: #fc9c60;
+  --mdc-filled-text-field-container-color: #2f3a4b;
   --mdc-filled-text-field-disabled-container-color: #464646;
   --mdc-filled-text-field-label-text-color: rgba(255, 255, 255, 0.6);
   --mdc-filled-text-field-disabled-label-text-color: rgba(255, 255, 255, 0.38);
@@ -618,7 +618,7 @@ html {
   --mdc-filled-text-field-error-hover-active-indicator-color: #f44336;
   --mdc-outlined-text-field-caret-color: #fc9c60;
   --mdc-outlined-text-field-focus-outline-color: #fc9c60;
-  --mdc-outlined-text-field-focus-label-text-color: rgba(123, 31, 162, 0.87);
+  --mdc-outlined-text-field-focus-label-text-color: #fc9c60;
   --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.6);
   --mdc-outlined-text-field-disabled-label-text-color: rgba(255, 255, 255, 0.38);
   --mdc-outlined-text-field-input-text-color: rgba(255, 255, 255, 0.87);
@@ -633,7 +633,7 @@ html {
   --mdc-outlined-text-field-error-focus-outline-color: #f44336;
   --mdc-outlined-text-field-error-hover-outline-color: #f44336;
   --mdc-outlined-text-field-error-outline-color: #f44336;
-  --mat-form-field-focus-select-arrow-color: rgba(123, 31, 162, 0.87);
+  --mat-form-field-focus-select-arrow-color: #fc9c60;
   --mat-form-field-disabled-input-text-placeholder-color: rgba(255, 255, 255, 0.38);
   --mat-form-field-state-layer-color: rgba(255, 255, 255, 0.87);
   --mat-form-field-error-text-color: #f44336;
@@ -716,18 +716,18 @@ html {
 }
 
 html {
-  --mat-select-panel-background-color: #424242;
+  --mat-select-panel-background-color: #4e5970;
   --mat-select-enabled-trigger-text-color: rgba(255, 255, 255, 0.87);
   --mat-select-disabled-trigger-text-color: rgba(255, 255, 255, 0.38);
   --mat-select-placeholder-text-color: rgba(255, 255, 255, 0.6);
   --mat-select-enabled-arrow-color: rgba(255, 255, 255, 0.54);
   --mat-select-disabled-arrow-color: rgba(255, 255, 255, 0.38);
-  --mat-select-focused-arrow-color: rgba(123, 31, 162, 0.87);
+  --mat-select-focused-arrow-color: #fc9c60;
   --mat-select-invalid-arrow-color: rgba(244, 67, 54, 0.87)
 }
 
 html .mat-mdc-form-field.mat-accent {
-  --mat-select-panel-background-color: #424242;
+  --mat-select-panel-background-color: #4e5970;
   --mat-select-enabled-trigger-text-color: rgba(255, 255, 255, 0.87);
   --mat-select-disabled-trigger-text-color: rgba(255, 255, 255, 0.38);
   --mat-select-placeholder-text-color: rgba(255, 255, 255, 0.6);
@@ -738,7 +738,7 @@ html .mat-mdc-form-field.mat-accent {
 }
 
 html .mat-mdc-form-field.mat-warn {
-  --mat-select-panel-background-color: #424242;
+  --mat-select-panel-background-color: #4e5970;
   --mat-select-enabled-trigger-text-color: rgba(255, 255, 255, 0.87);
   --mat-select-disabled-trigger-text-color: rgba(255, 255, 255, 0.38);
   --mat-select-placeholder-text-color: rgba(255, 255, 255, 0.6);

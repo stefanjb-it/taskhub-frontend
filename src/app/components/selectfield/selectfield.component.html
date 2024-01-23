@@ -1,7 +1,14 @@
-<div class="igroup d-flex justify-content-between">
+<!--<div class="igroup d-flex justify-content-between">
   <select id="{{id}}" class="select-field ms-3 me-3" (change)="emitEvent()">
     <option disabled selected value="-1">{{placeholder}}</option>
     <option *ngFor="let item of list" value="{{item.id}}" [selected]="checkIfSelected(item)">{{getName(item)}}</option>
   </select>
-</div>
+</div>-->
 
+<mat-form-field style="width: 100%">
+  <mat-label>{{labelText}}</mat-label>
+  <mat-select [formControl]="selection">
+    <mat-option *ngFor="let item of items" [value]="item.id">{{getName(item)}}</mat-option>
+  </mat-select>
+  <mat-hint align="end">{{hint}}</mat-hint>
+</mat-form-field>

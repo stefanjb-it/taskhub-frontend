@@ -1,24 +1,60 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {
+  ControlValueAccessor,
+  FormBuilder,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+  Validators
+} from "@angular/forms";
 
 @Component({
   selector: 'app-selectfield',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatFormFieldModule, MatOptionModule, MatSelectModule, ReactiveFormsModule],
   templateUrl: './selectfield.component.html',
-  styleUrl: './selectfield.component.scss'
+  styleUrl: './selectfield.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: SelectfieldComponent,
+      multi: true
+    }
+  ]
 })
-export class SelectfieldComponent implements OnInit {
-  @Input() list: any[] = [];
-  @Input() id: string = 'testSelect';
-  @Input() placeholder: string = 'Select';
-  @Input() currentItem : any = '';
-  @Output() getValue = new EventEmitter<string>();
-  value: string = '';
+export class SelectfieldComponent implements OnInit, ControlValueAccessor {
 
-  constructor() {
+  @Input() items: any[] = [];
+  @Input() required: boolean = false;
+  @Input() conversionFunction: any = undefined;
+  @Input() labelText: string = 'Please select';
+  @Input() hint: string = 'Some hint';
+
+  selection: FormControl = new FormControl(0);
+  private propagateChange:any;
+
+  constructor(private fb:FormBuilder) {
   }
   ngOnInit() {
+    // VALIDATORS
+    let validator = null;
+    if (this.required) {
+      validator = Validators.required;
+    }
+
+    // OnChange LOGIC
+    this.selection = this.fb.control(null, {validators: validator});
+    this.selection.valueChanges.subscribe((value) => {
+      console.log(value)
+      if (this.conversionFunction) {
+        value = this.conversionFunction(value);
+      }
+      this.propagateChange(value);
+    });
   }
 
   getName(item: any) {
@@ -31,18 +67,15 @@ export class SelectfieldComponent implements OnInit {
     }
   }
 
-  checkIfSelected(item: any){
-    if (item.name) {
-      return item.name === this.currentItem;
-    } else if (item.title) {
-      return item.title === this.currentItem;
-    } else {
-      return false;
-    }
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
   }
 
-  emitEvent() {
-    this.value = (<HTMLInputElement>document.getElementById(this.id)).value;
-    this.getValue.emit(this.value);
+  registerOnTouched(fn: any): void {
+  }
+
+  writeValue(obj: any): void {
+    console.log(obj);
+    this.selection.patchValue(obj, {emitEvent: false});
   }
 }

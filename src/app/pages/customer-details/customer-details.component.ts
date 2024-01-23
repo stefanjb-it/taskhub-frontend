@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {DomSanitizer} from "@angular/platform-browser";
+import {MatSelectModule} from "@angular/material/select";
 
 const THUMBUP_ICON:any =
   `
@@ -27,10 +28,18 @@ const THUMBUP_ICON:any =
   </svg>
 `;
 
+const PHONE_ICON:any =
+  `
+  <svg fill=\"currentColor\" viewBox=\"0 0 16 16\" height=\"1em\" width=\"1em\">
+  <path fill-rule=\"evenodd\" d=\"M1.885.511a1.745 1.745 0 012.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 00.178.643l2.457 2.457a.678.678 0 00.644.178l2.189-.547a1.745 1.745 0 011.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 01-7.01-4.42 18.634 18.634 0 01-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z\">
+  </path>
+  </svg>
+ `;
+
 @Component({
   selector: 'app-customer-details',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, SimpleSelectFieldComponent, MatFormFieldModule, MatIconModule, MatInputModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, SimpleSelectFieldComponent, MatFormFieldModule, MatIconModule, MatInputModule, MatCardModule, MatButtonModule, MatSelectModule],
   templateUrl: './customer-details.component.html',
   styleUrl: './customer-details.component.scss'
 })
@@ -49,7 +58,9 @@ export class CustomerDetailsComponent  implements OnInit {
       phone: new FormControl('', [Validators.required]),
       is_company: new FormControl(null)
     });
+    this.formGroup.valueChanges.subscribe(console.log);
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
+    iconRegistry.addSvgIconLiteral('phone', sanitizer.bypassSecurityTrustHtml(PHONE_ICON));
   }
 
   ngOnInit(){

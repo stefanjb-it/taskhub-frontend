@@ -45,3 +45,11 @@
   font-size: 18px;
   text-align: left;
 }
+
+.fuckme {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button{
+    -webkit-appearance: none!important;
+    margin: 0!important;
+  }
+}

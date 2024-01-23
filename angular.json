@@ -35,7 +35,7 @@
               "node_modules/@coreui/coreui/scss/coreui.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss",
-              "src/custom_theme.scss"
+              "src/app/custom_theme.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js"

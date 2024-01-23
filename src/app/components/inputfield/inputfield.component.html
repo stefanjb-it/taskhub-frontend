@@ -1,4 +1,9 @@
-<div class="igroup d-flex justify-content-between">
-  <input id="{{id}}" class="input-field ms-3 me-3" value="{{value}}" type="{{type}}" (change)="emitEvent()" placeholder="{{placeholder}}">
-  <div *ngIf="type!='date'" class="me-3 p-0 d-flex justify-content-center align-items-center" [innerHTML]="svg"></div>
-</div>
+<mat-form-field style="width: 100%;" appearance="outline">
+  <mat-label>{{labelText}}</mat-label>
+  <input matInput [placeholder]="placeholder" [formControl]="selection" type="type">
+  <mat-icon matSuffix svgIcon="thumbs-up"></mat-icon>
+  <mat-hint>{{hint}}</mat-hint>
+  @if (selection.hasError('required')){
+    <mat-error>{{errorText}}</mat-error>
+  }
+</mat-form-field>
