@@ -41,6 +41,12 @@ export class VehicleOverviewComponent implements OnInit {
   }
 
   deleteVehicle(id: number) {
-    // TODO: implement with check
+    this.vehicleService.deleteVehicle(id).subscribe(
+      res => {
+        alert('Vehicle deleted successfully!');
+        this.filteredVehicles = this.filteredVehicles.filter(vehicle => vehicle.id != id)
+      },
+      err => alert('Error occured!')
+    );
   }
 }

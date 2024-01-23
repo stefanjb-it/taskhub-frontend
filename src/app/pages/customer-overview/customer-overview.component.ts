@@ -42,8 +42,12 @@ export class CustomerOverviewComponent implements OnInit {
   }
 
   deleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id).subscribe(() => {
-      // TODO
-    });
+    this.customerService.deleteCustomer(id).subscribe(
+        res => {
+          alert('customer deleted successfully!');
+          this.filteredCustomers = this.filteredCustomers.filter(customer => customer.id != id)
+        },
+        err => alert('Error occured!')
+    );
   }
 }

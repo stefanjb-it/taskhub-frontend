@@ -9,15 +9,18 @@
           <div class="row mb-4">
             <h2>Login to our System</h2>
           </div>
-          <div class="row mb-4">
-              <app-inputfield [id]="'username'" [placeholder]="'username'" (getValue)="getUsername($event)" [type]="'text'" [svgType]="'name'"></app-inputfield>
-          </div>
-          <div class="row mb-4">
-              <app-inputfield [id]="'password'" [placeholder]="'password'" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
-          </div>
-          <div class="row">
-              <app-button [buttonText]="'Login'" (OnClick)="userlogin()" class="d-flex justify-content-end"></app-button>
-          </div>
+          <form  (submit)="userLogin()" [formGroup]="formGroup">
+            <div class="row mb-4">
+              <app-simple-input-field [required]="true" id="username" type="text" formControlName="username"
+                                      placeholder="Enter Name" svgType="user"></app-simple-input-field>
+            </div>
+            <div class="row mb-4">
+              <app-simple-input-field [required]="true" id="password" type="password" formControlName="password" svgType="password"></app-simple-input-field>
+            </div>
+            <div class="row">
+                <app-button [buttonText]="'Login'" type="submit" class="d-flex justify-content-end"></app-button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

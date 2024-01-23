@@ -87,6 +87,12 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   deleteTask(id: number) {
-    // TODO: implement with check
+    this.taskService.deleteTask(id).subscribe(
+      res => {
+        alert('Task deleted successfully!');
+        this.filteredTasks = this.filteredTasks.filter(task => task.id != id)
+      },
+      err => alert('Error occured!')
+    );
   }
 }

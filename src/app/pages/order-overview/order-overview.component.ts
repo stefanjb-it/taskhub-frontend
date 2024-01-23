@@ -42,6 +42,12 @@ export class OrderOverviewComponent implements OnInit {
   }
 
   deleteOrder(id: number) {
-    // TODO: implement with check
+    this.orderService.deleteOrder(id).subscribe(
+      res => {
+        alert('Order deleted successfully!');
+        this.filteredOrders = this.filteredOrders.filter(order => order.id != id)
+      },
+      err => alert('Error occured!')
+    );
   }
 }

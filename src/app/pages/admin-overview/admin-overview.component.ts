@@ -48,6 +48,7 @@ export class AdminOverviewComponent implements OnInit {
         res => alert('Employee deleted successfully!'),
         err => alert('Error occured!')
       )
+      this.filteredEmployees = this.filteredEmployees.filter(employee => employee.id != id)
     } else {
       alert("Can't delete own User Account. Please ask your Administrator!")
     }
