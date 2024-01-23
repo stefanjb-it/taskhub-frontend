@@ -18,172 +18,169 @@ import {TaskService} from "../../services/task.service";
 import {TaskTypeService} from "../../services/task-type.service";
 import {TaskStatusService} from "../../services/task-status.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {combineLatestWith} from "rxjs";
+import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
+import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
+import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, SimpleSelectFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss'
 })
 export class TaskDetailComponent implements OnInit {
-  newTask : ChangeTask = {
-    title: undefined,
-    task_type: undefined,
-    task_status: undefined,
-    order: undefined,
-    employees: undefined,
-    vehicles: undefined,
-    scheduled_from: undefined,
-    from_shift: undefined,
-    scheduled_to: undefined,
-    to_shift: undefined
-  };
+  newTask : ChangeTask = {};
+
   taskTypes: TaskType[] = [];
   orders: Order[] = [];
   employees: Employee[] = [];
   vehicles: Vehicle[] = [];
-  taskstatuses: TaskStatus[] = [];
+  taskStatuses: TaskStatus[] = [];
+
   selection : string | undefined | null;
+
+  formGroup: FormGroup;
 
   constructor(public userService:UserService, public orderService:OrderService,
               public vehicleService:VehicleService, public employeeService:EmployeeService,
               public taskTypeService:TaskTypeService, public taskStatusService:TaskStatusService,
-              public taskService:TaskService, private route:ActivatedRoute, private router: Router) {
+              public taskService:TaskService, private route:ActivatedRoute, private router: Router,
+              private imageService: ImageService) {
+    this.formGroup = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      task_type: new FormControl(null, [Validators.required]),
+      task_status: new FormControl(null, [Validators.required]),
+      employees: new FormControl(null, [Validators.required]),
+      order: new FormControl(null, [Validators.required]),
+      vehicles: new FormControl(null, [Validators.required]),
+      scheduled_from: new FormControl(null, [Validators.required]),
+      from_shift: new FormControl(null, [Validators.required]),
+      scheduled_to: new FormControl(null, [Validators.required]),
+      to_shift: new FormControl(null, [Validators.required])
+    });
   }
 
   ngOnInit() {
-    this.taskTypeService.getTaskTypes().subscribe((taskTypes: TaskType[]) => {
-      this.taskTypes = taskTypes;
-    });
-    this.orderService.getOrders().subscribe((orders: Order[]) => {
-      this.orders = orders;
-    });
-    this.employeeService.getEmployees().subscribe((employees: Employee[]) => {
-      this.employees = employees;
-    });
-    this.vehicleService.getVehicles().subscribe((vehicles: Vehicle[]) => {
-      this.vehicles = vehicles;
-    });
-    this.taskStatusService.getTaskStatuses().subscribe((taskstatuses: TaskStatus[]) => {
-      this.taskstatuses = taskstatuses;
-    });
-
     this.selection = this.route.snapshot.paramMap.get('id');
-    if(this.selection) {
-      this.taskService.getTask(parseInt(this.selection)).subscribe( task => {
-        this.newTask.title = task.title
-        this.newTask.task_type = task.task_type.id
-        this.newTask.task_status = task.task_status.id
-        this.newTask.order = task.order.id
-        task.employees.forEach(employee => { this.newTask.employees?.push(employee.id) })
-        task.vehicles.forEach(vehicle => { this.newTask.vehicles?.push(vehicle.id) })
-        this.newTask.scheduled_from = task.scheduled_from.length > 10 ? task.scheduled_from.substring(0,10) : task.scheduled_from
-        this.newTask.scheduled_to = task.scheduled_to.length > 10 ? task.scheduled_to.substring(0,10) : task.scheduled_to
-        this.newTask.from_shift = task.from_shift
-        this.newTask.to_shift = task.to_shift
-
-      });
+    if(!this.selection) {
+      this.taskTypeService.getTaskTypes().subscribe(
+        res => {
+          this.taskTypes = res;
+        }
+      );
+      this.orderService.getOrders().subscribe(
+        res => {
+          this.orders = res;
+        }
+      );
+      this.employeeService.getEmployees().subscribe(
+        res => {
+          this.employees = res;
+        }
+      );
+      this.vehicleService.getVehicles().subscribe(
+        res => {
+          this.vehicles = res;
+        }
+      );
+      this.taskStatusService.getTaskStatuses().subscribe(
+        res => {
+          this.taskStatuses = res;
+        }
+      );
+      return;
     }
-  }
 
-  getTitle($event: string) {
-    this.newTask.title = $event;
-  }
+    this.employeeService.getEmployees().pipe(
+      combineLatestWith(
+        this.taskService.getTask(parseInt(this.selection))
+      ),
+      combineLatestWith(
+        this.taskTypeService.getTaskTypes()
+      ),
+      combineLatestWith(
+        this.orderService.getOrders()
+      ),
+      combineLatestWith(
+        this.vehicleService.getVehicles()
+      ),
+      combineLatestWith(
+        this.taskStatusService.getTaskStatuses()
+      )
+    ).subscribe(([[[[[employees, task], taskTypes], orders], vehicles], taskStatuses]) => {
+      this.employees = employees;
+      this.taskTypes = taskTypes;
+      this.orders = orders;
+      this.vehicles = vehicles;
+      this.taskStatuses = taskStatuses;
 
-  getTaskType($event: string) {
-    if ($event != '-1') {
-      this.newTask.task_type = parseInt($event);
-    }
-  }
-
-  getOrder($event: string) {
-    if ($event != '-1') {
-      this.newTask.order = parseInt($event);
-    }
-  }
-
-  getEmployee($event: string) {
-    if ($event != '-1') {
-      this.newTask.employees = [];
-      this.newTask.employees?.push(parseInt($event));
-    }
-  }
-
-  getVehicle($event: string) {
-    if ($event != '-1') {
-      this.newTask.vehicles = [];
-      this.newTask.vehicles?.push(parseInt($event));
-    }
-  }
-
-  getTaskStatus($event: string) {
-    if ($event != '-1') {
-      this.newTask.task_status = parseInt($event);
-    }
-  }
-
-  getShiftFrom($event: string) {
-    if ($event != '-1') {
-      if ($event == '0'){
-        this.newTask.from_shift = 'am';
-      } else {
-        this.newTask.from_shift = 'pm';
+      this.formGroup.patchValue(task);
+      this.formGroup.controls['task_type'].setValue(task.task_type?.id);
+      this.formGroup.controls['task_status'].setValue(task.task_status?.id);
+      this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id.toString()));
+      this.formGroup.controls['order'].setValue(task.order?.id);
+      this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id.toString()));
+      this.formGroup.controls['scheduled_from'].setValue(task.scheduled_from.substring(0, 10));
+      this.formGroup.controls['from_shift'].setValue(task.from_shift);
+      this.formGroup.controls['scheduled_to'].setValue(task.scheduled_to.substring(0, 10));
+      this.formGroup.controls['to_shift'].setValue(task.to_shift);
       }
+    )
+  }
+
+  toNumberArray(input : string[] | undefined):number[] | null{
+    if (input == undefined) {
+      return null;
+    }
+    return input.map((item) => parseInt(item));
+  }
+
+  uploadPicture(event: any) {
+    const file:File = event.target.files[0];
+    const formData:FormData = new FormData();
+    formData.append('upload', file)
+
+    if (this.selection) {
+      this.imageService.uploadTaskImage(Number(this.selection), formData).subscribe(
+        res => {
+        }, error => {
+          console.log(error)
+        }
+      )
     }
   }
 
-  getShiftTo($event: string) {
-    if ($event != '-1') {
-      if ($event == '0'){
-        this.newTask.to_shift = 'am';
-      } else {
-        this.newTask.to_shift = 'pm';
-      }
-    }
-  }
+  handleSubmit() {
+    let result = this.formGroup.value;
+    console.log(result);
+    result.employees = result.employees.map((item: string) => parseInt(item));
+    result.vehicles = result.vehicles.map((item: string) => parseInt(item));
 
-  getShiftId(shift:string) : number {
-    if (shift == 'am') {
-      return 0
-    } else {
-      return 1
-    }
-  }
-
-  getSchedFrom($event: string) {
-    this.newTask.scheduled_from = $event;
-  }
-
-  getSchedTo($event: string) {
-    this.newTask.scheduled_to = $event;
-  }
-
-  uploadPicture() {
-
-  }
-
-  createOrEditTask() {
-    if(this.selection) {
-      this.taskService.changeTask(parseInt(this.selection), this.newTask).subscribe(
+    if (this.selection) {
+      this.taskService.changeTask(parseInt(this.selection), result).subscribe(
         res => {
           alert('Task updated successfully!')
           this.router.navigate(['task-overview'])
         },
         err => {
-          alert(err.header)
+          alert("There was an error updating the task, Please check your input and try again.")
         }
       );
     } else {
-      this.taskService.createTask(this.newTask).subscribe(
+      this.taskService.createTask(result).subscribe(
         res => {
           alert('Task created successfully!')
           this.router.navigate(['task-overview'])
         },
         err => {
-          alert(err.header)
+          alert("There was an error updating the task, Please check your input and try again.")
         }
       );
     }
+
   }
 }

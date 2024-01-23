@@ -1,91 +1,83 @@
 <div class="row justify-content-center mx-auto">
   <div class="contentBox p-3 my-4">
-    <p class="title-head my-3">New Task</p>
-    <div class="row">
-      <div class="col-md-7 mb-3 mb-md-0">
-        <div class="row mt-3 mb-4">
-          <app-inputfield [id]="'title'" [value]="newTask.title ? newTask.title : ''" placeholder="Task Title" (getValue)="getTitle($event)" [type]="'text'"
-            [svgType]="'task'"></app-inputfield>
+    <p *ngIf="!selection" class="title-head my-3">New Task</p>
+    <p *ngIf="selection" class="title-head my-3">Edit Task</p>
+    <form (submit)="handleSubmit()" [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-md-7 mb-3 mb-md-0">
+          <div class="row mt-3 mb-4">
+            <app-simple-input-field [required]="true" type="text" id="title" formControlName="title" placeholder="Task Title" svgType="task"></app-simple-input-field>
+          </div>
+          <div class="row mb-4">
+            <app-simple-select-field [required]="true" id="task_type" formControlName="task_type" placeholder="Select Type" [items]="taskTypes"></app-simple-select-field>
+          </div>
+          <div class="row mb-4">
+            <app-simple-select-field [required]="true" id="order" formControlName="order" placeholder="Select Order" [items]="orders"></app-simple-select-field>
+          </div>
         </div>
-        <div class="row mb-4">
-          <app-selectfield [id]="'tasktype'" placeholder="Select Tasktype" (getValue)="getTaskType($event)"
-            [list]="taskTypes"></app-selectfield>
-        </div>
-        <div class="row mb-4">
-          <app-selectfield [id]="'order'" placeholder="Select Order" (getValue)="getOrder($event)"
-            [list]="orders"></app-selectfield>
-        </div>
-      </div>
-      <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
-        <div class="d-flex justify-content-center my-auto">
-          <svg viewBox="0 0 16 16" class="cardSvg">
-            <path fill-rule="evenodd"
-              d="M2 2.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5V3a.5.5 0 00-.5-.5H2zM3 3H2v1h1V3z"></path>
-            <path
-              d="M5 3.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zM5.5 7a.5.5 0 000 1h9a.5.5 0 000-1h-9zm0 4a.5.5 0 000 1h9a.5.5 0 000-1h-9z">
-            </path>
-            <path fill-rule="evenodd"
-              d="M1.5 7a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5H2zm1 .5H2v1h1v-1z">
-            </path>
-          </svg>
+        <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
+          <div class="d-flex justify-content-center my-auto">
+            <svg viewBox="0 0 16 16" class="cardSvg">
+              <path fill-rule="evenodd"
+                d="M2 2.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5V3a.5.5 0 00-.5-.5H2zM3 3H2v1h1V3z"></path>
+              <path
+                d="M5 3.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zM5.5 7a.5.5 0 000 1h9a.5.5 0 000-1h-9zm0 4a.5.5 0 000 1h9a.5.5 0 000-1h-9z">
+              </path>
+              <path fill-rule="evenodd"
+                d="M1.5 7a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5H2zm1 .5H2v1h1v-1z">
+              </path>
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <app-selectfield [id]="'employee'" placeholder="Select Employee" (getValue)="getEmployee($event)"
-          [list]="employees"></app-selectfield>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="employees" formControlName="employees" [items]="employees"></app-multiple-select-field>
+        </div>
+        <div class="col-md-6 mb-4">
+          <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="vehicles" formControlName="vehicles" [items]="vehicles"></app-multiple-select-field>
+        </div>
       </div>
 
-      <div class="col-md-6 mb-4">
-        <app-selectfield [id]="'vehicle'" placeholder="Select Vehicle" (getValue)="getVehicle($event)"
-          [list]="vehicles"></app-selectfield>
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-simple-input-field id="scheduled_from" [required]="true" type="date" formControlName="scheduled_from" svgType="date"></app-simple-input-field>
+        </div>
 
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <app-inputfield [id]="'schedFrom'" [value]="newTask.scheduled_from ? newTask.scheduled_from : ''" (getValue)="getSchedFrom($event)" [type]="'date'"
-          [svgType]="'date'"></app-inputfield>
+        <div class="col-md-6 mb-4">
+          <app-simple-select-field id="from_shift" [required]="true" formControlName="from_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field>
+        </div>
       </div>
 
-      <div class="col-md-6 mb-4">
-        <app-selectfield [id]="'shiftFrom'" placeholder="Select Shift" (getValue)="getShiftFrom($event)"
-          [list]="[{id:0, title:'am'}, {id:1, title:'pm'}]"></app-selectfield>
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-simple-input-field id="scheduled_to" [required]="true" type="date" formControlName="scheduled_to" svgType="date"></app-simple-input-field>
+        </div>
 
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <app-inputfield [id]="'schedTo'" [value]="newTask.scheduled_to ? newTask.scheduled_to : ''" (getValue)="getSchedTo($event)" [type]="'date'"
-          [svgType]="'date'"></app-inputfield>
+        <div class="col-md-6 mb-4">
+          <app-simple-select-field id="to_shift" [required]="true" formControlName="to_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field>
+        </div>
       </div>
 
-      <div class="col-md-6 mb-4">
-        <app-selectfield [id]="'shiftTo'" placeholder="Select Shift" (getValue)="getShiftTo($event)"
-          [list]="[{id:0, title:'am'}, {id:1, title:'pm'}]"></app-selectfield>
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <app-simple-select-field [required]="true" id="task_status" formControlName="task_status" placeholder="Select Status" [items]="taskStatuses"></app-simple-select-field>
+        </div>
 
-    <div class="row">
-      <div class="col-lg-6 mb-4">
-        <app-selectfield [id]="'taskStatus'" placeholder="Select Status" class="me-auto select-field"
-          (getValue)="getTaskStatus($event)" [list]="taskstatuses"></app-selectfield>
-      </div>
-
-      <div class="col-lg-6 mb-4">
-        <div class="d-flex justify-content-center">
-          <div class="row">
-            <div class="col-md-6 mb-md-0 mb-4">
-              <app-button buttonText="Upload Picture" class="me-md-3 me-0" (OnClick)="uploadPicture()"></app-button>
-            </div>
-            <div class="col-md-6">
-              <app-button buttonText="Submit" (OnClick)="createOrEditTask()"></app-button>
+        <div class="col-lg-6 mb-4">
+          <div class="d-flex justify-content-center">
+            <div class="row">
+              <div class="col-md-6 mb-md-0 mb-4">
+                <input type="file" title="Upload Task Picture" class="me-md-3 me-0 file-upload" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
+              </div>
+              <div class="col-md-6">
+                <app-button buttonText="Submit" type="submit"></app-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

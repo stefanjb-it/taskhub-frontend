@@ -251,7 +251,6 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   uploadPicture(event: any) {
-
     const file:File = event.target.files[0];
     const formData:FormData = new FormData();
     formData.append('upload', file)
