@@ -31,6 +31,7 @@ export class MultipleSelectFieldComponent implements OnInit, ControlValueAccesso
   @Input() required: boolean = false;
   @Input() id: string = 'multiple-select-field';
   @Input() items: any[] = [];
+  @Input() conversionFunction: any = undefined;
 
   // part of the base structure for ControlValueAccessor
   selection:FormControl = new FormControl();
@@ -63,6 +64,9 @@ export class MultipleSelectFieldComponent implements OnInit, ControlValueAccesso
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
+      if (this.conversionFunction) {
+        value = this.conversionFunction(value);
+      }
       this.propagateChange(value);
     });
   }

@@ -13,11 +13,15 @@ import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
 import {ImageService} from "../../services/image.service";
 import {combineLatestWith} from "rxjs";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
+import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
+import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -30,17 +34,47 @@ export class EmployeeDetailComponent implements OnInit {
   newEmpGender : string | undefined;
   pfpLink : string | undefined;
 
+  // TK Fix
+  formGroup: FormGroup;
+
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
               public employeeGroupService: EmployeeGroupService, private router: Router,
               private imageService: ImageService) {
+    this.formGroup = new FormGroup({
+      first_name: new FormControl(''),
+      last_name: new FormControl(''),
+      address: new FormControl(null),
+      birth_date: new FormControl(null),
+      email: new FormControl(''),
+      password: new FormControl(null),
+      phone: new FormControl(null),
+      gender: new FormControl(null),
+      employee_type: new FormControl(null),
+      drivers_license_status: new FormControl(null),
+      groups: new FormControl(null)
+    });
+    this.formGroup.valueChanges.subscribe((value) => {
+      console.log(value)
+    });
   }
 
   ngOnInit(){
-
     // Route Mapping
     this.selection = this.route.snapshot.paramMap.get('id');
-    if (!this.selection) return; // TODO: go back to management on error
+    if (!this.selection){
+      this.employeeTypeService.getEmployeeTypes().subscribe(
+        res => {
+          this.employeeTypes = res
+        }
+      )
+      this.employeeGroupService.getEmployeeGroups().subscribe(
+        res => {
+          this.employeeGroups = res
+        }
+      )
+      return;
+    }
 
     this.employeeTypeService.getEmployeeTypes().pipe(
       combineLatestWith(
@@ -50,10 +84,18 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeGroupService.getEmployeeGroups()
       )
     ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
-        console.log(employeeTypes, employee, employeeGroups);
-        this.employeeTypes = employeeTypes
-        this.employeeGroups = employeeGroups
+      console.log(employeeTypes, employee, employeeGroups);
+      this.employeeTypes = employeeTypes
+      this.employeeGroups = employeeGroups
 
+      this.formGroup.patchValue(employee);
+      this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
+      this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id.toString()));
+      if (employee.has_image) {
+        this.pfpLink = "/api/users/" + this.selection + "/image"
+      }
+
+        /*
         // employee details
         this.newEmployee.first_name = employee.first_name
         this.newEmployee.last_name = employee.last_name
@@ -73,9 +115,38 @@ export class EmployeeDetailComponent implements OnInit {
       } catch {
         this.newEmpTypeTitle = '';
       }
-        this.newEmpGender = employee.gender;
+        this.newEmpGender = employee.gender;*/
       }
     )
+  }
+
+  handleSubmit() {
+    // TODO: implement
+  }
+
+  toLicenseStatus(input : string | undefined):boolean | null{
+    switch (input) {
+      case "false":
+        return false;
+      case "true":
+        return true;
+      default:
+        return null;
+    }
+  }
+
+  toNumber(input : string | undefined):number | null{
+    if (input == undefined) {
+      return null;
+    }
+    return parseInt(input);
+  }
+
+  toNumberArray(input : string[] | undefined):number[] | null{
+    if (input == undefined) {
+      return null;
+    }
+    return input.map((item) => parseInt(item));
   }
 
   getFirstName($event: string) {
@@ -108,7 +179,6 @@ export class EmployeeDetailComponent implements OnInit {
       default:
         this.newEmployee.gender = 'diverse';
         break;
-
     }
   }
 
@@ -158,6 +228,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   createOrEditEmployee() {
     if (this.selection) {
+      console.log(this.newEmployee)
       this.employeeService.changeEmployee(this.newEmployee, parseInt(this.selection)).subscribe(
         res => {
           alert('Employee updated successfully!')

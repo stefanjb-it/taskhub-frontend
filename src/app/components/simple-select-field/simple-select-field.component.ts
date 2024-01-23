@@ -30,6 +30,7 @@ export class SimpleSelectFieldComponent implements OnInit, ControlValueAccessor 
   @Input() id: string = 'simple-select-field';
   @Input() items: any[] = [];
   @Input() placeholder: string = 'Select';
+  @Input() conversionFunction: any = undefined;
   // DEPRECATED
   @Input() list: any[] = [1,2,3,4,5];
 
@@ -51,6 +52,9 @@ export class SimpleSelectFieldComponent implements OnInit, ControlValueAccessor 
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
       console.log(value)
+      if (this.conversionFunction) {
+        value = this.conversionFunction(value);
+      }
       this.propagateChange(value);
     });
   }
