@@ -16,7 +16,7 @@ export class ImageService {
     return this.http.delete("/api/users/" + id + "/image")
   }
 
-  getTaskImag(id: number) {
+  getTaskImage(id: number) {
     return this.http.get("/api/tasks/" + id + "/image")
   }
 

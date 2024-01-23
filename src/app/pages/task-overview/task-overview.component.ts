@@ -10,6 +10,7 @@ import {TaskType} from "../../models/TaskType";
 import {TaskTypeService} from "../../services/task-type.service";
 import {UserService} from "../../services/user.service";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-task-overview',
@@ -29,7 +30,8 @@ export class TaskOverviewComponent implements OnInit {
 
   filterFormControl = new FormControl('')
 
-  constructor(public taskService: TaskService, public userService: UserService, public taskTypeService: TaskTypeService) {
+  constructor(public taskService: TaskService, public userService: UserService, public taskTypeService: TaskTypeService,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -87,6 +89,15 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   deleteTask(id: number) {
+    // TODO Get amount of images
+    this.imageService.deleteTaskImage(id, 1).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
     this.taskService.deleteTask(id).subscribe(
       res => {
         alert('Task deleted successfully!');
