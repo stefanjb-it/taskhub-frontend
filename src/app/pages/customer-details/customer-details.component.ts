@@ -7,11 +7,14 @@ import {ChangeCustomer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {CustomerService} from "../../services/customer.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 
 @Component({
   selector: 'app-customer-details',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, SimpleSelectFieldComponent],
   templateUrl: './customer-details.component.html',
   styleUrl: './customer-details.component.scss'
 })
@@ -19,64 +22,53 @@ export class CustomerDetailsComponent  implements OnInit {
   newCustomer : ChangeCustomer = {}
   selection : string | undefined | null;
 
+  formGroup: FormGroup;
+
   constructor(public userService:UserService, public customerService:CustomerService,
               private route:ActivatedRoute, private router: Router) {
-
+    this.formGroup = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      address: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
+      is_company: new FormControl(null)
+    });
   }
 
   ngOnInit(){
     this.selection = this.route.snapshot.paramMap.get('id');
-    if (this.selection) {
-      this.customerService.getCustomer(parseInt(this.selection)).subscribe(customer => {
-        this.newCustomer.name = customer.name
-        this.newCustomer.address = customer.address
-        this.newCustomer.phone = customer.phone
-        this.newCustomer.is_company = customer.is_company
-      });
+
+    if(!this.selection) {
+      return;
     }
+
+    this.customerService.getCustomer(parseInt(this.selection)).subscribe(res => {
+      console.log(res);
+      this.formGroup.patchValue(res);
+    })
   }
 
-  getName($event: string) {
-    this.newCustomer.name = $event;
-  }
 
-  getAddress($event: string) {
-    this.newCustomer.address = $event;
-  }
+  handleSubmit() {
+    this.newCustomer = this.formGroup.value;
 
-  getPhone($event: string) {
-    this.newCustomer.phone = $event;
-  }
-
-  getStatus($event: string) {
-    if($event == 'Yes') {
-      this.newCustomer.is_company = true;
-    } else {
-      this.newCustomer.is_company = false;
-    }
-  }
-
-  createOrEditOrder() {
-    if (this.selection) {
+    if(this.selection) {
       this.customerService.changeCustomer(this.newCustomer, parseInt(this.selection)).subscribe(
         res => {
-          alert('Customer updated successfully!')
-          this.router.navigate(['customer-overview'])
+        this.router.navigate(['customer-overview']);
         },
         err => {
-          alert(err.header)
+          alert("Something went wrong, please check all values and try again!");
         }
       )
     } else {
       this.customerService.createCustomer(this.newCustomer).subscribe(
         res => {
-          alert('Customer created successfully!')
-          this.router.navigate(['customer-overview'])
+        this.router.navigate(['customer-overview']);
         },
-          err => {
-            alert(err.header)
-          }
-      );
+        err => {
+          alert("Something went wrong, please check all values and try again!");
+        }
+      )
     }
   }
 }

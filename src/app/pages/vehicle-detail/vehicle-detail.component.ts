@@ -10,7 +10,7 @@ import {SelectfieldComponent} from "../../components/selectfield/selectfield.com
 import {VehicleType} from "../../models/VehicleType";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {combineLatestWith} from "rxjs";
 import {error} from "@angular/compiler-cli/src/transformers/util";
@@ -37,10 +37,10 @@ export class VehicleDetailComponent implements OnInit {
   constructor(public userService:UserService, public vehicleService:VehicleService,
               public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute, private router: Router) {
     this.formGroup = new FormGroup({
-      title: new FormControl(''),
-      vehicle_type: new FormControl(''),
-      max_load_length: new FormControl(''),
-      max_load_weight: new FormControl('')
+      title: new FormControl('', [Validators.required]),
+      vehicle_type: new FormControl(null, [Validators.required]),
+      max_load_length: new FormControl('', [Validators.required]),
+      max_load_weight: new FormControl('', [Validators.required])
     });
   }
 
