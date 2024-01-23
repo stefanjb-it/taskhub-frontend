@@ -13,7 +13,7 @@ import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
 import {ImageService} from "../../services/image.service";
 import {combineLatestWith} from "rxjs";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
@@ -42,7 +42,7 @@ export class EmployeeDetailComponent implements OnInit {
               public employeeGroupService: EmployeeGroupService, private router: Router,
               private imageService: ImageService) {
     this.formGroup = new FormGroup({
-      first_name: new FormControl(''),
+      first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl(''),
       address: new FormControl(null),
       birth_date: new FormControl(null),
@@ -84,44 +84,38 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeGroupService.getEmployeeGroups()
       )
     ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
-      console.log(employeeTypes, employee, employeeGroups);
-      this.employeeTypes = employeeTypes
-      this.employeeGroups = employeeGroups
+        console.log(employeeTypes, employee, employeeGroups);
+        this.employeeTypes = employeeTypes
+        this.employeeGroups = employeeGroups
 
-      this.formGroup.patchValue(employee);
-      this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
-      this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id.toString()));
-      if (employee.has_image) {
-        this.pfpLink = "/api/users/" + this.selection + "/image"
-      }
-
-        /*
-        // employee details
-        this.newEmployee.first_name = employee.first_name
-        this.newEmployee.last_name = employee.last_name
-        this.newEmployee.address = employee.address
-        this.newEmployee.birth_date = employee.birth_date?.length ?? 0 > 10 ? employee.birth_date?.substring(0,10) : employee.birth_date ?? undefined
-        this.newEmployee.email = employee.email
-        this.newEmployee.password = employee.password
-        this.newEmployee.phone = employee.phone
-        this.newEmployee.gender = employee.gender
-        this.newEmployee.employee_type = employee.employee_type?.id ?? undefined
-        this.newEmployee.drivers_license_status = employee.drivers_license_status
+        this.formGroup.patchValue(employee);
+        this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
+        this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id.toString()));
         if (employee.has_image) {
           this.pfpLink = "/api/users/" + this.selection + "/image"
         }
-      try {
-        this.newEmpTypeTitle = this.employeeTypes.filter(type => type.id == this.newEmployee.employee_type)[0].title
-      } catch {
-        this.newEmpTypeTitle = '';
-      }
-        this.newEmpGender = employee.gender;*/
       }
     )
   }
 
   handleSubmit() {
-    // TODO: implement
+    console.log(this.formGroup.value);
+    // pre-processing for fine tuning with backend
+    let result = this.formGroup.value;
+    result.groups = result.groups.map((item: string) => parseInt(item));
+    if (result.password == '' || result.password == null) {
+      delete result.password;
+    }
+
+    this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
+      res => {
+        alert('Employee updated successfully!')
+        //this.router.navigate(['admin-overview'])
+      },
+      err => {
+        alert(err.header)
+      }
+    )
   }
 
   toLicenseStatus(input : string | undefined):boolean | null{

@@ -53,6 +53,9 @@ export class SimpleInputFieldComponent implements OnInit, ControlValueAccessor {
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
       console.log(value)
+      if (value == ''){
+        value = null;
+      }
       this.propagateChange(value);
     });
 
