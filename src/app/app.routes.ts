@@ -12,6 +12,8 @@ import {VehicleOverviewComponent} from "./pages/vehicle-overview/vehicle-overvie
 import {VehicleDetailComponent} from "./pages/vehicle-detail/vehicle-detail.component";
 import {TaskOverviewComponent} from "./pages/task-overview/task-overview.component";
 import {MultipleSelectFieldComponent} from "./components/multiple-select-field/multiple-select-field.component";
+import {SimpleSelectFieldComponent} from "./components/simple-select-field/simple-select-field.component";
+import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
 
 export const routes: Routes = [
   { path: '', component: HomeLoginComponent },
@@ -31,5 +33,5 @@ export const routes: Routes = [
   { path: 'vehicle-overview', component: VehicleOverviewComponent},
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
-  { path: 'test', component: MultipleSelectFieldComponent}
+  { path: 'test', component: SimpleSelectFieldComponent}
 ];

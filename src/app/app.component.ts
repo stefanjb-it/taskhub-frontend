@@ -23,6 +23,7 @@ import {CustomerDetailsComponent} from "./pages/customer-details/customer-detail
 import {ManagementOverviewComponent} from "./pages/management-overview/management-overview.component";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MultipleSelectFieldComponent} from "./components/multiple-select-field/multiple-select-field.component";
+import {SimpleSelectFieldComponent} from "./components/simple-select-field/simple-select-field.component";
 
 @Component({
     selector: 'app-root',
@@ -50,7 +51,8 @@ import {MultipleSelectFieldComponent} from "./components/multiple-select-field/m
     CustomerDetailsComponent,
     ManagementOverviewComponent,
     MultipleSelectFieldComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SimpleSelectFieldComponent
   ]
 })
 export class AppComponent implements OnInit{

@@ -1,0 +1,23 @@
+<!--
+Logic in Component.ts
+    this.FORM_GROUP_NAME = new FormGroup({
+      FORM_CONTROL_NAME: new FormControl(null)
+    });
+    this.FORM_GROUP_NAME.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
+    // for setting a value from parent
+    //this.formGroup.controls['simpleSelect'].patchValue(VALUE_OF_ITEM); // here as number if ID is number
+
+Structure in HTML
+    <form [formGroup]="FORM_GROUP_NAME">
+      <app-simple-select-field formControlName="FORM_CONTROL_NAME" [items]="LIST_OF_ITEMS"></app-simple-select-field>
+    </form>
+-->
+
+<div class="igroup d-flex justify-content-between">
+  <select id="{{id}}" class="select-field ms-3 me-3" [formControl]="selection">
+    <option [disabled]="true" value="null">{{placeholder}}</option>
+    <option *ngFor="let item of items" value="{{item.id}}">{{getName(item)}}</option>
+  </select>
+</div>

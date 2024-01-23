@@ -8,49 +8,36 @@ import {
   ReactiveFormsModule,
   Validators
 } from "@angular/forms";
+import {MultipleSelectFieldComponent} from "../multiple-select-field/multiple-select-field.component";
 
 @Component({
-  selector: 'app-multiple-select-field',
+  selector: 'app-simple-select-field',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './multiple-select-field.component.html',
-  styleUrl: './multiple-select-field.component.scss',
+  imports: [CommonModule, ReactiveFormsModule, MultipleSelectFieldComponent],
+  templateUrl: './simple-select-field.component.html',
+  styleUrl: './simple-select-field.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: MultipleSelectFieldComponent,
+      useExisting: SimpleSelectFieldComponent,
       multi: true
     }
   ]
 })
-export class MultipleSelectFieldComponent implements OnInit, ControlValueAccessor {
-  // deprecated
-  list: any[] = [1,2,3,4,5];
+export class SimpleSelectFieldComponent implements OnInit, ControlValueAccessor {
 
-  // modifiable input for dynamic reuse, add more @Inputs as needed
   @Input() required: boolean = false;
-  @Input() id: string = 'multiple-select-field';
+  @Input() id: string = 'simple-select-field';
   @Input() items: any[] = [];
+  @Input() placeholder: string = 'Select';
+  // DEPRECATED
+  @Input() list: any[] = [1,2,3,4,5];
 
   // part of the base structure for ControlValueAccessor
-  selection:FormControl = new FormControl();
+  selection:FormControl = new FormControl(0);
   private propagateChange: any;
 
-  // FormBuilder is used to create the formControl
   constructor(private fb:FormBuilder) {
-  }
-
-  // necessary for ControlValueAccessor
-  registerOnChange(fn: any): void {
-    this.propagateChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-  }
-
-  // responsible for actually propagating the change
-  writeValue(obj: any): void {
-    this.selection.patchValue(obj, {emitEvent: false});
   }
 
   ngOnInit(): void {
@@ -63,8 +50,21 @@ export class MultipleSelectFieldComponent implements OnInit, ControlValueAccesso
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
+      console.log(value)
       this.propagateChange(value);
     });
+  }
+
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  writeValue(obj: any): void {
+    console.log(obj);
+    this.selection.patchValue(obj, {emitEvent: false});
   }
 
   getName(item: any) {

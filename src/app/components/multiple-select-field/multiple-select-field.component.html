@@ -13,10 +13,11 @@ this.FORM_GROUP_NAME = new FormGroup({
   FORM_CONTROL_NAME: new FormControl(...),
   ...
 });
+this.formGroup.controls['multipleSelect'].patchValue(["1", "2"]); // here as string regardless of ID type
 -->
 
 <div class="igroup d-flex justify-content-between">
-  <select multiple id="multitest" class="select-field ms-3 me-3" [formControl]="selection">
-    <option *ngFor="let item of list" value="{{item}}" [selected]="false">some string</option>
+  <select multiple [id]="id" class="select-field ms-3 me-3" [formControl]="selection">
+    <option *ngFor="let item of items" value="{{item.id}}">{{getName(item)}}</option>
   </select>
 </div>
