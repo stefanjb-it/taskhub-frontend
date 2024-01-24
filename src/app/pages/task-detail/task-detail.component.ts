@@ -161,14 +161,12 @@ export class TaskDetailComponent implements OnInit {
   handleSubmit() {
     let result = this.formGroup.value;
     console.log(result);
-
     console.log(result.scheduled_from.toISOString())
 
-    result.scheduled_from = result.scheduled_from
     result.employees = result.employees.map((item: string) => parseInt(item));
     result.vehicles = result.vehicles.map((item: string) => parseInt(item));
 
-    /* if (this.selection) {
+    if (this.selection) {
       this.taskService.changeTask(parseInt(this.selection), result).subscribe(
         res => {
           alert('Task updated successfully!')
@@ -188,7 +186,6 @@ export class TaskDetailComponent implements OnInit {
           alert("There was an error updating the task, Please check your input and try again.")
         }
       );
-    }*/
-
+    }
   }
 }
