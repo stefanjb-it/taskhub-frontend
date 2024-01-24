@@ -63,8 +63,7 @@ export class VehicleDetailComponent implements OnInit {
       this.vehicleTypes = vehicleTypes;
 
       this.formGroup.patchValue(vehicle);
-      // TODO: Fix this
-      //this.formGroup.controls['vehicle_type'].setValue(vehicle.vehicle_type?.map(vehicleType => vehicleType.id.toString()));
+      this.formGroup.controls['vehicle_type'].setValue(vehicle.vehicle_type?.map(vehicleType => vehicleType.id));
     });
 
   }

@@ -24,11 +24,13 @@ import {SimpleInputFieldComponent} from "../../components/simple-input-field/sim
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {ImageService} from "../../services/image.service";
+import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
+import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, SimpleSelectFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, SimpleSelectFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent, DateInputfieldComponent],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss'
 })
@@ -42,6 +44,8 @@ export class TaskDetailComponent implements OnInit {
   taskStatuses: TaskStatus[] = [];
 
   selection : string | undefined | null;
+
+  shiftOptions = [{id:'am', title:'am'}, {id:'pm', title:'pm'}];
 
   formGroup: FormGroup;
 
@@ -121,9 +125,9 @@ export class TaskDetailComponent implements OnInit {
       this.formGroup.patchValue(task);
       this.formGroup.controls['task_type'].setValue(task.task_type?.id);
       this.formGroup.controls['task_status'].setValue(task.task_status?.id);
-      this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id.toString()));
+      this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
       this.formGroup.controls['order'].setValue(task.order?.id);
-      this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id.toString()));
+      this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
       this.formGroup.controls['scheduled_from'].setValue(task.scheduled_from.substring(0, 10));
       this.formGroup.controls['from_shift'].setValue(task.from_shift);
       this.formGroup.controls['scheduled_to'].setValue(task.scheduled_to.substring(0, 10));
@@ -157,10 +161,14 @@ export class TaskDetailComponent implements OnInit {
   handleSubmit() {
     let result = this.formGroup.value;
     console.log(result);
+
+    console.log(result.scheduled_from.toISOString())
+
+    result.scheduled_from = result.scheduled_from
     result.employees = result.employees.map((item: string) => parseInt(item));
     result.vehicles = result.vehicles.map((item: string) => parseInt(item));
 
-    if (this.selection) {
+    /* if (this.selection) {
       this.taskService.changeTask(parseInt(this.selection), result).subscribe(
         res => {
           alert('Task updated successfully!')
@@ -180,7 +188,7 @@ export class TaskDetailComponent implements OnInit {
           alert("There was an error updating the task, Please check your input and try again.")
         }
       );
-    }
+    }*/
 
   }
 }

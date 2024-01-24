@@ -27,16 +27,7 @@ export class OrderDetailComponent implements OnInit {
   selection : string | undefined | null;
   formGroup: FormGroup;
   order: Order | undefined;
-  states: any[] = [
-    {
-      id: "false",
-      name: "No"
-    },
-    {
-      id: "true",
-      name: "Yes"
-    }
-  ];
+  states: any[] = [{id: false, name: "No"}, {id: true, name: "Yes"}];
 
   constructor(public userService:UserService, public customerService:CustomerService,
               public orderService:OrderService, private route:ActivatedRoute, private router: Router) {
@@ -47,9 +38,7 @@ export class OrderDetailComponent implements OnInit {
       customer: new FormControl(null),
       is_completed: new FormControl(null)
     })
-    this.formGroup.valueChanges.subscribe((value) => {
-      //console.log(value)
-    });
+
   }
 
   ngOnInit() {
@@ -57,16 +46,7 @@ export class OrderDetailComponent implements OnInit {
     if (!this.selection) {
       this.customerService.getCustomers().subscribe((customers: Customer[]) => {
         this.customers = customers;
-        this.states = [
-          {
-            id: "false",
-            name: "No"
-          },
-          {
-            id: "true",
-            name: "Yes"
-          }
-        ]
+        this.states = [{id: false, name: "No"}, {id: true, name: "Yes"}];
       });
       this.states = [false, true]
       return;
@@ -76,7 +56,6 @@ export class OrderDetailComponent implements OnInit {
         this.customerService.getCustomers()
       )
     ).subscribe(([order, customers]) => {
-      //console.log(order, customers)
       this.order = order;
       this.customers = customers
 

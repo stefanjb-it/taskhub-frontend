@@ -17,11 +17,12 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
+import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -33,6 +34,9 @@ export class EmployeeDetailComponent implements OnInit {
   newEmpTypeTitle : string | undefined;
   newEmpGender : string | undefined;
   pfpLink : string | undefined;
+
+  licenseStatuses = [{id:false, name:'No'}, {id:true, name:'Yes'}];
+  genderList = [{id:'diverse', name:'diverse'}, {id:'female', name:'female'}, {id:'male', name:'male'}];
 
   // TK Fix
   formGroup: FormGroup;
@@ -90,7 +94,7 @@ export class EmployeeDetailComponent implements OnInit {
 
         this.formGroup.patchValue(employee);
         this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
-        this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id.toString()));
+        this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id));
         if (employee.has_image) {
           this.pfpLink = "/api/users/" + this.selection + "/image"
         }
@@ -110,7 +114,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
       res => {
         alert('Employee updated successfully!')
-        //this.router.navigate(['admin-overview'])
+        this.router.navigate(['admin-overview'])
       },
       err => {
         alert(err.header)

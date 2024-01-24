@@ -6,16 +6,19 @@
       <div class="row">
         <div class="col-md-7 mb-3 mb-md-0">
           <div class="row mt-3 mb-4">
-            <label for="title" class="ms-2 mb-1 label-text">Enter Task Title</label>
-            <app-simple-input-field [required]="true" type="text" id="title" formControlName="title" placeholder="Task Title" svgType="task"></app-simple-input-field>
+            <!-- <label for="title" class="ms-2 mb-1 label-text">Enter Task Title</label>
+            <app-simple-input-field [required]="true" type="text" id="title" formControlName="title" placeholder="Task Title" svgType="task"></app-simple-input-field> -->
+            <app-inputfield [required]="true" type="text" formControlName="title" placeholder="Task Title" labelText="Task Title" svgType="task"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <label for="task_type" class="ms-2 mb-1 label-text">Select the Task Type</label>
-            <app-simple-select-field [required]="true" id="task_type" formControlName="task_type" placeholder="Select Type" [items]="taskTypes"></app-simple-select-field>
+            <!-- <label for="task_type" class="ms-2 mb-1 label-text">Select the Task Type</label>
+            <app-simple-select-field [required]="true" id="task_type" formControlName="task_type" placeholder="Select Type" [items]="taskTypes"></app-simple-select-field> -->
+            <app-selectfield [required]="true" formControlName="task_type" placeholder="Select Type" hint="" labelText="Select Type" [items]="taskTypes"></app-selectfield>
           </div>
           <div class="row mb-4">
-            <label for="order" class="ms-2 mb-1 label-text">Assign to Order</label>
-            <app-simple-select-field [required]="true" id="order" formControlName="order" placeholder="Select Order" [items]="orders"></app-simple-select-field>
+            <!-- <label for="order" class="ms-2 mb-1 label-text">Assign to Order</label>
+            <app-simple-select-field [required]="true" id="order" formControlName="order" placeholder="Select Order" [items]="orders"></app-simple-select-field> -->
+            <app-selectfield [required]="true" formControlName="order" placeholder="Select Order" hint="" labelText="Select Order" [items]="orders"></app-selectfield>
           </div>
         </div>
         <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
@@ -33,63 +36,62 @@
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="employees" class="ms-2 mb-1 label-text">Assign Employees</label>
-            <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="employees" formControlName="employees" [items]="employees"></app-multiple-select-field>
+            <!-- <label for="employees" class="ms-2 mb-1 label-text">Assign Employees</label>
+            <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="employees" formControlName="employees" [items]="employees"></app-multiple-select-field> -->
+            <app-multi-selectfield [required]="true" formControlName="employees" labelText="Select Employee(s)" [items]="employees"></app-multi-selectfield>
           </div>
-          
         </div>
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="vehicles" class="ms-2 mb-1 label-text">Choose Vehicles</label>
-            <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="vehicles" formControlName="vehicles" [items]="vehicles"></app-multiple-select-field>
+            <!-- <label for="vehicles" class="ms-2 mb-1 label-text">Choose Vehicles</label>
+            <app-multiple-select-field [required]="true" [conversionFunction]="toNumberArray" id="vehicles" formControlName="vehicles" [items]="vehicles"></app-multiple-select-field> -->
+            <app-multi-selectfield [required]="true" formControlName="vehicles" labelText="Select Vehicle(s)" [items]="vehicles"></app-multi-selectfield>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="scheduled_from" class="ms-2 mb-1 label-text">Schedule Start Date</label>
-            <app-simple-input-field id="scheduled_from" [required]="true" type="date" formControlName="scheduled_from" svgType="date"></app-simple-input-field>
+            <!-- <label for="scheduled_from" class="ms-2 mb-1 label-text">Schedule Start Date</label>
+            <app-simple-input-field id="scheduled_from" [required]="true" type="date" formControlName="scheduled_from" svgType="date"></app-simple-input-field> -->
+            <app-date-inputfield [required]="true" type="date" formControlName="scheduled_from" labelText="Select Start Date" svgType="date"></app-date-inputfield>
           </div>
         </div>
-
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="from_shift" class="ms-2 mb-1 label-text">Select Starting Shift</label>
-            <app-simple-select-field id="from_shift" [required]="true" formControlName="from_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field>
+            <!-- <label for="from_shift" class="ms-2 mb-1 label-text">Select Starting Shift</label>
+            <app-simple-select-field id="from_shift" [required]="true" formControlName="from_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field> -->
+            <app-selectfield [required]="true" formControlName="from_shift" placeholder="Select Shift" hint="" labelText="Select Starting Shift" [items]="shiftOptions"></app-selectfield>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="scheduled_to" class="ms-2 mb-1 label-text">Schedule End Date</label>
-            <app-simple-input-field id="scheduled_to" [required]="true" type="date" formControlName="scheduled_to" svgType="date"></app-simple-input-field>
+            <!-- <label for="scheduled_to" class="ms-2 mb-1 label-text">Schedule End Date</label>
+            <app-simple-input-field id="scheduled_to" [required]="true" type="date" formControlName="scheduled_to" svgType="date"></app-simple-input-field> -->
+            <app-date-inputfield [required]="true" type="date" formControlName="scheduled_to" labelText="Select End Date" svgType="date"></app-date-inputfield>
           </div>
         </div>
-
         <div class="col-md-6 mb-4">
           <div class="row">
-            <label for="to_shift" class="ms-2 mb-1 label-text">Select Ending Shift</label>
-            <app-simple-select-field id="to_shift" [required]="true" formControlName="to_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field>
+            <!-- <label for="to_shift" class="ms-2 mb-1 label-text">Select Ending Shift</label>
+            <app-simple-select-field id="to_shift" [required]="true" formControlName="to_shift" placeholder="Select Shift" [items]="[{id:'am', title:'am'}, {id:'pm', title:'pm'}]"></app-simple-select-field> -->
+            <app-selectfield [required]="true" formControlName="to_shift" placeholder="Select Shift" hint="" labelText="Select Ending Shift" [items]="shiftOptions"></app-selectfield>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-lg-6 mb-4">
           <div class="row">
-            <label for="task_status" class="ms-2 mb-1 label-text">Set a Status</label>
-            <app-simple-select-field [required]="true" id="task_status" formControlName="task_status" placeholder="Select Status" [items]="taskStatuses"></app-simple-select-field>
-          </div> 
+            <!-- <label for="task_status" class="ms-2 mb-1 label-text">Set a Status</label>
+            <app-simple-select-field [required]="true" id="task_status" formControlName="task_status" placeholder="Select Status" [items]="taskStatuses"></app-simple-select-field> -->
+            <app-selectfield [required]="true" formControlName="task_status" placeholder="Select Status" labelText="Select Status" [items]="taskStatuses"></app-selectfield>
+          </div>
         </div>
-
         <div class="col-lg-6 mb-4 my-auto">
           <div class="d-flex justify-content-center">
             <div class="row">

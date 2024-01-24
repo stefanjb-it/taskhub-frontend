@@ -1,105 +1,85 @@
 <div class="row justify-content-center mx-auto">
   <div class="contentBox p-3 my-4">
-    <p class="title-head my-3">New Employee</p>
+    <p *ngIf="!selection" class="title-head my-4">New Employee</p>
+    <p *ngIf="selection" class="title-head my-4">Edit Employee</p>
     <form (submit)="handleSubmit()" [formGroup]="formGroup">
       <div class="row">
         <div class="col-md-7 mb-3 mb-md-0">
           <div class="row mt-3 mb-4">
-            <!--<app-inputfield [id]="'firstName'" [value]="newEmployee.first_name ? newEmployee.first_name : ''" placeholder="First Name" (getValue)="getFirstName($event)" [type]="'text'" [svgType]="'default'"></app-inputfield>
-            -->
-            <app-simple-input-field [required]="true" id="first_name" formControlName="first_name" placeholder="First Name"></app-simple-input-field>
+            <!-- <app-simple-input-field [required]="true" id="first_name" formControlName="first_name" placeholder="First Name"></app-simple-input-field> -->
+            <app-inputfield svgIconName="name" formControlName="first_name" labelText="First Name" placeholder="First Name" type="text" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<app-inputfield [id]="'lastName'" [value]="newEmployee.last_name ? newEmployee.last_name : ''" placeholder="Last Name" (getValue)="getLastName($event)" [type]="'text'"
-              [svgType]="'default'"></app-inputfield>-->
-            <app-simple-input-field [required]="true" id="last_name" formControlName="last_name" placeholder="Last Name"></app-simple-input-field>
+            <!-- <app-simple-input-field [required]="true" id="last_name" formControlName="last_name" placeholder="Last Name"></app-simple-input-field> -->
+            <app-inputfield svgIconName="name" formControlName="last_name" labelText="Last Name" placeholder="Last Name" type="text" [required]="true"></app-inputfield>
+           </div>
+           <div class="row mb-4">
+             <!--  <app-simple-input-field id="address" formControlName="address" placeholder="Address" svgType="address"></app-simple-input-field> -->
+            <app-inputfield svgIconName="address" formControlName="address" labelText="Address" placeholder="Address" type="text" [required]="false"></app-inputfield>
+           </div>
           </div>
-          <div class="row mb-4">
-            <!--<app-inputfield [id]="'address'" [value]="newEmployee.address ? newEmployee.address : ''" placeholder="Address" (getValue)="getAddress($event)" [type]="'text'"
-              [svgType]="'address'"></app-inputfield>-->
-            <app-simple-input-field id="address" formControlName="address" placeholder="Address" svgType="address"></app-simple-input-field>
+          <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
+            <div class="d-flex justify-content-center my-auto">
+              <svg viewBox="0 0 512 512" class="cardSvg" *ngIf="!pfpLink">
+                <path
+                  d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
+                </path>
+              </svg>
+              <img class="cardSvg" src={{pfpLink}} *ngIf="pfpLink">
+            </div>
           </div>
         </div>
-        <div class="col-md-5 mb-3 mb-md-0 d-flex justify-content-center">
-          <div class="d-flex justify-content-center my-auto">
-            <svg viewBox="0 0 512 512" class="cardSvg" *ngIf="!pfpLink">
-              <path
-                d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
-              </path>
-            </svg>
-            <img class="cardSvg" src={{pfpLink}} *ngIf="pfpLink">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <!--<app-inputfield [id]="'birthdate'" [value]="newEmployee.birth_date ? newEmployee.birth_date : ''" (getValue)="getBDate($event)" [type]="'date'" [svgType]="'default'"></app-inputfield>
-          -->
-          <app-simple-input-field id="birth_date" formControlName="birth_date" placeholder="First Name" type="date"></app-simple-input-field>
-        </div>
-
-        <div class="col-md-6 mb-4">
-          <!--<app-inputfield [id]="'email'" [value]="newEmployee.email ? newEmployee.email : ''" placeholder="Email" (getValue)="getEmail($event)" [type]="'text'" [svgType]="'email'"></app-inputfield>
-          -->
-          <app-simple-input-field [required]="true" id="email" formControlName="email" placeholder="Email Address" svgType="email"></app-simple-input-field>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <!--<app-inputfield [id]="'password'" [value]="newEmployee.password ? newEmployee.password : ''" placeholder="Password" (getValue)="getPassword($event)" [type]="'password'" [svgType]="'password'"></app-inputfield>
-          -->
-          <app-simple-input-field [required]="false" id="password" formControlName="password" placeholder="* * * * * * * * *" svgType="password" type="password"></app-simple-input-field>
-        </div>
-
-        <div class="col-md-6 mb-4">
-          <!--<app-inputfield [id]="'phone'" [value]="newEmployee.phone ? newEmployee.phone : ''" placeholder="Phone Number" (getValue)="getPhone($event)" [type]="'text'" [svgType]="'text'"></app-inputfield>
-          -->
-          <app-simple-input-field [required]="false" id="phone" formControlName="phone" placeholder="Phone Number" svgType="default" type="number"></app-simple-input-field>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <!--<app-selectfield [id]="'genderBender'" [currentItem]="newEmpGender" placeholder="Select Gender" (getValue)="getGender($event)" [list]="[{id:0, name:'diverse'}, {id:1, name:'female'}, {id:2, name:'male'}]"></app-selectfield>
-          -->
-          <app-simple-select-field id="gender" formControlName="gender" placeholder="Gender" [items]="[{id:'diverse', name:'diverse'}, {id:'female', name:'female'}, {id:'male', name:'male'}]"></app-simple-select-field>
-        </div>
-
-        <div class="col-md-6 mb-4">
-          <!--<app-selectfield [id]="'empType'" [currentItem]="newEmpTypeTitle" placeholder="Select Type" (getValue)="getEmployeeType($event)" [list]="employeeTypes"></app-selectfield>
-          -->
-          <app-simple-select-field [conversionFunction]="toNumber" id="employeeType" formControlName="employee_type" placeholder="Employee Type" [items]="employeeTypes"></app-simple-select-field>
-        </div>
-      </div>
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <!--<app-selectfield [id]="'license'" placeholder="Drivers License" class="me-auto select-field" (getValue)="getLicense($event)" [list]="[{id:0, name:'No'}, {id:1, name:'Yes'}]"></app-selectfield>
-        -->
-        <app-simple-select-field [conversionFunction]="toLicenseStatus" id="license" formControlName="drivers_license_status" placeholder="Driver's License Status" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-simple-select-field>
-      </div>
-
-      <div class="col-md-6 mb-4">
-        <!--<app-selectfield [id]="'group'" placeholder="Group Type" class="me-auto select-field" (getValue)="getEmployeeGroup($event)" [list]="employeeGroups"></app-selectfield>
-        -->
-        <app-multiple-select-field [conversionFunction]="toNumberArray" id="groups" formControlName="groups" [items]="employeeGroups"></app-multiple-select-field>
-
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <div class="d-flex justify-content-center">
         <div class="row">
-          <div class="col-md-6 mb-md-0 mb-4">
-            <input type="file" title="Upload Profile Picture" class="me-md-3 me-0 file-upload" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-input-field id="birth_date" formControlName="birth_date" placeholder="First Name" type="date"></app-simple-input-field> -->
+            <app-inputfield svgIconName="date" formControlName="birth_date" labelText="Birth Date" placeholder="Birth Date" type="date" [required]="false"></app-inputfield>
           </div>
-          <div class="col-md-6 m-auto">
-            <app-button buttonText="Submit"  type="submit"></app-button>
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-input-field [required]="true" id="email" formControlName="email" placeholder="Email Address" svgType="email"></app-simple-input-field> -->
+            <app-inputfield svgIconName="email" formControlName="email" labelText="Email Address" placeholder="Email Address" type="email" [required]="true"></app-inputfield>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-input-field [required]="false" id="password" formControlName="password" placeholder="* * * * * * * * *" svgType="password" type="password"></app-simple-input-field> -->
+            <app-inputfield svgIconName="password" formControlName="password" labelText="Password" placeholder="* * * * * * * * *" type="password" [required]="false"></app-inputfield>
+          </div>
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-input-field [required]="false" id="phone" formControlName="phone" placeholder="Phone Number" svgType="default" type="number"></app-simple-input-field> -->
+            <app-inputfield svgIconName="phone" formControlName="phone" labelText="Phone Number" placeholder="Phone Number" type="number" [required]="false"></app-inputfield>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-select-field id="gender" formControlName="gender" placeholder="Gender" [items]="[{id:'diverse', name:'diverse'}, {id:'female', name:'female'}, {id:'male', name:'male'}]"></app-simple-select-field> -->
+            <app-selectfield [required]="false" hint="not mandatory" formControlName="gender" labelText="Select your Gender" [items]="genderList"></app-selectfield>
+          </div>
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-select-field [conversionFunction]="toNumber" id="employeeType" formControlName="employee_type" placeholder="Employee Type" [items]="employeeTypes"></app-simple-select-field> -->
+            <app-selectfield [required]="true" hint="mandatory" formControlName="employee_type" labelText="Select your Employee Type" [items]="employeeTypes"></app-selectfield>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <!-- <app-simple-select-field [conversionFunction]="toLicenseStatus" id="license" formControlName="drivers_license_status" placeholder="Driver's License Status" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-simple-select-field> -->
+            <app-selectfield [required]="false" hint="not mandatory" formControlName="drivers_license_status" labelText="Do you have a Driver's License?" [items]="licenseStatuses"></app-selectfield>
+          </div>
+          <div class="col-md-6 mb-4">
+            <!-- <app-multiple-select-field [conversionFunction]="toNumberArray" id="groups" formControlName="groups" [items]="employeeGroups"></app-multiple-select-field> -->
+            <app-multi-selectfield [required]="false" [items]="employeeGroups" formControlName="groups"></app-multi-selectfield>
+          </div>
+        </div><div class="row mb-3">
+        <div class="d-flex justify-content-center">
+          <div class="row">
+            <div class="col-md-6 mb-md-0 mb-4">
+              <input type="file" title="Upload Profile Picture" class="me-md-3 me-0 file-upload" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
+            </div>
+            <div class="col-md-6 m-auto">
+              <app-button buttonText="Submit"  type="submit"></app-button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </form>
-  </div>
-</div>
+   </div>
+ </div>

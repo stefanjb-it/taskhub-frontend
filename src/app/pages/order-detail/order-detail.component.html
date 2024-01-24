@@ -6,32 +6,37 @@
       <div class="row">
         <div class="col-md-8 mb-4 mb-md-0">
           <div class="row mt-2 mb-4">
-            <!--<app-inputfield [id]="'orderNr'" [value]="newOrder.order_nr ? newOrder.order_nr.toString() : ''" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'"
-                            [svgType]="'default'"></app-inputfield>-->
-            <label for="order_nr" class="ms-2 mb-1 label-text">Set Order ID</label>
-            <app-simple-input-field [required]="true" id="order_nr" formControlName="order_nr" placeholder="Order Number"></app-simple-input-field>
+            <!-- <app-inputfield [id]="'orderNr'" [value]="newOrder.order_nr ? newOrder.order_nr.toString() : ''" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'"
+                            [svgType]="'default'"></app-inputfield> -->
+            <!-- <label for="order_nr" class="ms-2 mb-1 label-text">Set Order ID</label>
+            <app-simple-input-field [required]="true" id="order_nr" formControlName="order_nr" placeholder="Order Number"></app-simple-input-field> -->
+            <app-inputfield hint="Please enter an Order Number." svgIconName="default" formControlName="order_nr" labelText="Order Number" placeholder="12345" type="number" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<app-inputfield [id]="'title'" [value]="newOrder.title ? newOrder.title : ''" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'"
+            <!-- <app-inputfield [id]="'title'" [value]="newOrder.title ? newOrder.title : ''" placeholder="Order Title" (getValue)="getTitle($event)" [type]="'text'"
               [svgType]="'default'"></app-inputfield>-->
-            <label for="title" class="ms-2 mb-1 label-text">Enter Title</label>
-            <app-simple-input-field [required]="true" id="title" formControlName="title" placeholder="Order Title"></app-simple-input-field>
+            <!-- <label for="title" class="ms-2 mb-1 label-text">Enter Title</label>
+            <app-simple-input-field [required]="true" id="title" formControlName="title" placeholder="Order Title"></app-simple-input-field> -->
+            <app-inputfield hint="Please enter an Order Title." svgIconName="default" formControlName="title" labelText="Order Title" placeholder="Order Title" type="text" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
             <!--<app-selectfield [id]="'customer'" placeholder="Select Customer" (getValue)="getCustomer($event)"
               [list]="customers"></app-selectfield>-->
-            <label for="customer" class="ms-2 mb-1 label-text">Select Customer</label>
-            <app-simple-select-field id="customer" formControlName="customer" placeholder="Customer" [items]="customers"></app-simple-select-field>
+            <!-- <label for="customer" class="ms-2 mb-1 label-text">Select Customer</label>
+            <app-simple-select-field id="customer" formControlName="customer" placeholder="Customer" [items]="customers"></app-simple-select-field> -->
+            <app-selectfield [required]="true" hint="" formControlName="customer" labelText="Select a Customer" [items]="customers"></app-selectfield>
           </div>
           <div class="row mb-4">
             <!--<app-inputfield [id]="'date'"  [value]="newOrder.order_date ? newOrder.order_date : ''"  placeholder="Address" (getValue)="getDate($event)" [type]="'date'"
               [svgType]="'date'"></app-inputfield>-->
-            <label for="order_date" class="ms-2 mb-1 label-text">Schedule Order Date</label>
-            <app-simple-input-field id="order_date" formControlName="order_date" placeholder="Order Date" [type]="'date'" [svgType]="'date'"></app-simple-input-field>
+            <!-- <label for="order_date" class="ms-2 mb-1 label-text">Schedule Order Date</label>
+            <app-simple-input-field id="order_date" formControlName="order_date" placeholder="Order Date" [type]="'date'" [svgType]="'date'"></app-simple-input-field>-->
+            <app-inputfield hint="Please enter an Order Date." svgIconName="date" formControlName="order_date" labelText="Order Date" placeholder="Order Date" type="date" [required]="false"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <label for="is_completed" class="ms-2 mb-1 label-text">Is the Order already completed?</label>
-            <app-simple-select-field id="is_completed" formControlName="is_completed" placeholder="Status" [items]="states"></app-simple-select-field>
+            <!-- <label for="is_completed" class="ms-2 mb-1 label-text">Is the Order already completed?</label>
+            <app-simple-select-field id="is_completed" formControlName="is_completed" placeholder="Status" [items]="states"></app-simple-select-field> -->
+            <app-selectfield [required]="false" hint="" formControlName="is_completed" labelText="Is the Order already completed?" [items]="states"></app-selectfield>
           </div>
         </div>
         <div class="col-md-4 my-auto">
