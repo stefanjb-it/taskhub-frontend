@@ -3,8 +3,15 @@
 .contentBox {
   background-color: $backgroundColor;
   border-radius: 50px;
-  width: 80%;
+  width: 85%;
 }
+
+@media (max-width: 992) {
+  .contentBox {
+    width: 95%;
+  }
+}
+
 
 .checkText {
   font-size: 20px;

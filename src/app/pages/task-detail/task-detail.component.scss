@@ -3,7 +3,13 @@
 .contentBox{
   background-color: $backgroundColor;
   border-radius: 50px;
-  width: 80%;
+  width: 85%;
+}
+
+@media (max-width: 992px) {
+  .contentBox{
+    width: 95%;
+  }
 }
 
 .checkText{

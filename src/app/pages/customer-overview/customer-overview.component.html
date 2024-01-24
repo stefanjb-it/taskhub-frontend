@@ -1,5 +1,5 @@
 <div class="row justify-content-center mx-auto">
-  <div class="contentBox p-3 my-4">
+  <div class="contentBox p-4 my-4">
     <div class="row my-1">
       <div class="col-md-2 d-flex align-items-center justify-content-center mb-2 mb-md-0">
         <svg viewBox="0 0 576 512" class="headerSvg">
@@ -19,28 +19,28 @@
       </div>
     </div>
   </div>
-  <div *ngIf="filteredCustomers.length" class="contentBox">
-    <ul class="list-group m-4">
+  <div *ngIf="filteredCustomers.length" class="contentBox mb-4">
+    <ul class="list-group m-3 m-md-4">
       <li *ngFor="let customer of filteredCustomers" class="list-group-item">
         <div class="row">
-          <div class="col-2 col-sm-1 fac-list-item">
-            <svg viewBox="0 0 576 512" class="fac-image">
+          <div class="col-2 fac-list-item">
+            <svg viewBox="0 0 576 512" class="fac-image icon-image">
               <path
                 d="M24 0C10.7 0 0 10.7 0 24s10.7 24 24 24h52.1l60.3 316.5c2.2 11.3 12.1 19.5 23.6 19.5h328c13.3 0 24-10.7 24-24s-10.7-24-24-24H179.9l-9.1-48h317c14.3 0 26.9-9.5 30.8-23.3l54-192C578.3 52.3 563 32 541.8 32H122l-2.4-12.5C117.4 8.2 107.5 0 96 0H24zm152 512c26.5 0 48-21.5 48-48s-21.5-48-48-48-48 21.5-48 48 21.5 48 48 48zm336-48c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48z">
               </path>
             </svg>
           </div>
-          <div class="col-4 my-auto" style="word-wrap:break-word;">
+          <div class="col-10 col-sm-4 my-auto" style="word-wrap:break-word;">
             <a class="my-auto text-white" [routerLink]="'/edit-customer/' + customer.id">{{customer.name}}</a>
           </div>
-          <div class="col-4 col-sm-5 my-auto">
+          <div class="col-8 col-sm-4 my-auto">
             <p *ngIf="customer.is_company" class="my-auto text-white">Company</p>
             <p *ngIf="!customer.is_company" class="my-auto text-white">Individual Customer</p>
           </div>
-          <div class="col-2 fac-list-item d-flex justify-content-around justify-content-sm-evenly px-0">
+          <div class="col-4 col-sm-2 fac-list-item d-flex justify-content-around justify-content-sm-evenly px-0">
             <!-- EDIT BUTTON TODO: add *ngIf="userService.hasGroup()"-->
             <a [routerLink]="'/edit-customer/' + customer.id">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon icon-edit">
                 <path
                   d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z" />
               </svg>
@@ -48,7 +48,7 @@
             <!-- DELETE BUTTON TODO: add *ngIf="userService.hasGroup()" -->
             <button (click)="deleteCustomer(customer.id)" type="submit"
               style="background: transparent; border: none !important;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon icon-delete">
                 <path
                   d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
               </svg>

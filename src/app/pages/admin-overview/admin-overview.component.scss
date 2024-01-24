@@ -27,7 +27,7 @@ a, p{
 .contentBox{
     background-color: $backgroundColor;
     border-radius: 50px;
-    width: 80%;
+    width: 85%;
 }
 
 @media (max-width: 992px) {
@@ -89,4 +89,19 @@ a, p{
 .fac-icon{
   fill: $textWhite;
   height: 1.5em;
+}
+
+.icon-edit{
+  width: 27px !important;
+  height: 27px !important;
+}
+
+.icon-delete{
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.icon-image{
+  width: 40px !important;
+  height: 40px !important;
 }

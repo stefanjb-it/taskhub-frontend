@@ -1,10 +1,10 @@
 <div class="row justify-content-center mx-auto">
-  <div class="contentBox p-3 my-4">
+  <div class="contentBox p-4 my-4">
     <p *ngIf="!selection" class="title-head my-3">New Order</p>
     <p *ngIf="selection" class="title-head my-3">Change Order</p>
     <form (submit)="handleSubmit()" [formGroup]="formGroup">
       <div class="row">
-        <div class="col-md-8 mb-4 mb-md-0">
+        <div class="col-md-8">
           <div class="row mt-2 mb-4">
             <!-- <app-inputfield [id]="'orderNr'" [value]="newOrder.order_nr ? newOrder.order_nr.toString() : ''" placeholder="Order Nr." (getValue)="getOrderNumber($event)" [type]="'number'"
                             [svgType]="'default'"></app-inputfield> -->
@@ -33,14 +33,14 @@
             <app-simple-input-field id="order_date" formControlName="order_date" placeholder="Order Date" [type]="'date'" [svgType]="'date'"></app-simple-input-field>-->
             <app-inputfield hint="Please enter an Order Date." svgIconName="date" formControlName="order_date" labelText="Order Date" placeholder="Order Date" type="date" [required]="false"></app-inputfield>
           </div>
-          <div class="row mb-4">
+          <div class="row mb-3">
             <!-- <label for="is_completed" class="ms-2 mb-1 label-text">Is the Order already completed?</label>
             <app-simple-select-field id="is_completed" formControlName="is_completed" placeholder="Status" [items]="states"></app-simple-select-field> -->
             <app-selectfield [required]="false" hint="" formControlName="is_completed" labelText="Is the Order already completed?" [items]="states"></app-selectfield>
           </div>
         </div>
         <div class="col-md-4 my-auto">
-          <div class="row d-flex justify-content-center mb-4 mb-md-5">
+          <div class="row d-flex justify-content-center mb-4">
             <svg viewBox="0 0 16 16" class="cardSvg">
               <path
                 d="M14.5 3a.5.5 0 01.5.5v9a.5.5 0 01-.5.5h-13a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h13zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z">
