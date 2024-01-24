@@ -9,6 +9,9 @@ import {CustomerService} from "../../services/customer.service";
 import {Employee} from "../../models/Employee";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
+// SNACKBAR
+// https://material.angular.io/components/snack-bar/examples
+
 @Component({
   selector: 'app-customer-overview',
   standalone: true,
@@ -47,7 +50,10 @@ export class CustomerOverviewComponent implements OnInit {
           alert('customer deleted successfully!');
           this.filteredCustomers = this.filteredCustomers.filter(customer => customer.id != id)
         },
-        err => alert('Error occured!')
+        err => {
+          console.log(err);
+          alert('Please make sure that no orders are assigned to this customer.');
+        }
     );
   }
 }

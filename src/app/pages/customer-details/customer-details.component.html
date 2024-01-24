@@ -6,63 +6,15 @@
       <div class="row">
         <div class="col-md-8 mb-4 mb-md-0">
           <div class="row mt-2 mb-4">
-            <!--<label for="name" class="ms-2 mb-1 label-text">Enter Name</label>
-            <app-simple-input-field [required]="true" id="name" type="text" formControlName="name"
-              placeholder="Enter Name" svgType="default"></app-simple-input-field>-->
-            <!--<mat-form-field appearance="outline">
-              <mat-label>Name</mat-label>
-              <input matInput placeholder="Placeholder" formControlName="name">
-              <mat-icon matSuffix svgIcon="thumbs-up"></mat-icon>
-              <mat-hint>Name of the customer</mat-hint>
-              @if (formGroup.controls['name'].hasError('required')){
-                <mat-error>Name is required</mat-error>
-              }
-            </mat-form-field>-->
             <app-inputfield svgIconName="name" style="width: 100%" formControlName="name" [labelText]="'Name'" [placeholder]="'Name'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="address" class="ms-2 mb-1 label-text">Add Address</label>
-            <app-simple-input-field [required]="true" id="address" type="text" formControlName="address"
-              placeholder="Add Address" svgType="address"></app-simple-input-field>-->
-            <!--<mat-form-field appearance="outline">
-              <mat-label>Address</mat-label>
-              <input matInput placeholder="Placeholder" formControlName="address">
-              <mat-icon matSuffix svgIcon="thumbs-up"></mat-icon>
-              <mat-hint>Address</mat-hint>
-              @if (formGroup.controls['address'].hasError('required')){
-                <mat-error>Address is required</mat-error>
-              }
-            </mat-form-field>-->
             <app-inputfield svgIconName="address" formControlName="address" [labelText]="'Address'" [placeholder]="'Enter address'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="phone" class="ms-2 mb-1 label-text">Add Phone Number</label>
-            <app-simple-input-field [required]="true" id="phone" type="number" formControlName="phone"
-              placeholder="Phone Number" svgType="phone"></app-simple-input-field>-->
-            <!--<mat-form-field appearance="outline">
-              <mat-label>Phone Number</mat-label>
-              <input matInput placeholder="Placeholder" formControlName="phone" type="text">
-              <mat-icon matSuffix svgIcon="thumbs-up"></mat-icon>
-              <mat-hint>Phone</mat-hint>
-              @if (formGroup.controls['address'].hasError('required')){
-                <mat-error>Phone number is required</mat-error>
-              }
-            </mat-form-field>-->
             <app-inputfield svgIconName="phone" formControlName="phone" [labelText]="'Phone number'" [placeholder]="'000-000-000'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="is_company" class="ms-2 mb-1 label-text">Is the customer a company?</label>
-            <app-simple-select-field class="select-field" id="is_company" formControlName="is_company"
-              placeholder="Is Company?" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-simple-select-field>-->
-            <!--<mat-form-field>
-              <mat-label>Select me du hund</mat-label>
-              <mat-select formControlName="is_company">
-                <mat-option value="null">Kein Eintrag</mat-option>
-                <mat-option value="false">Nein</mat-option>
-                <mat-option value="true">Ja</mat-option>
-              </mat-select>
-              <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
-            </mat-form-field>-->
             <app-selectfield [required]="false" hint="not mandatory" formControlName="is_company" [labelText]="'Is the customer a company?'" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-selectfield>
           </div>
         </div>
@@ -77,12 +29,6 @@
           <div class="row mb-3">
             <app-button buttonText="Submit" type="submit" class="align-items-end" [isDisabled]="!formGroup.valid"></app-button>
           </div>
-          <!--<mat-card-actions align="start">
-            <button mat-raised-button color="primary" [disabled]="!formGroup.valid">
-              <span *ngIf="!selection">Create</span>
-              <span *ngIf="selection">Update</span>
-            </button>
-          </mat-card-actions>-->
         </div>
       </div>
     </form>

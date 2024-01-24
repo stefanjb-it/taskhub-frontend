@@ -6,28 +6,16 @@
       <div class="row">
         <div class="col-md-8 mb-3 mb-md-0">
           <div class="row mt-2 mb-4">
-            <!--<label for="name" class="ms-2 mb-1 label-text">Enter Vehicle Name</label>
-            <app-simple-input-field [required]="true" id="name" type="text" formControlName="title" svgType="vehiclename" placeholder="Vehicle Name"></app-simple-input-field>
-            -->
             <app-inputfield hint="Please enter a name." svgIconName="default" formControlName="title" [labelText]="'Vehicle Name'" [placeholder]="'Vehicle Name'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="type" class="ms-2 mb-1 label-text">Select Vehicle Types</label>
-            <app-multiple-select-field [required]="true" id="type" formControlName="vehicle_type" [items]="vehicleTypes"></app-multiple-select-field>
-            -->
-            <app-multi-selectfield [required]="false" [items]="vehicleTypes" formControlName="vehicle_type"></app-multi-selectfield>
+            <app-multi-selectfield labelText="Vehicle Information" [required]="true" [items]="vehicleTypes" formControlName="vehicle_type"></app-multi-selectfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="max_load_length" class="ms-2 mb-1 label-text">Set Max Load Length</label>
-            <app-simple-input-field [required]="true" id="maxLoadLength" type="number" formControlName="max_load_length" svgType="length" placeholder="Maximum Load Length"></app-simple-input-field>
-            -->
-            <app-inputfield hint="Please set the max. load length." svgIconName="length" formControlName="max_load_length" [labelText]="'max length'" [placeholder]="'Length'" [type]="'number'" [required]="true"></app-inputfield>
+            <app-inputfield hint="Please set the max. load length" svgIconName="length" formControlName="max_load_length" labelText="max length" [placeholder]="'Length'" [type]="'number'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <!--<label for="order_nr" class="ms-2 mb-1 label-text">Set Max Load Length</label>
-            <app-simple-input-field [required]="true" id="maxLoadWeight" type="number" formControlName="max_load_weight" svgType="weight" placeholder="Maximum Load Weight"></app-simple-input-field>
-            -->
-            <app-inputfield hint="Please set the max. load weight." svgIconName="weight" formControlName="max_load_weight" [labelText]="'max weight'" [placeholder]="'Weight (kg)'" [type]="'number'" [required]="true"></app-inputfield>
+            <app-inputfield hint="Please set the max. load weight" svgIconName="weight" formControlName="max_load_weight" labelText="max weight" [placeholder]="'Weight (kg)'" [type]="'number'" [required]="true"></app-inputfield>
           </div>
         </div>
         <div class="col-md-4 my-auto">
@@ -35,16 +23,10 @@
             <img src="assets/svg/Truck_white.svg" class="detail-image">
           </div>
           <div class="row mb-4">
-            <app-button class="d-flex justify-content-center" buttonText="Submit" type="submit"></app-button>
+            <app-button [isDisabled]="!formGroup.valid" class="d-flex justify-content-center" buttonText="Submit" type="submit"></app-button>
           </div>
         </div>
       </div>
-      <!-- <div class="row mb-4 my-auto">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-          <app-button class="d-flex justify-content-center" buttonText="Submit" type="submit"></app-button>
-        </div>
-      </div> -->
     </form>
   </div>
 </div>

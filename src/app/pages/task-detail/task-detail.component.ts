@@ -128,10 +128,6 @@ export class TaskDetailComponent implements OnInit {
       this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
       this.formGroup.controls['order'].setValue(task.order?.id);
       this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
-      this.formGroup.controls['scheduled_from'].setValue(task.scheduled_from.substring(0, 10));
-      this.formGroup.controls['from_shift'].setValue(task.from_shift);
-      this.formGroup.controls['scheduled_to'].setValue(task.scheduled_to.substring(0, 10));
-      this.formGroup.controls['to_shift'].setValue(task.to_shift);
       }
     )
   }
@@ -160,8 +156,6 @@ export class TaskDetailComponent implements OnInit {
 
   handleSubmit() {
     let result = this.formGroup.value;
-    console.log(result);
-    console.log(result.scheduled_from.toISOString())
 
     result.employees = result.employees.map((item: string) => parseInt(item));
     result.vehicles = result.vehicles.map((item: string) => parseInt(item));

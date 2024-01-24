@@ -89,7 +89,7 @@
           <div class="row">
             <!-- <label for="task_status" class="ms-2 mb-1 label-text">Set a Status</label>
             <app-simple-select-field [required]="true" id="task_status" formControlName="task_status" placeholder="Select Status" [items]="taskStatuses"></app-simple-select-field> -->
-            <app-selectfield [required]="true" formControlName="task_status" placeholder="Select Status" labelText="Select Status" [items]="taskStatuses"></app-selectfield>
+            <app-selectfield [required]="true" hint="" formControlName="task_status" placeholder="Select Status" labelText="Select Status" [items]="taskStatuses"></app-selectfield>
           </div>
         </div>
         <div class="col-lg-6 mb-4 my-auto">
@@ -99,7 +99,7 @@
                 <input type="file" title="Upload Task Picture" class="me-md-3 me-0 file-upload" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
               </div>
               <div class="col-md-6">
-                <app-button buttonText="Submit" type="submit"></app-button>
+                <app-button [isDisabled]="!formGroup.valid" buttonText="Submit" type="submit"></app-button>
               </div>
             </div>
           </div>

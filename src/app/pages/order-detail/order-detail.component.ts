@@ -13,11 +13,12 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {combineLatestWith} from "rxjs";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
+import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, DateInputfieldComponent],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })
@@ -58,10 +59,11 @@ export class OrderDetailComponent implements OnInit {
     ).subscribe(([order, customers]) => {
       this.order = order;
       this.customers = customers
+      console.log('date from backend: ' + order.order_date);
 
       this.formGroup.patchValue(order)
       this.formGroup.controls['customer'].setValue(order.customer?.id)
-      this.formGroup.controls['is_completed'].setValue(order.is_completed)
+      //this.formGroup.controls['is_completed'].setValue(order.is_completed)
     })
   }
 
@@ -74,6 +76,9 @@ export class OrderDetailComponent implements OnInit {
 
   handleSubmit() {
     this.newOrder = this.formGroup.value;
+    if (!this.newOrder.order_date){
+      this.newOrder.order_date = new Date().toISOString();
+    }
     if (this.selection) {
       this.orderService.changeOrder(parseInt(this.selection), this.newOrder).subscribe(
         res => {

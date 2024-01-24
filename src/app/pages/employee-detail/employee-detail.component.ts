@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {UserService} from "../../services/user.service";
@@ -18,11 +18,12 @@ import {SimpleInputFieldComponent} from "../../components/simple-input-field/sim
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
+import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent, NgOptimizedImage, DateInputfieldComponent],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -111,7 +112,29 @@ export class EmployeeDetailComponent implements OnInit {
       delete result.password;
     }
 
-    this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
+    if (this.selection) {
+      this.employeeService.changeEmployee(result, parseInt(this.selection)).subscribe(
+        res => {
+          alert('Employee updated successfully!')
+          this.router.navigate(['admin-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      )
+    } else {
+      this.employeeService.createEmployee(result).subscribe(
+        res => {
+          alert('Employee created successfully!')
+          this.router.navigate(['admin-overview'])
+        },
+        err => {
+          alert(err.header)
+        }
+      )
+    }
+
+    /*this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
       res => {
         alert('Employee updated successfully!')
         this.router.navigate(['admin-overview'])
@@ -119,7 +142,7 @@ export class EmployeeDetailComponent implements OnInit {
       err => {
         alert(err.header)
       }
-    )
+    )*/
   }
 
   toLicenseStatus(input : string | undefined):boolean | null{
