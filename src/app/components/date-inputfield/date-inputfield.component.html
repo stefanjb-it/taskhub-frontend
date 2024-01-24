@@ -1,0 +1,11 @@
+<mat-form-field style="width: 100%">
+  <mat-label>{{labelText}}</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="selection">
+  <mat-hint>{{hint}}</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  @if (selection.hasError('required')){
+    <mat-error>{{errorText}}</mat-error>
+  }
+</mat-form-field>
+
