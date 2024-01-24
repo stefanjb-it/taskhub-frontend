@@ -18,7 +18,7 @@
                 <mat-error>Name is required</mat-error>
               }
             </mat-form-field>-->
-            <app-inputfield style="width: 100%" formControlName="name" [labelText]="'Name'" [placeholder]="'Name'" [type]="'text'" [required]="true"></app-inputfield>
+            <app-inputfield svgIconName="name" style="width: 100%" formControlName="name" [labelText]="'Name'" [placeholder]="'Name'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
             <!--<label for="address" class="ms-2 mb-1 label-text">Add Address</label>
@@ -33,7 +33,7 @@
                 <mat-error>Address is required</mat-error>
               }
             </mat-form-field>-->
-            <app-inputfield formControlName="address" [labelText]="'Address'" [placeholder]="'Enter address'" [type]="'text'" [required]="true"></app-inputfield>
+            <app-inputfield svgIconName="address" formControlName="address" [labelText]="'Address'" [placeholder]="'Enter address'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
             <!--<label for="phone" class="ms-2 mb-1 label-text">Add Phone Number</label>
@@ -48,7 +48,7 @@
                 <mat-error>Phone number is required</mat-error>
               }
             </mat-form-field>-->
-            <app-inputfield formControlName="phone" [labelText]="'Phone number'" [placeholder]="'000-000-000'" [type]="'text'" [required]="true"></app-inputfield>
+            <app-inputfield svgIconName="phone" formControlName="phone" [labelText]="'Phone number'" [placeholder]="'000-000-000'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
             <!--<label for="is_company" class="ms-2 mb-1 label-text">Is the customer a company?</label>
@@ -63,7 +63,7 @@
               </mat-select>
               <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
             </mat-form-field>-->
-            <app-selectfield hint="not mandatory" formControlName="is_company" [labelText]="'Is the customer a company?'" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-selectfield>
+            <app-selectfield [required]="false" hint="not mandatory" formControlName="is_company" [labelText]="'Is the customer a company?'" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-selectfield>
           </div>
         </div>
         <div class="col-md-4 my-auto">

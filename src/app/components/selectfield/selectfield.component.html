@@ -11,4 +11,7 @@
     <mat-option *ngFor="let item of items" [value]="item.id">{{getName(item)}}</mat-option>
   </mat-select>
   <mat-hint align="end">{{hint}}</mat-hint>
+  @if (selection.hasError('required')){
+    <mat-error>{{errorText}}</mat-error>
+  }
 </mat-form-field>

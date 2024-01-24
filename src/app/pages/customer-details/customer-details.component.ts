@@ -59,8 +59,8 @@ export class CustomerDetailsComponent  implements OnInit {
       is_company: new FormControl(null)
     });
     this.formGroup.valueChanges.subscribe(console.log);
-    iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
-    iconRegistry.addSvgIconLiteral('phone', sanitizer.bypassSecurityTrustHtml(PHONE_ICON));
+    //iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
+    //iconRegistry.addSvgIconLiteral('phone', sanitizer.bypassSecurityTrustHtml(PHONE_ICON));
   }
 
   ngOnInit(){

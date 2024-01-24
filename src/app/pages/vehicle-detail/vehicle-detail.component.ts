@@ -14,11 +14,12 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {combineLatestWith} from "rxjs";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 
 @Component({
   selector: 'app-vehicle-detail',
   standalone: true,
-  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent],
+  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent],
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.scss'
 })
@@ -39,7 +40,7 @@ export class VehicleDetailComponent implements OnInit {
     this.formGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
       vehicle_type: new FormControl(null, [Validators.required]),
-      max_load_length: new FormControl('', [Validators.required]),
+      max_load_length: new FormControl('', [Validators.required, Validators.pattern("[0-9]+")]),
       max_load_weight: new FormControl('', [Validators.required])
     });
   }
@@ -62,7 +63,8 @@ export class VehicleDetailComponent implements OnInit {
       this.vehicleTypes = vehicleTypes;
 
       this.formGroup.patchValue(vehicle);
-      this.formGroup.controls['vehicle_type'].setValue(vehicle.vehicle_type?.map(vehicleType => vehicleType.id.toString()));
+      // TODO: Fix this
+      //this.formGroup.controls['vehicle_type'].setValue(vehicle.vehicle_type?.map(vehicleType => vehicleType.id.toString()));
     });
 
   }

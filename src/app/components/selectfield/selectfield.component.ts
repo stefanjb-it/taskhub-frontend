@@ -33,6 +33,7 @@ export class SelectfieldComponent implements OnInit, ControlValueAccessor {
   @Input() conversionFunction: any = undefined;
   @Input() labelText: string = 'Please select';
   @Input() hint: string = 'Some hint';
+  @Input() errorText: string = 'This field is required.';
 
   selection: FormControl = new FormControl(0);
   private propagateChange:any;

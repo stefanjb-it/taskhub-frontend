@@ -1,9 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatIconModule} from "@angular/material/icon";
-import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 import {
   ControlValueAccessor,
   FormBuilder,
@@ -14,54 +12,45 @@ import {
 } from "@angular/forms";
 
 @Component({
-  selector: 'app-inputfield',
+  selector: 'app-multi-selectfield',
   standalone: true,
-    imports: [CommonModule, MatFormFieldModule, MatIconModule, MatInputModule, ReactiveFormsModule],
-  templateUrl: './inputfield.component.html',
-  styleUrl: './inputfield.component.scss',
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule],
+  templateUrl: './multi-selectfield.component.html',
+  styleUrl: './multi-selectfield.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputfieldComponent,
+      useExisting: MultiSelectfieldComponent,
       multi: true
     }
   ]
 })
-export class InputfieldComponent implements OnInit, ControlValueAccessor {
+export class MultiSelectfieldComponent implements OnInit, ControlValueAccessor {
 
-
-  @Input() type:string = 'text';
+  // INPUT
+  @Input() items: any[] = [];
   @Input() required: boolean = false;
-  @Input() labelText: string = 'Please enter';
-  @Input() placeholder: string = 'Please enter';
-  @Input() hint: string = '';
-  @Input() errorText: string = 'This field is required.';
-  @Input() svgIconName: string = 'default';
   @Input() conversionFunction: any = undefined;
+  @Input() labelText: string = 'Please select';
+
+  // LOGIC
+  selection: FormControl = new FormControl(null);
+  private propagateChange:any;
 
   constructor(private fb:FormBuilder) {
   }
 
-  private propagateChange:any;
-  selection:FormControl = new FormControl(null);
-
-  ngOnInit() {
+  ngOnInit(): void {
     // VALIDATORS
     let validator = null;
     if (this.required) {
       validator = Validators.required;
-    }
-    if (this.type == 'number') {
-      validator = Validators.compose([validator, Validators.pattern("[0-9]+")]);
     }
 
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
       console.log(value)
-      if (value == ''){
-        value = null;
-      }
       if (this.conversionFunction) {
         value = this.conversionFunction(value);
       }
@@ -76,8 +65,19 @@ export class InputfieldComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(fn: any): void {
   }
 
+  getName(item: any) {
+    if (item.name) {
+      return item.name;
+    } else if (item.title) {
+      return item.title;
+    } else {
+      return item.last_name + ', ' + item.first_name;
+    }
+  }
+
   writeValue(obj: any): void {
     console.log(obj);
     this.selection.patchValue(obj, {emitEvent: false});
   }
+
 }

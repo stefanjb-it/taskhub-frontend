@@ -1,8 +1,11 @@
 <mat-form-field style="width: 100%;" appearance="outline">
   <mat-label>{{labelText}}</mat-label>
-  <input matInput [placeholder]="placeholder" [formControl]="selection" type="type">
-  <mat-icon matSuffix svgIcon="thumbs-up"></mat-icon>
+  <input matInput [placeholder]="placeholder" [formControl]="selection" [type]="type">
+  <mat-icon matSuffix [svgIcon]="svgIconName"></mat-icon>
   <mat-hint>{{hint}}</mat-hint>
+  @if (selection.hasError('pattern')){
+    <mat-error>Please insert numbers only!</mat-error>
+  }
   @if (selection.hasError('required')){
     <mat-error>{{errorText}}</mat-error>
   }
