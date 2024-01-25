@@ -1,6 +1,9 @@
 <div class="row justify-content-center mx-auto">
   <div class="contentBox p-4 my-4">
     <div class="row my-1">
+      <div class="d-none col-md-3 d-md-flex align-items-center justify-content-center">
+        <app-button [buttonText]="'Back'" [routerLink]="'/management'"></app-button>
+      </div>
       <div class="col-md-2 d-flex align-items-center justify-content-center mb-2 mb-md-0">
         <svg viewBox="0 0 576 512" class="headerSvg">
           <path
@@ -8,13 +11,13 @@
           </path>
         </svg>
       </div>
-      <div class="col-md-7 d-flex align-items-start flex-column">
+      <div class="col-md-4 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Customer Overview</p>
         <form class="customSearchField mb-4 mb-md-0">
           <input class="form-control customSearch" type="search" [formControl]="filterFormControl" placeholder="Search Customer" aria-label="Search">
         </form>
       </div>
-      <div class="col-md-3 d-flex justify-content-center align-items-end">
+      <div class="col-md-3 d-flex justify-content-center align-items-center">
         <app-button [buttonText]="'Create Customer'" [routerLink]="'/create-customer'"></app-button>
       </div>
     </div>

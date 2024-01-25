@@ -32,6 +32,7 @@ export class MultiSelectfieldComponent implements OnInit, ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() conversionFunction: any = undefined;
   @Input() labelText: string = 'Please select';
+  @Input() readonly : boolean = false;
 
   // LOGIC
   selection: FormControl = new FormControl(null);

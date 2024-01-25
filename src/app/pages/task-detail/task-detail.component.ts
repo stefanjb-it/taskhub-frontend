@@ -47,6 +47,7 @@ export class TaskDetailComponent implements OnInit {
   shiftOptions = [{id: 'am', title: 'am'}, {id: 'pm', title: 'pm'}];
 
   formGroup: FormGroup;
+  isManagerAccess: boolean = false;
 
   constructor(public userService: UserService, public orderService: OrderService,
               public vehicleService: VehicleService, public employeeService: EmployeeService,
@@ -68,6 +69,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Create Load
     this.selection = this.route.snapshot.paramMap.get('id');
     if (!this.selection) {
       this.taskTypeService.getTaskTypes().subscribe(
@@ -97,39 +99,75 @@ export class TaskDetailComponent implements OnInit {
       );
       return;
     }
-    this.employeeService.getEmployees().pipe(
-      combineLatestWith(
-        this.taskService.getTask(parseInt(this.selection))
-      ),
-      combineLatestWith(
-        this.taskTypeService.getTaskTypes()
-      ),
-      combineLatestWith(
-        this.orderService.getOrders()
-      ),
-      combineLatestWith(
-        this.vehicleService.getVehicles()
-      ),
-      combineLatestWith(
-        this.taskStatusService.getTaskStatuses()
-      )
-    ).subscribe(([[[[[employees, task], taskTypes], orders], vehicles], taskStatuses]) => {
-        this.employees = employees;
-        this.taskTypes = taskTypes;
-        this.orders = orders;
-        this.vehicles = vehicles;
-        this.taskStatuses = taskStatuses;
 
-        this.formGroup.patchValue(task);
-        this.formGroup.controls['task_type'].setValue(task.task_type?.id);
-        this.formGroup.controls['task_status'].setValue(task.task_status?.id);
-        this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
-        this.formGroup.controls['order'].setValue(task.order?.id);
-        this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
-      }, error => {
-        this.router.navigate(['management'])
-      }
-    )
+    if (this.userService.hasGroup(['Manager'])) {
+      this.isManagerAccess = true;
+      // Full Load
+      this.employeeService.getEmployees().pipe(
+        combineLatestWith(
+          this.taskService.getTask(parseInt(this.selection))
+        ),
+        combineLatestWith(
+          this.taskTypeService.getTaskTypes()
+        ),
+        combineLatestWith(
+          this.orderService.getOrders()
+        ),
+        combineLatestWith(
+          this.vehicleService.getVehicles()
+        ),
+        combineLatestWith(
+          this.taskStatusService.getTaskStatuses()
+        )
+      ).subscribe(([[[[[employees, task], taskTypes], orders], vehicles], taskStatuses]) => {
+          this.employees = employees;
+          this.taskTypes = taskTypes;
+          this.orders = orders;
+          this.vehicles = vehicles;
+          this.taskStatuses = taskStatuses;
+
+          this.shiftOptions.filter(shift => shift.id === task.from_shift || task.to_shift);
+
+          this.formGroup.patchValue(task);
+          this.formGroup.controls['task_type'].setValue(task.task_type?.id);
+          this.formGroup.controls['task_status'].setValue(task.task_status?.id);
+          this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
+          this.formGroup.controls['order'].setValue(task.order?.id);
+          this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
+        }, error => {
+          console.log(error);
+          this.router.navigate(['management'])
+        }
+      )
+
+    } else {
+      this.isManagerAccess = false;
+      // Partial Load
+      this.taskService.getTask(parseInt(this.selection)).pipe(
+        combineLatestWith(
+          this.taskStatusService.getTaskStatuses()
+        )
+      ).subscribe(output => {
+        let [task, taskStatuses] = output;
+          this.formGroup.patchValue(task);
+          this.taskTypes = [task.task_type as TaskType];
+          this.formGroup.controls['task_type'].setValue(task.task_type?.id);
+          this.taskStatuses = taskStatuses;
+          this.formGroup.controls['task_status'].setValue(task.task_status?.id);
+          this.employees = task.employees.map(employee => {
+            let parts = employee.username.split(' ');
+            employee.last_name = parts[parts.length - 1];
+            employee.first_name = parts.join(' ').replace(employee.last_name, '');
+            return employee;
+          });
+          this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
+          this.orders = [task.order as Order];
+          this.formGroup.controls['order'].setValue(task.order?.id);
+          this.vehicles = task.vehicles;
+          this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
+        }
+      )
+    }
   }
 
   uploadPicture(event: any) {
@@ -145,7 +183,6 @@ export class TaskDetailComponent implements OnInit {
         }
       )
     }
-
   }
 
   handleSubmit() {

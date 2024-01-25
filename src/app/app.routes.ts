@@ -37,6 +37,7 @@ export const routes: Routes = [
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
   { path: 'csl/:id', component: TaskImageCarouselComponent},
+  { path: '**', redirectTo: ''}
 
   //TODO: replace above with below after testing
   /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: [authGuard,adminGuard]},

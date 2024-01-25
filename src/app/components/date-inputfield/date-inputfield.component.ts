@@ -35,6 +35,7 @@ export class DateInputfieldComponent implements OnInit, ControlValueAccessor {
   @Input() hint: string = 'MM/DD/YYYY';
   @Input() errorText: string = 'This field is required.';
   @Input() conversionFunction: any = undefined;
+  @Input() readonly: boolean = false;
 
   // LOGIC
   private propagateChange:any;

@@ -70,7 +70,7 @@
                 </svg>
               </a>
               <!-- DELETE BUTTON TODO: add *ngIf="userService.hasGroup()" -->
-              <button (click)="deleteTask(task.id)"
+              <button *ngIf="userService.hasGroup(['Manager'])" (click)="deleteTask(task.id)"
                 style="background: transparent; border: none !important;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fac-icon icon-delete">
                   <path
@@ -82,3 +82,4 @@
         </li>
       </ul>
     </div>
+</div>
