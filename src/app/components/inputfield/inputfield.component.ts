@@ -63,6 +63,9 @@ export class InputfieldComponent implements OnInit, ControlValueAccessor {
       if (value == ''){
         value = null;
       }
+      if (this.type == 'text' && value){
+        value = value.trim();
+      }
       if (this.conversionFunction) {
         value = this.conversionFunction(value);
       }

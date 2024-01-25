@@ -60,7 +60,7 @@ export class TaskDetailComponent implements OnInit {
       task_status: new FormControl(null, [Validators.required]),
       employees: new FormControl(null, [Validators.required]),
       order: new FormControl(null, [Validators.required]),
-      vehicles: new FormControl(null, [Validators.required]),
+      vehicles: new FormControl(null),
       scheduled_from: new FormControl(null, [Validators.required]),
       from_shift: new FormControl(null, [Validators.required]),
       scheduled_to: new FormControl(null, [Validators.required]),
@@ -72,6 +72,7 @@ export class TaskDetailComponent implements OnInit {
     // Create Load
     this.selection = this.route.snapshot.paramMap.get('id');
     if (!this.selection) {
+      this.isManagerAccess = true;
       this.taskTypeService.getTaskTypes().subscribe(
         res => {
           this.taskTypes = res;
