@@ -19,6 +19,7 @@ import {SimpleSelectFieldComponent} from "../../components/simple-select-field/s
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
+import {cilContrast} from "@coreui/icons";
 
 @Component({
   selector: 'app-employee-detail',
@@ -28,12 +29,9 @@ import {DateInputfieldComponent} from "../../components/date-inputfield/date-inp
   styleUrl: './employee-detail.component.scss'
 })
 export class EmployeeDetailComponent implements OnInit {
-  newEmployee: ChangeEmployee = {};
   selection : string | undefined | null;
   employeeTypes : EmployeeType[] = [];
   employeeGroups : EmployeeGroup[] = [];
-  newEmpTypeTitle : string | undefined;
-  newEmpGender : string | undefined;
   pfpLink : string | undefined;
 
   licenseStatuses = [{id:false, name:'No'}, {id:true, name:'Yes'}];
@@ -49,6 +47,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.formGroup = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl(''),
+      username: new FormControl(''),
       address: new FormControl(null),
       birth_date: new FormControl(null),
       email: new FormControl(''),
@@ -62,11 +61,24 @@ export class EmployeeDetailComponent implements OnInit {
     this.formGroup.valueChanges.subscribe((value) => {
       console.log(value)
     });
+    if (this.selection) {
+      this.formGroup.get('first_name')?.valueChanges.subscribe(val => {
+        if (this.formGroup.get('last_name')?.value && val) {
+          this.formGroup.controls['username'].setValue(val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + "24")
+        }
+      })
+      this.formGroup.get('last_name')?.valueChanges.subscribe(val => {
+        if (this.formGroup.get('first_name')?.value && val) {
+          this.formGroup.controls['username'].setValue(this.formGroup.get('first_name')?.value.slice(0,3).toLowerCase() + val.slice(0,3).toLowerCase() + "24")
+        }
+      })
+    }
   }
 
   ngOnInit(){
     // Route Mapping
     this.selection = this.route.snapshot.paramMap.get('id');
+    this.formGroup.controls['username'].setValue("Username")
     if (!this.selection){
       this.employeeTypeService.getEmployeeTypes().subscribe(
         res => {
@@ -89,7 +101,6 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeGroupService.getEmployeeGroups()
       )
     ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
-        console.log(employeeTypes, employee, employeeGroups);
         this.employeeTypes = employeeTypes
         this.employeeGroups = employeeGroups
 
@@ -99,18 +110,21 @@ export class EmployeeDetailComponent implements OnInit {
         if (employee.has_image) {
           this.pfpLink = "/api/users/" + this.selection + "/image"
         }
+      }, error => {
+        this.router.navigate(['admin-overview'])
       }
     )
   }
 
   handleSubmit() {
-    console.log(this.formGroup.value);
     // pre-processing for fine tuning with backend
     let result = this.formGroup.value;
     result.groups = result.groups.map((item: string) => parseInt(item));
     if (result.password == '' || result.password == null) {
       delete result.password;
     }
+
+    console.log(result)
 
     if (this.selection) {
       this.employeeService.changeEmployee(result, parseInt(this.selection)).subscribe(
@@ -133,16 +147,6 @@ export class EmployeeDetailComponent implements OnInit {
         }
       )
     }
-
-    /*this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
-      res => {
-        alert('Employee updated successfully!')
-        this.router.navigate(['admin-overview'])
-      },
-      err => {
-        alert(err.header)
-      }
-    )*/
   }
 
   toLicenseStatus(input : string | undefined):boolean | null{
@@ -174,16 +178,13 @@ export class EmployeeDetailComponent implements OnInit {
     const file:File = event.target.files[0];
     const formData:FormData = new FormData();
     formData.append('upload', file)
-    console.log(file.name)
-    console.log(this.selection)
     if (this.selection) {
       this.imageService.uploadProfilePicture(Number(this.selection), formData).subscribe(
         res => {
         }, error => {
-          console.log(error)
+          alert(error)
         }
       )
     }
   }
-
 }

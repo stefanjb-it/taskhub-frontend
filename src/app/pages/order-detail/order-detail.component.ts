@@ -59,12 +59,13 @@ export class OrderDetailComponent implements OnInit {
     ).subscribe(([order, customers]) => {
       this.order = order;
       this.customers = customers
-      console.log('date from backend: ' + order.order_date);
 
       this.formGroup.patchValue(order)
       this.formGroup.controls['customer'].setValue(order.customer?.id)
-      //this.formGroup.controls['is_completed'].setValue(order.is_completed)
-    })
+    }, error => {
+      this.router.navigate(['order-overview'])
+      }
+    )
   }
 
   toName(input: Customer):string | null {

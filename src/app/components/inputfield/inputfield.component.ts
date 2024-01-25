@@ -38,6 +38,7 @@ export class InputfieldComponent implements OnInit, ControlValueAccessor {
   @Input() errorText: string = 'This field is required.';
   @Input() svgIconName: string = 'default';
   @Input() conversionFunction: any = undefined;
+  @Input() readonly: boolean = false;
 
   constructor(private fb:FormBuilder) {
   }

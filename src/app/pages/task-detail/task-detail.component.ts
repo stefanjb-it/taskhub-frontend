@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {ChangeTask, Task} from "../../models/Task";
+import {ChangeTask} from "../../models/Task";
 import {TaskType} from "../../models/TaskType";
 import {TaskStatus} from "../../models/TaskStatus";
 import {Order} from "../../models/Order";
 import {Employee} from "../../models/Employee";
 import {Vehicle} from "../../models/Vehicle";
-import {Image} from "../../models/Image";
 import {UserService} from "../../services/user.service";
 import {EmployeeService} from "../../services/employee.service";
 import {OrderService} from "../../services/order.service";
@@ -35,7 +34,7 @@ import {DateInputfieldComponent} from "../../components/date-inputfield/date-inp
   styleUrl: './task-detail.component.scss'
 })
 export class TaskDetailComponent implements OnInit {
-  newTask : ChangeTask = {};
+  newTask: ChangeTask = {};
 
   taskTypes: TaskType[] = [];
   orders: Order[] = [];
@@ -43,16 +42,16 @@ export class TaskDetailComponent implements OnInit {
   vehicles: Vehicle[] = [];
   taskStatuses: TaskStatus[] = [];
 
-  selection : string | undefined | null;
+  selection: string | undefined | null;
 
-  shiftOptions = [{id:'am', title:'am'}, {id:'pm', title:'pm'}];
+  shiftOptions = [{id: 'am', title: 'am'}, {id: 'pm', title: 'pm'}];
 
   formGroup: FormGroup;
 
-  constructor(public userService:UserService, public orderService:OrderService,
-              public vehicleService:VehicleService, public employeeService:EmployeeService,
-              public taskTypeService:TaskTypeService, public taskStatusService:TaskStatusService,
-              public taskService:TaskService, private route:ActivatedRoute, private router: Router,
+  constructor(public userService: UserService, public orderService: OrderService,
+              public vehicleService: VehicleService, public employeeService: EmployeeService,
+              public taskTypeService: TaskTypeService, public taskStatusService: TaskStatusService,
+              public taskService: TaskService, private route: ActivatedRoute, private router: Router,
               private imageService: ImageService) {
     this.formGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -70,7 +69,7 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit() {
     this.selection = this.route.snapshot.paramMap.get('id');
-    if(!this.selection) {
+    if (!this.selection) {
       this.taskTypeService.getTaskTypes().subscribe(
         res => {
           this.taskTypes = res;
@@ -98,7 +97,6 @@ export class TaskDetailComponent implements OnInit {
       );
       return;
     }
-
     this.employeeService.getEmployees().pipe(
       combineLatestWith(
         this.taskService.getTask(parseInt(this.selection))
@@ -116,32 +114,27 @@ export class TaskDetailComponent implements OnInit {
         this.taskStatusService.getTaskStatuses()
       )
     ).subscribe(([[[[[employees, task], taskTypes], orders], vehicles], taskStatuses]) => {
-      this.employees = employees;
-      this.taskTypes = taskTypes;
-      this.orders = orders;
-      this.vehicles = vehicles;
-      this.taskStatuses = taskStatuses;
+        this.employees = employees;
+        this.taskTypes = taskTypes;
+        this.orders = orders;
+        this.vehicles = vehicles;
+        this.taskStatuses = taskStatuses;
 
-      this.formGroup.patchValue(task);
-      this.formGroup.controls['task_type'].setValue(task.task_type?.id);
-      this.formGroup.controls['task_status'].setValue(task.task_status?.id);
-      this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
-      this.formGroup.controls['order'].setValue(task.order?.id);
-      this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
+        this.formGroup.patchValue(task);
+        this.formGroup.controls['task_type'].setValue(task.task_type?.id);
+        this.formGroup.controls['task_status'].setValue(task.task_status?.id);
+        this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
+        this.formGroup.controls['order'].setValue(task.order?.id);
+        this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
+      }, error => {
+        this.router.navigate(['management'])
       }
     )
   }
 
-  toNumberArray(input : string[] | undefined):number[] | null{
-    if (input == undefined) {
-      return null;
-    }
-    return input.map((item) => parseInt(item));
-  }
-
   uploadPicture(event: any) {
-    const file:File = event.target.files[0];
-    const formData:FormData = new FormData();
+    const file: File = event.target.files[0];
+    const formData: FormData = new FormData();
     formData.append('upload', file)
 
     if (this.selection) {
@@ -152,6 +145,7 @@ export class TaskDetailComponent implements OnInit {
         }
       )
     }
+
   }
 
   handleSubmit() {
