@@ -21,7 +21,7 @@ export interface Task {
   order: Order
   employees: Employee[]
   vehicles: Vehicle[]
-  images: Image[]
+  images: Image[] | null
   scheduled_from: string
   from_shift: string
   scheduled_to: string

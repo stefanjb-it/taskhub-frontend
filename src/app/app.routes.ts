@@ -36,7 +36,7 @@ export const routes: Routes = [
   { path: 'vehicle-overview', component: VehicleOverviewComponent},
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
-  { path: 'csl', component: TaskImageCarouselComponent},
+  { path: 'csl/:id', component: TaskImageCarouselComponent},
 
   //TODO: replace above with below after testing
   /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: [authGuard,adminGuard]},
