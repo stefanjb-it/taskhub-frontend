@@ -28,12 +28,9 @@ import {DateInputfieldComponent} from "../../components/date-inputfield/date-inp
   styleUrl: './employee-detail.component.scss'
 })
 export class EmployeeDetailComponent implements OnInit {
-  newEmployee: ChangeEmployee = {};
   selection : string | undefined | null;
   employeeTypes : EmployeeType[] = [];
   employeeGroups : EmployeeGroup[] = [];
-  newEmpTypeTitle : string | undefined;
-  newEmpGender : string | undefined;
   pfpLink : string | undefined;
 
   licenseStatuses = [{id:false, name:'No'}, {id:true, name:'Yes'}];
@@ -89,7 +86,6 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeGroupService.getEmployeeGroups()
       )
     ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
-        console.log(employeeTypes, employee, employeeGroups);
         this.employeeTypes = employeeTypes
         this.employeeGroups = employeeGroups
 
@@ -99,12 +95,13 @@ export class EmployeeDetailComponent implements OnInit {
         if (employee.has_image) {
           this.pfpLink = "/api/users/" + this.selection + "/image"
         }
+      }, error => {
+        this.router.navigate(['admin-overview'])
       }
     )
   }
 
   handleSubmit() {
-    console.log(this.formGroup.value);
     // pre-processing for fine tuning with backend
     let result = this.formGroup.value;
     result.groups = result.groups.map((item: string) => parseInt(item));
@@ -133,16 +130,6 @@ export class EmployeeDetailComponent implements OnInit {
         }
       )
     }
-
-    /*this.employeeService.changeEmployee(this.formGroup.value, parseInt(this.selection ?? '')).subscribe(
-      res => {
-        alert('Employee updated successfully!')
-        this.router.navigate(['admin-overview'])
-      },
-      err => {
-        alert(err.header)
-      }
-    )*/
   }
 
   toLicenseStatus(input : string | undefined):boolean | null{
@@ -174,13 +161,11 @@ export class EmployeeDetailComponent implements OnInit {
     const file:File = event.target.files[0];
     const formData:FormData = new FormData();
     formData.append('upload', file)
-    console.log(file.name)
-    console.log(this.selection)
     if (this.selection) {
       this.imageService.uploadProfilePicture(Number(this.selection), formData).subscribe(
         res => {
         }, error => {
-          console.log(error)
+          alert(error)
         }
       )
     }
