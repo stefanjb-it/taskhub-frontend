@@ -5,70 +5,87 @@
     <form (submit)="handleSubmit()" [formGroup]="formGroup">
       <div class="row">
         <div class="col-md-7">
-          <div class="row mt-3 mb-4">
-            <app-inputfield svgIconName="name" formControlName="first_name" labelText="First Name" placeholder="First Name" type="text" [required]="true"></app-inputfield>
+          <div class="row mt-3 mb-2">
+            <app-inputfield [required]="true" formControlName="first_name" labelText="First Name"
+                            placeholder="First Name" svgIconName="name" type="text"></app-inputfield>
           </div>
-          <div class="row mb-4">
-            <app-inputfield svgIconName="name" formControlName="last_name" labelText="Last Name" placeholder="Last Name" type="text" [required]="true"></app-inputfield>
-           </div>
-           <div class="row mb-4">
-            <app-inputfield svgIconName="address" formControlName="address" labelText="Address" placeholder="Address" type="text" [required]="false"></app-inputfield>
-           </div>
+          <div class="row mb-2">
+            <app-inputfield [required]="true" formControlName="last_name" labelText="Last Name" placeholder="Last Name"
+                            svgIconName="name" type="text"></app-inputfield>
           </div>
-          <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
-            <div class="d-flex justify-content-center my-auto">
-              <svg viewBox="0 0 512 512" class="cardSvg" *ngIf="!pfpLink">
-                <path
-                  d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
-                </path>
-              </svg>
-              <img class="cardSvg" ngSrc="{{pfpLink}}" *ngIf="pfpLink">
-            </div>
+          <div class="row mb-2">
+            <app-inputfield [required]="false" formControlName="username" labelText="Username" placeholder="Username"
+                            svgIconName="name" type="text" [readonly]="true"></app-inputfield>
+          </div>
+          <div class="row mb-2">
+            <app-inputfield [required]="false" formControlName="address" labelText="Address" placeholder="Address"
+                            svgIconName="address" type="text"></app-inputfield>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <app-date-inputfield formControlName="birth_date" [required]="false" labelText="Birth Date" hint=""></app-date-inputfield>
-          </div>
-          <div class="col-md-6 mb-4">
-            <app-inputfield svgIconName="email" formControlName="email" labelText="Email Address" placeholder="Email Address" type="email" [required]="true"></app-inputfield>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <app-inputfield svgIconName="password" formControlName="password" labelText="Password" placeholder="* * * * * * * * *" type="password" [required]="!selection"></app-inputfield>
-          </div>
-          <div class="col-md-6 mb-4">
-            <app-inputfield svgIconName="phone" formControlName="phone" labelText="Phone Number" placeholder="Phone Number" type="number" [required]="false"></app-inputfield>
+        <div class="col-md-5 mb-4 mb-md-0 d-flex justify-content-center">
+          <div class="d-flex justify-content-center my-auto">
+            <svg *ngIf="!pfpLink" class="cardSvg" viewBox="0 0 512 512">
+              <path
+                d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm2 96a72 72 0 11-72 72 72 72 0 0172-72zm-2 288a175.55 175.55 0 01-129.18-56.6C135.66 329.62 215.06 320 256 320s120.34 9.62 129.18 55.39A175.52 175.52 0 01256 432z">
+              </path>
+            </svg>
+            <img *ngIf="pfpLink" class="cardSvg" src="{{pfpLink}}">
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <app-selectfield [required]="false" hint="not mandatory" formControlName="gender" labelText="Select your Gender" [items]="genderList"></app-selectfield>
-          </div>
-          <div class="col-md-6 mb-4">
-            <app-selectfield [required]="true" hint="mandatory" formControlName="employee_type" labelText="Select your Employee Type" [items]="employeeTypes"></app-selectfield>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-date-inputfield [required]="false" formControlName="birth_date" hint=""
+                               labelText="Birth Date"></app-date-inputfield>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <app-selectfield [required]="false" hint="not mandatory" formControlName="drivers_license_status" labelText="Do you have a Driver's License?" [items]="licenseStatuses"></app-selectfield>
-          </div>
-          <div class="col-md-6 mb-4">
-            <app-multi-selectfield [required]="false" [items]="employeeGroups" formControlName="groups"></app-multi-selectfield>
-          </div>
-        </div><div class="row mb-3">
+        <div class="col-md-6 mb-4">
+          <app-inputfield [required]="true" formControlName="email" labelText="Email Address"
+                          placeholder="Email Address" svgIconName="email" type="email"></app-inputfield>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-inputfield [required]="!selection" formControlName="password" labelText="Password"
+                          placeholder="* * * * * * * * *" svgIconName="password" type="password"></app-inputfield>
+        </div>
+        <div class="col-md-6 mb-4">
+          <app-inputfield [required]="false" formControlName="phone" labelText="Phone Number"
+                          placeholder="Phone Number" svgIconName="phone" type="number"></app-inputfield>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-selectfield [items]="genderList" [required]="false" formControlName="gender"
+                           hint="not mandatory" labelText="Select your Gender"></app-selectfield>
+        </div>
+        <div class="col-md-6 mb-4">
+          <app-selectfield [items]="employeeTypes" [required]="true" formControlName="employee_type"
+                           hint="mandatory" labelText="Select your Employee Type"></app-selectfield>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <app-selectfield [items]="licenseStatuses" [required]="false" formControlName="drivers_license_status"
+                           hint="not mandatory" labelText="Do you have a Driver's License?"></app-selectfield>
+        </div>
+        <div class="col-md-6 mb-4">
+          <app-multi-selectfield [items]="employeeGroups" [required]="false"
+                                 formControlName="groups"></app-multi-selectfield>
+        </div>
+      </div>
+      <div class="row mb-3">
         <div class="d-flex justify-content-center">
           <div class="row">
             <div class="col-md-6 mb-md-0 mb-4">
-              <input type="file" title="Upload Profile Picture" class="me-md-3 me-0 file-upload" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg">
+              <input (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg" class="me-md-3 me-0 file-upload"
+                     title="Upload Profile Picture" type="file">
             </div>
             <div class="col-md-6 m-auto">
-              <app-button [isDisabled]="!formGroup.valid" buttonText="Submit"  type="submit"></app-button>
+              <app-button [isDisabled]="!formGroup.valid" buttonText="Submit" type="submit"></app-button>
             </div>
           </div>
         </div>
       </div>
     </form>
-   </div>
- </div>
+  </div>
+</div>
