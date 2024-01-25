@@ -15,6 +15,8 @@ import {MultipleSelectFieldComponent} from "./components/multiple-select-field/m
 import {SimpleSelectFieldComponent} from "./components/simple-select-field/simple-select-field.component";
 import {SelectfieldComponent} from "./components/selectfield/selectfield.component";
 import {TaskImageCarouselComponent} from "./pages/task-image-carousel/task-image-carousel.component";
+import {authGuard} from "./guards/auth.guard";
+import {adminGuard} from "./guards/admin.guard";
 
 export const routes: Routes = [
   { path: '', component: HomeLoginComponent },
@@ -34,25 +36,24 @@ export const routes: Routes = [
   { path: 'vehicle-overview', component: VehicleOverviewComponent},
   { path: 'create-vehicle', component: VehicleDetailComponent},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
-  { path: 'test', component: SimpleSelectFieldComponent},
-  { path: 'csl', component: TaskImageCarouselComponent}
+  { path: 'csl', component: TaskImageCarouselComponent},
 
   //TODO: replace above with below after testing
-  /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: ['authGuard']},
-  { path: 'create-user', component: EmployeeDetailComponent, canActivate: ['authGuard']},
-  { path: 'edit-user/:id', component: EmployeeDetailComponent, canActivate: ['authGuard']},
-  { path: 'customer-overview', component: CustomerOverviewComponent, canActivate: ['authGuard']},
-  { path: 'create-customer', component: CustomerDetailsComponent, canActivate: ['authGuard']},
-  { path: 'edit-customer/:id', component: CustomerDetailsComponent, canActivate: ['authGuard']},
-  { path: 'management', component: ManagementOverviewComponent, canActivate: ['authGuard']},
-  { path: 'order-overview', component: OrderOverviewComponent, canActivate: ['authGuard']},
-  { path: 'create-order', component: OrderDetailComponent, canActivate: ['authGuard']},
-  { path: 'edit-order/:id', component: OrderDetailComponent, canActivate: ['authGuard']},
-  { path: 'task-overview', component: TaskOverviewComponent, canActivate: ['authGuard']},
-  { path: 'create-task', component: TaskDetailComponent, canActivate: ['authGuard']},
-  { path: 'edit-task/:id', component: TaskDetailComponent, canActivate: ['authGuard']},
-  { path: 'vehicle-overview', component: VehicleOverviewComponent, canActivate: ['authGuard']},
-  { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: ['authGuard']},
-  { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: ['authGuard']},
-  { path: 'test', component: SimpleSelectFieldComponent, canActivate: ['authGuard']}*/
+  /*{ path: 'admin-overview', component: AdminOverviewComponent, canActivate: [authGuard,adminGuard]},
+  { path: 'create-user', component: EmployeeDetailComponent, canActivate: [authGuard,adminGuard]},
+  { path: 'edit-user/:id', component: EmployeeDetailComponent, canActivate: [authGuard,adminGuard]},
+  { path: 'customer-overview', component: CustomerOverviewComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'create-customer', component: CustomerDetailsComponent, canActivate: [authGuard,managerGuard]},
+  { path: 'edit-customer/:id', component: CustomerDetailsComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'management', component: ManagementOverviewComponent, canActivate: [authGuard]},
+  { path: 'order-overview', component: OrderOverviewComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'create-order', component: OrderDetailComponent, canActivate: [authGuard,managerGuard]},
+  { path: 'edit-order/:id', component: OrderDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'task-overview', component: TaskOverviewComponent, canActivate: [authGuard]},
+  { path: 'create-task', component: TaskDetailComponent, canActivate: [authGuard,managerGuard]},
+  { path: 'edit-task/:id', component: TaskDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'vehicle-overview', component: VehicleOverviewComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard]},
+  { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
+  { path: 'csl/:id', component: TaskImageCarouselComponent, canActivate: [authGuard} */
 ];

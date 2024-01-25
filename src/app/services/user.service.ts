@@ -20,7 +20,6 @@ export class UserService {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
       let tokenValid = !this.jwtHelperService.isTokenExpired(token);
       if (!tokenValid) {
-        this.refresh()
         tokenValid = !this.jwtHelperService.isTokenExpired(token);
       }
       this.isLoggedIn$.next(tokenValid);
@@ -49,7 +48,7 @@ export class UserService {
     this.router.navigate(['']);
   }
 
-  refresh(): void {
+  /*refresh(): void {
     this.http.post('/api/token/refresh/', JSON.stringify("{ refresh: " + localStorage.getItem(this.refreshTokenLocalStorageKey) + " }"))
       .subscribe({
         next: (res: any) => {
@@ -57,12 +56,12 @@ export class UserService {
           localStorage.setItem('access_token', res.access);
         },
         error: () => {
-          // TODO: Show error message
-          // this.toastService.warning('Token refresh failed', 'Authentication error',
-          //   {easeTime: 250, timeOut: 2000});
+          TODO: Show error message
+          this.toastService.warning('Token refresh failed', 'Authentication error',
+            {easeTime: 250, timeOut: 2000});
         }
       });
-}
+}*/
 
   /**
    *
