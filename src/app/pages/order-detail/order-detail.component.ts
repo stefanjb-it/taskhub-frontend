@@ -90,6 +90,10 @@ export class OrderDetailComponent implements OnInit {
         }
       );
     } else {
+      if (!this.newOrder.is_completed){
+        delete this.newOrder.is_completed;
+      }
+
       this.orderService.createOrder(this.newOrder).subscribe(
         res => {
           alert('Order created successfully!')

@@ -9,29 +9,41 @@ import { TaskService } from 'src/app/services/task.service';
 import {TaskType} from "../../models/TaskType";
 import {TaskTypeService} from "../../services/task-type.service";
 import {UserService} from "../../services/user.service";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ImageService} from "../../services/image.service";
+import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 
 @Component({
   selector: 'app-task-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, RouterLink, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule],
+  imports: [CommonModule, ButtonComponent, RouterLink, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, DateInputfieldComponent],
   templateUrl: './task-overview.component.html',
   styleUrl: './task-overview.component.scss'
 })
 export class TaskOverviewComponent implements OnInit {
   tasks: TaskList[] = [];
   filteredTasks: TaskList[] = [];
-  schedFromFilter: string | undefined;
-  schedToFilter: string | undefined;
-  taskTypes: TaskType[] = [];
 
-  seachfield : string | null | undefined;
-
-  filterFormControl = new FormControl('')
+  formGroup:FormGroup;
+  private defaultFrom:number;
+  private defaultTo:number;
 
   constructor(public taskService: TaskService, public userService: UserService, public taskTypeService: TaskTypeService,
               private imageService: ImageService) {
+    this.formGroup = new FormGroup({
+      title: new FormControl(''),
+      from: new FormControl(null),
+      to: new FormControl(null)
+    });
+    this.formGroup.valueChanges.subscribe(value => {
+      this.filterTaskList(this.formGroup.value);
+      console.log('ValueChanges: ' + value);
+    });
+
+    // Date Setup for filtering
+    let now = new Date();
+    this.defaultFrom = now.setMonth(now.getMonth() - 1);
+    this.defaultTo = now.setMonth(now.getMonth() + 2); // 2 'cause object is changed in the first setMonth
   }
 
   ngOnInit() {
@@ -39,53 +51,25 @@ export class TaskOverviewComponent implements OnInit {
       this.tasks = tasks;
       this.filteredTasks = tasks;
     });
-    this.taskTypeService.getTaskTypes().subscribe((taskTypes: TaskType[]) => {
-      this.taskTypes = taskTypes;
-    });
-    this.filterFormControl.valueChanges.subscribe(value => {
-      this.seachfield = value;
-      this.filterTasks(this.seachfield)
-    });
   }
 
-  filterTasks(filterValue: string | null | undefined) {
-    this.filteredTasks  = this.tasks.filter( task => {
-      return this.scheduleFilterTask(task, filterValue)
+  filterTaskList(val:any) {
+    let titleFilter = this.formGroup.value.title;
+    let fromFilter = this.formGroup.value.from ? Date.parse(this.formGroup.value.from) : this.defaultFrom;
+    let toFilter = this.formGroup.value.to ? Date.parse(this.formGroup.value.to) : this.defaultTo;
+
+    this.filteredTasks = this.tasks.filter( task => {
+      return this.isContainedTitle(task, titleFilter ? titleFilter : '') && this.isContainedDate(task, fromFilter, toFilter);
     })
   }
 
-  scheduleFilterTask (task:TaskList, filterValue: string | null | undefined) : boolean {
-    let date = Date.parse(task.scheduled_to.substring(0, 10));
-    let schedFrom = Date.parse(this.schedFromFilter || '');
-    let schedTo = Date.parse(this.schedToFilter || '');
-
-    if (this.schedFromFilter && this.schedToFilter && filterValue) {
-      return date >= schedFrom && date <= schedTo && task.title.toLowerCase().includes(filterValue.toLowerCase());
-    } else if(this.schedFromFilter && this.schedToFilter) {
-      return date >= schedFrom && date <= schedTo;
-    } else if (this.schedFromFilter && filterValue) {
-      return date >= schedFrom && task.title.toLowerCase().includes(filterValue.toLowerCase());
-    } else if (this.schedToFilter && filterValue) {
-      return date <= schedTo && task.title.toLowerCase().includes(filterValue.toLowerCase());
-    } else if(this.schedFromFilter && !this.schedToFilter && !filterValue) {
-      return date >= schedFrom;
-    } else if (this.schedToFilter && !this.schedFromFilter && !filterValue) {
-      return date <= schedTo;
-    } else if (filterValue && !this.schedFromFilter && !this.schedToFilter) {
-      return task.title.toLowerCase().includes(filterValue.toLowerCase());
-    } else {
-      return true;
-    }
+  isContainedTitle(task:TaskList, titleFilter:string) : boolean {
+    return task.title.toLowerCase().includes(titleFilter.toLowerCase());
   }
 
-  getSchedFromFilter($event: string) {
-    this.schedFromFilter = $event;
-    this.filterTasks(this.seachfield)
-  }
-
-  getSchedToFilter($event: string) {
-    this.schedToFilter = $event;
-    this.filterTasks(this.seachfield)
+  isContainedDate(task:TaskList, fromFilter:number, toFilter:number) : boolean {
+    let date = Date.parse(task.scheduled_to)
+    return date >= fromFilter && date <= toFilter;
   }
 
   deleteTask(id: number) {

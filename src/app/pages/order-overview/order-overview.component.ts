@@ -8,11 +8,13 @@ import {Order} from "../../models/Order";
 import {OrderService} from "../../services/order.service";
 import {Employee} from "../../models/Employee";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-order-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, UnvehicletypePipe, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, ButtonComponent, UnvehicletypePipe, RouterLink, ReactiveFormsModule, MatButtonModule, MatCardModule],
   templateUrl: './order-overview.component.html',
   styleUrl: './order-overview.component.scss'
 })
