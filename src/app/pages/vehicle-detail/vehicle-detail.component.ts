@@ -13,7 +13,6 @@ import {SimpleInputFieldComponent} from "../../components/simple-input-field/sim
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {combineLatestWith} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 
 @Component({
@@ -24,12 +23,6 @@ import {MultiSelectfieldComponent} from "../../components/multi-selectfield/mult
   styleUrl: './vehicle-detail.component.scss'
 })
 export class VehicleDetailComponent implements OnInit {
-  newVehicle : ChangeVehicle = {
-    title: '',
-    vehicle_type: [],
-    max_load_length: 0,
-    max_load_weight: 0
-  }
   vehicleTypes: VehicleType[] = [];
   selection : string | undefined | null;
 
@@ -71,19 +64,21 @@ export class VehicleDetailComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.newVehicle = this.formGroup.value;
+    let result = this.formGroup.value;
+    result.max_load_length = parseInt(result.max_load_length);
+    result.max_load_weight = parseInt(result.max_load_weight);
 
     if (this.selection) {
-      this.vehicleService.changeVehicle(parseInt(this.selection), this.newVehicle).subscribe(
+      this.vehicleService.changeVehicle(parseInt(this.selection), result).subscribe(
         res => {
-        this.router.navigate(['vehicle-overview']);
+          this.router.navigate(['vehicle-overview']);
         },
         err => {
           alert("Something went wrong, please try again.")
         }
       );
     } else {
-      this.vehicleService.createVehicle(this.newVehicle).subscribe(
+      this.vehicleService.createVehicle(result).subscribe(
         res => {
           this.router.navigate(['vehicle-overview']);
         },

@@ -4,6 +4,8 @@ import {NgbCarousel, NgbSlide} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TaskService} from "../../services/task.service";
 import { Task } from 'src/app/models/Task';
+import {ImageService} from "../../services/image.service";
+import {ImgDirective} from "@coreui/angular";
 
 @Component({
   selector: 'app-task-image-carousel',
@@ -19,7 +21,8 @@ export class TaskImageCarouselComponent implements OnInit {
   selection : string | undefined | null;
 
 
-  constructor(private route:ActivatedRoute, private taskService: TaskService, private router: Router) {
+  constructor(private route:ActivatedRoute, private taskService: TaskService, private router: Router,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -27,10 +30,16 @@ export class TaskImageCarouselComponent implements OnInit {
     if(this.selection) {
       this.taskService.getTask(parseInt(this.selection)).subscribe( data => {
         this.task = data
-        if (this.task?.images) {
-          this.task?.images?.map((image) => this.pictures.push('/api/tasks/' + this.selection + '/images/' + image.id))
+        if (data) {
+          data.images?.forEach(data => {
+            if (typeof this.selection === "string") {
+              this.imageService.getTaskImage(parseInt(this.selection), data.id).subscribe(data => {
+                this.pictures.push("data:image/png;base64, " + String(data))
+              })
+            }
+          })
         } else {
-          this.router.navigate(['edit-task/'+this.selection])
+            this.router.navigate(['edit-task/' + this.selection])
         }
       })
     }
