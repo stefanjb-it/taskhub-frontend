@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,12 @@ export class ImageService {
     return this.http.delete("/api/users/" + id + "/image")
   }
 
-  getTaskImage(id: number) {
-    return this.http.get("/api/tasks/" + id + "/image")
+  getProfilePicture(id: number) {
+    return this.http.get("/api/users/" + id + "/image")
+  }
+
+  getTaskImage(id: number, imgID: number) {
+    return this.http.get("/api/tasks/" + id + "/images/" + imgID)
   }
 
   uploadTaskImage(id: number, image: FormData) {

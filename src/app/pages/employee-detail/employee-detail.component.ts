@@ -20,6 +20,7 @@ import {MultipleSelectFieldComponent} from "../../components/multiple-select-fie
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 import {cilContrast} from "@coreui/icons";
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee-detail',
@@ -43,7 +44,7 @@ export class EmployeeDetailComponent implements OnInit {
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
               public employeeGroupService: EmployeeGroupService, private router: Router,
-              private imageService: ImageService) {
+              private imageService: ImageService, private snackbar: MatSnackBar) {
     this.formGroup = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl(''),
@@ -61,7 +62,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.formGroup.valueChanges.subscribe((value) => {
       console.log(value)
     });
-    if (this.selection) {
+    if (!this.selection) {
       this.formGroup.get('first_name')?.valueChanges.subscribe(val => {
         if (this.formGroup.get('last_name')?.value && val) {
           this.formGroup.controls['username'].setValue(val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + "24")
@@ -108,7 +109,9 @@ export class EmployeeDetailComponent implements OnInit {
         this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
         this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id));
         if (employee.has_image) {
-          this.pfpLink = "/api/users/" + this.selection + "/image"
+          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")).subscribe(data => {
+            this.pfpLink = "data:image/png;base64, "+ String(data);
+          })
         }
       }, error => {
         this.router.navigate(['admin-overview'])
@@ -181,8 +184,11 @@ export class EmployeeDetailComponent implements OnInit {
     if (this.selection) {
       this.imageService.uploadProfilePicture(Number(this.selection), formData).subscribe(
         res => {
+          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")).subscribe(data => {
+            this.pfpLink = "data:image/png;base64, "+ String(data);
+          })
         }, error => {
-          alert(error)
+          this.snackbar.open(error.error.message, "" , {duration: 2500, verticalPosition: "top", horizontalPosition: "right"})
         }
       )
     }
