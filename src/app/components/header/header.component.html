@@ -1,4 +1,4 @@
-<c-header class="navbar-expand-lg">
+<!-- <c-header class="navbar-expand-lg">
   <c-container fluid>
     <a *ngIf="!(userService.isLoggedIn$ | async)" class="header-brand align-items-center justify-content-center d-flex" [routerLink]="''">
       <img src="../../../assets/svg/Truck.svg" width="44" height="44" class="me-3"/>
@@ -27,4 +27,36 @@
       </c-nav-item>
     </c-header-nav>
   </c-container>
-</c-header>
+</c-header> -->
+<nav class="navbar header">
+  <div class="container fluid">
+    <a *ngIf="!(userService.isLoggedIn$ | async)" class="header-text navbar-brand align-items-center justify-content-center d-flex" routerLink="">
+      <img src="assets/svg/Truck.svg" width="44" height="44">
+       TaskHub
+    </a>
+    <a *ngIf="userService.isLoggedIn$ | async" class="header-text navbar-brand align-items-center justify-content-center d-flex" routerLink="management">
+      <img src="assets/svg/Truck.svg" width="44" height="44">
+       TaskHub
+    </a>
+    <div class="ms-auto d-none d-md-flex">
+      <ul class="nav">
+        <li *ngIf="(userService.isLoggedIn$ | async) && userService.hasGroup(['Administrator'])" class="nav-item me-4 my-auto">
+          <a class="nav-link" aria-current="page" [routerLink]="'admin-overview'">User Administration</a>
+        </li>
+        <li *ngIf="(userService.isLoggedIn$ | async) && !userService.hasGroup(['Administrator'])" class="nav-item me-4 my-auto">
+          <a class="nav-link" aria-current="page" [routerLink]="'/edit-user/' + userService.getUserId()">My Profile</a>
+        </li>
+        <li class="nav-item me-4 my-auto">
+          <a class="nav-link" routerLink="">About Us</a>
+        </li>
+        <li class="nav-item me-4 my-auto">
+          <a class="nav-link" routerLink="">Features</a>
+        </li>
+        <li class="nav-item me-2 my-auto">
+          <app-button *ngIf="!(userService.isLoggedIn$ | async)" [buttonText]="'Login'" [routerLink]="''"></app-button>
+          <app-button *ngIf="userService.isLoggedIn$ | async" [buttonText]="'Logout'" (OnClick)="logout()"></app-button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

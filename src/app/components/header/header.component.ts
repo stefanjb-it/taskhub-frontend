@@ -18,9 +18,7 @@ export class HeaderComponent {
   }
 
   logout() {
-    console.log(this.userService.isLoggedIn$)
     this.userService.logout();
-    console.log(this.userService.isLoggedIn$)
   }
 
 }
