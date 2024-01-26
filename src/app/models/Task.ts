@@ -9,6 +9,7 @@ export interface TaskList {
   id: number
   title: string
   task_type: string
+  order_title: string
   task_status: string
   scheduled_to: string
 }

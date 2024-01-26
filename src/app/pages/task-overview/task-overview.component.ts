@@ -65,7 +65,6 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   updateTaskList([fromDate, toDate]: [Date, Date]) {
-    console.log(fromDate, toDate);
     let paramArray : (string | undefined)[] = []
     if (fromDate) {
       fromDate.setDate(fromDate.getDate() + 1);
@@ -80,13 +79,10 @@ export class TaskOverviewComponent implements OnInit {
     else {
       paramArray.push(undefined);
     }
-    console.log(paramArray);
     this.taskService.getTasks(paramArray[0], paramArray[1]).subscribe(tasks => {
-      console.log(tasks);
       this.tasks = tasks;
       this.filteredTasks = tasks;
     });
-
   }
 
   filterTaskList(val:any) {
@@ -101,7 +97,8 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   isContainedTitle(task:TaskList, titleFilter:string) : boolean {
-    return task.title.toLowerCase().includes(titleFilter.toLowerCase());
+    return task.title.toLowerCase().includes(titleFilter.toLowerCase()) || 
+      task.order_title.toLowerCase().includes(titleFilter.toLowerCase());
   }
 
   isContainedDate(task:TaskList, fromFilter:number, toFilter:number) : boolean {
