@@ -1,7 +1,13 @@
 <div class="row justify-content-center mx-auto">
   <div class="contentBox p-4 my-4">
-    <p *ngIf="!selection" class="title-head my-3">New Order</p>
-    <p *ngIf="selection" class="title-head my-3">Change Order</p>
+    <div class="row  text-center">
+      <div class="d-none col-3 d-md-flex align-items-center">
+        <app-button [buttonText]="'Back'" [routerLink]="'/customer-overview'"></app-button>
+      </div>
+      <p *ngIf="!selection" class="col-12 col-md-6 title-head my-4">New Order</p>
+      <p *ngIf="selection" class="col-12 col-md-6 title-head my-4 text-center">Edit Order</p>
+      <div class="col-3 d-none d-md-auto"></div>
+    </div>
     <form (ngSubmit)="handleSubmit()" [formGroup]="formGroup">
       <div class="row">
         <div class="col-md-8">

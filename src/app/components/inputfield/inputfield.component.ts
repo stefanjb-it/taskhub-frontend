@@ -55,6 +55,9 @@ export class InputfieldComponent implements OnInit, ControlValueAccessor {
     if (this.type == 'number') {
       validator = Validators.compose([validator, Validators.pattern("[0-9]+")]);
     }
+    if (this.type == 'email') {
+      validator = Validators.compose([validator, Validators.email]);
+    }
 
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});

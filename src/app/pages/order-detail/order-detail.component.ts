@@ -8,7 +8,7 @@ import {Customer} from "../../models/Customer";
 import {UserService} from "../../services/user.service";
 import {OrderService} from "../../services/order.service";
 import {CustomerService} from "../../services/customer.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {combineLatestWith} from "rxjs";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
@@ -20,7 +20,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   selector: 'app-order-detail',
   standalone: true,
   imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule,
-    SimpleInputFieldComponent, SimpleSelectFieldComponent, DateInputfieldComponent],
+    SimpleInputFieldComponent, SimpleSelectFieldComponent, DateInputfieldComponent, RouterLink],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })

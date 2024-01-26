@@ -9,4 +9,7 @@
   @if (selection.hasError('required')){
     <mat-error>{{errorText}}</mat-error>
   }
+  @if (selection.hasError('email')){
+    <mat-error>Invalid mail address detected: {{selection.errors}}</mat-error>
+  }
 </mat-form-field>

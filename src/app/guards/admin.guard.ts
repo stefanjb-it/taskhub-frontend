@@ -6,6 +6,9 @@ import {map} from "rxjs";
 export const adminGuard: CanActivateFn = (route, state) => {
   const userService = inject(UserService);
   const router = inject(Router);
+  if (!userService.hasGroup(['Administrator']) && route.url.join('/') === 'edit-user/' + userService.getUserId()) {
+    return true;
+  }
   if (!userService.hasGroup(['Administrator'])) {
     router.navigate(['management'])
     return false;

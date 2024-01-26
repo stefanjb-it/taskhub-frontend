@@ -7,7 +7,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {VehicleTypeService} from "../../services/vehicle-type.service";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
 import {VehicleType} from "../../models/VehicleType";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
@@ -19,7 +19,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   selector: 'app-vehicle-detail',
   standalone: true,
   imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent,
-    ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent],
+    ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent, RouterLink],
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.scss'
 })

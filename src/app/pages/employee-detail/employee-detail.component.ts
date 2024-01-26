@@ -7,7 +7,7 @@ import {EmployeeService} from "../../services/employee.service";
 import {EmployeeType} from "../../models/EmployeeType";
 import {EmployeeGroup} from "../../models/EmployeeGroup";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {EmployeeTypeService} from "../../services/employee-type.service";
 import {EmployeeGroupService} from "../../services/employee-group.service";
 import {ImageService} from "../../services/image.service";
@@ -25,7 +25,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   standalone: true,
   imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule,
     SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent,
-    NgOptimizedImage, DateInputfieldComponent],
+    NgOptimizedImage, DateInputfieldComponent, RouterLink],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -40,6 +40,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   // TK Fix
   formGroup: FormGroup;
+  private randomNumber:number = 0;
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
@@ -51,7 +52,7 @@ export class EmployeeDetailComponent implements OnInit {
       username: new FormControl(''),
       address: new FormControl(null),
       birth_date: new FormControl(null),
-      email: new FormControl('', [Validators.email]),
+      email: new FormControl(''),
       password: new FormControl(null),
       phone: new FormControl(null),
       gender: new FormControl(null),
@@ -63,13 +64,13 @@ export class EmployeeDetailComponent implements OnInit {
       this.formGroup.get('first_name')?.valueChanges.subscribe(val => {
         if (this.formGroup.get('last_name')?.value && val) {
           this.formGroup.controls['username'].setValue(
-            val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + "24")
+            val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + this.randomNumber)
         }
       })
       this.formGroup.get('last_name')?.valueChanges.subscribe(val => {
         if (this.formGroup.get('first_name')?.value && val) {
           this.formGroup.controls['username'].setValue(
-            this.formGroup.get('first_name')?.value.slice(0,3).toLowerCase() + val.slice(0,3).toLowerCase() + "24")
+            this.formGroup.get('first_name')?.value.slice(0,3).toLowerCase() + val.slice(0,3).toLowerCase() + this.randomNumber)
         }
       })
     }
@@ -90,6 +91,7 @@ export class EmployeeDetailComponent implements OnInit {
           this.employeeGroups = res
         }
       )
+      this.randomNumber = Math.floor(Math.random() * 100);
       return;
     }
 
@@ -103,6 +105,12 @@ export class EmployeeDetailComponent implements OnInit {
     ).subscribe(([[employeeTypes, employee], employeeGroups]) => {
         this.employeeTypes = employeeTypes
         this.employeeGroups = employeeGroups
+
+      try {
+        this.randomNumber = employee.username?.slice(6,9) ? parseInt(employee.username?.slice(6,9)) : Math.floor(Math.random() * 100);
+      } catch (e) {
+        console.log('no username supplied...')
+      }
 
         this.formGroup.patchValue(employee);
         this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
@@ -122,7 +130,7 @@ export class EmployeeDetailComponent implements OnInit {
   handleSubmit() {
     // pre-processing for fine tuning with backend
     let result = this.formGroup.value;
-    result.groups = result.groups.map((item: string) => parseInt(item));
+    result.groups = result.groups?.map((item: string) => parseInt(item));
     if (result.password == '' || result.password == null) {
       delete result.password;
     }
@@ -143,7 +151,7 @@ export class EmployeeDetailComponent implements OnInit {
           this.router.navigate(['admin-overview'])
         },
         err => {
-          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+          this.snackbar.open(err.error.message ? err.error.message : 'An unforeseen error occurred, please retry!', "" , {duration: 2500, verticalPosition: "top",
             horizontalPosition: "right"})
         }
       )
