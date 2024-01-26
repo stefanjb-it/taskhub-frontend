@@ -1,11 +1,13 @@
 @import '../../app.component.scss';
 
-c-footer{
-  background: rgb(36, 42, 56, 0.75);
+.footer-div{
+  background: rgb(36, 42, 56, 0.90);
   width: 100%;
   border: 0;
   margin-top: auto;
   color: $textWhite;
+  position: fixed;
+  bottom: 0;
 }
 
 a{

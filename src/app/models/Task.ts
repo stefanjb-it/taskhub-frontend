@@ -7,6 +7,7 @@ import {Image} from "./Image";
 
 export interface TaskList {
   id: number
+  order_title: string
   title: string
   task_type: string
   task_status: string

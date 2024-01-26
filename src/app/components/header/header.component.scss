@@ -23,7 +23,13 @@ a{
 }
 
 .header{
-  background: rgb(36, 42, 56, 0.75);
+  background: rgb(36, 42, 56, 1);
   border: 0;
-  position: fixed;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.text-color:hover{
+  color: $colorOrange;
 }
