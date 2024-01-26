@@ -1,0 +1,53 @@
+
+<mat-stepper #stepper>
+  <mat-step [stepControl]="customerFormGroup" errorMessage="Customer is required.">
+    <form [formGroup]="customerFormGroup">
+      <ng-template matStepLabel>Create a Customer</ng-template>
+      <div class="row mt-2 mb-4">
+        <app-inputfield svgIconName="name" style="width: 100%" formControlName="name" labelText="Name" placeholder="Name" type="text" [required]="true"></app-inputfield>
+      </div>
+      <div class="row mb-4">
+        <app-inputfield svgIconName="address" formControlName="address" labelText="Address" placeholder="Enter address" type="text" [required]="true"></app-inputfield>
+      </div>
+      <div class="row mb-4">
+        <app-inputfield svgIconName="phone" formControlName="phone" labelText="Phone number" placeholder="000-000-000" type="number" [required]="true"></app-inputfield>
+      </div>
+      <div class="row mb-4">
+        <app-selectfield hint="mandatory" formControlName="is_company" labelText="Is the customer a company?" [items]="is_companyList"  [required]="true"></app-selectfield>
+      </div>
+      <div>
+        <p>Go ahead and create an Order for this Customer.</p>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="orderFormGroup" errorMessage="Order is required.">
+    <form [formGroup]="orderFormGroup">
+      <ng-template matStepLabel>Fill out the Order</ng-template>
+      <div class="row mt-2 mb-4">
+        <app-inputfield hint="Please enter an Order Number." svgIconName="default" formControlName="order_nr" labelText="Order Number" placeholder="12345" type="number" [required]="true"></app-inputfield>
+      </div>
+      <div class="row mb-4">
+        <app-inputfield hint="Please enter an Order Title." svgIconName="default" formControlName="title" labelText="Order Title" placeholder="Order Title" type="text" [required]="true"></app-inputfield>
+      </div>
+      <div class="row mb-4">
+        <app-selectfield hint="" formControlName="is_completed" labelText="Is the Order already completed?" [items]="states" [required]="true"></app-selectfield>
+      </div>
+      <div class="row mb-3">
+        <app-date-inputfield formControlName="order_date" labelText="OrderDate" hint="Please select the order's date." [required]="false"></app-date-inputfield>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>Check your values and click Submit.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="createOrderAndCustomer()">Submit</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+
