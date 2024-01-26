@@ -5,7 +5,7 @@
         <app-button [buttonText]="'Back'" [routerLink]="'/customer-overview'"></app-button>
       </div>
       <p *ngIf="!selection" class="col-12 col-md-6 title-head my-4">New Customer</p>
-      <p *ngIf="selection" class="col-12 col-md-6 title-head my-4 text-center">Edit Customer</p>
+      <p *ngIf="selection" class="col-12 col-md-6 title-head my-4 text-center">Customer Details</p>
       <div class="col-3 d-none d-md-auto"></div>
     </div>
     <form (ngSubmit)="handleSubmit()" [formGroup]="formGroup">
@@ -21,7 +21,7 @@
             <app-inputfield svgIconName="phone" formControlName="phone" [labelText]="'Phone number'" [placeholder]="'000-000-000'" [type]="'text'" [required]="true"></app-inputfield>
           </div>
           <div class="row mb-4">
-            <app-selectfield [required]="false" hint="not mandatory" formControlName="is_company" [labelText]="'Is the customer a company?'" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-selectfield>
+            <app-selectfield [required]="true" hint="mandatory" formControlName="is_company" [labelText]="'Is the customer a company?'" [items]="[{id:false, name:'No'}, {id:true, name:'Yes'}]"></app-selectfield>
           </div>
         </div>
         <div class="col-md-4 my-auto">

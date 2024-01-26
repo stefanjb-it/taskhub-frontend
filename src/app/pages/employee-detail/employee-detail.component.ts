@@ -41,6 +41,7 @@ export class EmployeeDetailComponent implements OnInit {
   // TK Fix
   formGroup: FormGroup;
   private randomNumber:number = 0;
+  isAdminAccess: boolean = false;
 
   constructor(public userService:UserService, private employeeTypeService:EmployeeTypeService,
               public employeeService:EmployeeService, private route:ActivatedRoute,
@@ -74,6 +75,7 @@ export class EmployeeDetailComponent implements OnInit {
         }
       })
     }
+    this.isAdminAccess = this.userService.hasGroup(['Administrator']);
   }
 
   ngOnInit(){
