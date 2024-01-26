@@ -20,7 +20,7 @@ export class CustomerService {
   }
 
   createCustomer(customer: ChangeCustomer) {
-    return this.http.post(baseurl, customer)
+    return this.http.post<Customer>(baseurl, customer)
   }
 
   changeCustomer(customer: ChangeCustomer, id: number) {

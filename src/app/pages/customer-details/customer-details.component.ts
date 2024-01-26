@@ -70,6 +70,7 @@ export class CustomerDetailsComponent  implements OnInit {
       this.customerService.createCustomer(result).subscribe(
         res => {
         this.router.navigate(['customer-overview']);
+        console.log(res)
         },
         err => {
           this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",

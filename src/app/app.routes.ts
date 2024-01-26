@@ -19,6 +19,7 @@ import {authGuard} from "./guards/auth.guard";
 import {adminGuard} from "./guards/admin.guard";
 import {supervisorGuard} from "./guards/supervisor.guard";
 import {managerGuard} from "./guards/manager.guard";
+import {StepperOrderComponent} from "./pages/stepper-order/stepper-order.component";
 
 export const routes: Routes = [
   { path: '', component: HomeLoginComponent },
@@ -39,5 +40,6 @@ export const routes: Routes = [
   { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard]},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
   { path: 'task-images/:id', component: TaskImageCarouselComponent, canActivate: [authGuard]},
+  { path: 'customer-order', component: StepperOrderComponent},
   { path: '**', redirectTo: ''}
 ];
