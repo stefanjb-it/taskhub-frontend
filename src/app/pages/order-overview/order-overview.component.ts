@@ -6,15 +6,17 @@ import {RouterLink} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {Order} from "../../models/Order";
 import {OrderService} from "../../services/order.service";
-import {Employee} from "../../models/Employee";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 
 @Component({
   selector: 'app-order-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, UnvehicletypePipe, RouterLink, ReactiveFormsModule, MatButtonModule, MatCardModule],
+  imports: [CommonModule, ButtonComponent, UnvehicletypePipe, RouterLink, ReactiveFormsModule, MatButtonModule,
+    MatCardModule, InputfieldComponent],
   templateUrl: './order-overview.component.html',
   styleUrl: './order-overview.component.scss'
 })
@@ -24,7 +26,7 @@ export class OrderOverviewComponent implements OnInit {
 
   filterFormControl = new FormControl('')
 
-  constructor(public orderService: OrderService, public userService: UserService) {
+  constructor(public orderService: OrderService, public userService: UserService, private snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -39,17 +41,20 @@ export class OrderOverviewComponent implements OnInit {
 
   filterOrders(filterValue: string | null){
     this.filteredOrders  = this.orders.filter( order => {
-      return !filterValue ||  order.title.toLowerCase().includes(filterValue.toLowerCase())
+      return !filterValue ||  order.title.toLowerCase().includes(filterValue.toLowerCase()) ||
+        (order.is_completed ? "Finalized" : "Uncompleted").toLowerCase().includes(filterValue.toLowerCase())
     })
   }
 
   deleteOrder(id: number) {
     this.orderService.deleteOrder(id).subscribe(
       res => {
-        alert('Order deleted successfully!');
         this.filteredOrders = this.filteredOrders.filter(order => order.id != id)
       },
-      err => alert('Error occured!')
+      err => {
+        this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+          horizontalPosition: "right"})
+      }
     );
   }
 }

@@ -14,7 +14,7 @@
                             svgIconName="name" type="text"></app-inputfield>
           </div>
           <div class="row mb-2">
-            <app-inputfield [required]="false" formControlName="username" labelText="Username" placeholder="Username"
+            <app-inputfield [required]="true" formControlName="username" labelText="Username" placeholder="Username"
                             svgIconName="name" type="text" [readonly]="true"></app-inputfield>
           </div>
           <div class="row mb-2">
@@ -77,7 +77,7 @@
         <div class="d-flex justify-content-center">
           <div class="row">
             <div class="col-md-6 mb-md-0 mb-4">
-              <input (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg" class="me-md-3 me-0 file-upload"
+              <input *ngIf="selection" (change)="uploadPicture($event)" accept="image/x-png,image/gif,image/jpeg" class="me-md-3 me-0 file-upload"
                      title="Upload Profile Picture" type="file">
             </div>
             <div class="col-md-6 m-auto">

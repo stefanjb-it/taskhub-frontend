@@ -16,8 +16,8 @@
       </div>
       <div class="col-md-4 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Order Overview</p>
-        <form class="customSearchField mb-4 mb-md-0">
-          <input class="form-control customSearch" type="search" [formControl]="filterFormControl" placeholder="Search Order" aria-label="Search">
+        <form class="customSearchField mt-4 mb-4 mb-md-0">
+          <app-inputfield style="width: 100%" hint="Narrow down the search..." svgIconName="task" [formControl]="filterFormControl" labelText="Search Order" placeholder="..." type="search" [required]="false"></app-inputfield>
         </form>
       </div>
       <div class="col-md-3 d-flex justify-content-center align-items-center">
@@ -43,7 +43,7 @@
             <a class="my-auto text-white" [routerLink]="'/edit-order/' + order.id">{{order.title}}</a>
           </div>
           <div class="col-8 col-sm-4 my-auto">
-            <p *ngIf="order.is_completed" class="my-auto text-white">Completed</p>
+            <p *ngIf="order.is_completed" class="my-auto text-white">Finalized</p>
             <p *ngIf="!order.is_completed" class="my-auto text-white">Uncompleted</p>
           </div>
           <div class="col-4 col-sm-2 fac-list-item d-flex justify-content-around justify-content-sm-evenly px-0">

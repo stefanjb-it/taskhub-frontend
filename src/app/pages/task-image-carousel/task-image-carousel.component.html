@@ -1,9 +1,14 @@
+<div class="row">
+  <app-button [buttonText]="'Back'" [routerLink]="'/edit-task/' + selection"></app-button>
+</div>
 <div class="row justify-content-center mx-auto">
   <div class="contentBox p-3 my-4">
-    <ngb-carousel data-interval="false">
-      <ng-template *ngFor="let picture of pictures" ngbSlide>
-        <img src={{picture}} alt="First slide">
-      </ng-template>
-    </ngb-carousel>
+    <div class="row">
+      <ngb-carousel data-interval="false">
+        <ng-template *ngFor="let picture of pictures" ngbSlide>
+          <img class="task-picture" src={{picture}} alt="First slide">
+        </ng-template>
+      </ngb-carousel>
+    </div>
   </div>
 </div>

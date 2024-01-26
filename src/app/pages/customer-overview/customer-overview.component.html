@@ -13,8 +13,8 @@
       </div>
       <div class="col-md-4 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Customer Overview</p>
-        <form class="customSearchField mb-4 mb-md-0">
-          <input class="form-control customSearch" type="search" [formControl]="filterFormControl" placeholder="Search Customer" aria-label="Search">
+        <form class="customSearchField mt-4 mb-4 mb-md-0">
+          <app-inputfield style="width: 100%" hint="Narrow down the search..." svgIconName="name" [formControl]="filterFormControl" labelText="Search Customer" placeholder="..." type="search"></app-inputfield>
         </form>
       </div>
       <div class="col-md-3 d-flex justify-content-center align-items-center">

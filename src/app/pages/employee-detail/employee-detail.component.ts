@@ -4,7 +4,6 @@ import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {UserService} from "../../services/user.service";
 import {EmployeeService} from "../../services/employee.service";
-import {ChangeEmployee, Employee} from "../../models/Employee";
 import {EmployeeType} from "../../models/EmployeeType";
 import {EmployeeGroup} from "../../models/EmployeeGroup";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
@@ -19,13 +18,14 @@ import {SimpleSelectFieldComponent} from "../../components/simple-select-field/s
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
-import {cilContrast} from "@coreui/icons";
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent, NgOptimizedImage, DateInputfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule,
+    SimpleInputFieldComponent, SimpleSelectFieldComponent, MultipleSelectFieldComponent, MultiSelectfieldComponent,
+    NgOptimizedImage, DateInputfieldComponent],
   templateUrl: './employee-detail.component.html',
   styleUrl: './employee-detail.component.scss'
 })
@@ -51,7 +51,7 @@ export class EmployeeDetailComponent implements OnInit {
       username: new FormControl(''),
       address: new FormControl(null),
       birth_date: new FormControl(null),
-      email: new FormControl(''),
+      email: new FormControl('', [Validators.email]),
       password: new FormControl(null),
       phone: new FormControl(null),
       gender: new FormControl(null),
@@ -59,18 +59,17 @@ export class EmployeeDetailComponent implements OnInit {
       drivers_license_status: new FormControl(null),
       groups: new FormControl(null)
     });
-    this.formGroup.valueChanges.subscribe((value) => {
-      console.log(value)
-    });
     if (!this.selection) {
       this.formGroup.get('first_name')?.valueChanges.subscribe(val => {
         if (this.formGroup.get('last_name')?.value && val) {
-          this.formGroup.controls['username'].setValue(val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + "24")
+          this.formGroup.controls['username'].setValue(
+            val.slice(0,3).toLowerCase() + this.formGroup.get('last_name')?.value.slice(0,3).toLowerCase() + "24")
         }
       })
       this.formGroup.get('last_name')?.valueChanges.subscribe(val => {
         if (this.formGroup.get('first_name')?.value && val) {
-          this.formGroup.controls['username'].setValue(this.formGroup.get('first_name')?.value.slice(0,3).toLowerCase() + val.slice(0,3).toLowerCase() + "24")
+          this.formGroup.controls['username'].setValue(
+            this.formGroup.get('first_name')?.value.slice(0,3).toLowerCase() + val.slice(0,3).toLowerCase() + "24")
         }
       })
     }
@@ -109,7 +108,8 @@ export class EmployeeDetailComponent implements OnInit {
         this.formGroup.controls['employee_type'].setValue(employee.employee_type?.id);
         this.formGroup.controls['groups'].setValue(employee.groups?.map(group => group.id));
         if (employee.has_image) {
-          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")).subscribe(data => {
+          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")
+          ).subscribe(data => {
             this.pfpLink = "data:image/png;base64, "+ String(data);
           })
         }
@@ -127,54 +127,27 @@ export class EmployeeDetailComponent implements OnInit {
       delete result.password;
     }
 
-    console.log(result)
-
     if (this.selection) {
       this.employeeService.changeEmployee(result, parseInt(this.selection)).subscribe(
         res => {
-          alert('Employee updated successfully!')
           this.router.navigate(['admin-overview'])
         },
         err => {
-          alert(err.header)
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       )
     } else {
       this.employeeService.createEmployee(result).subscribe(
         res => {
-          alert('Employee created successfully!')
           this.router.navigate(['admin-overview'])
         },
         err => {
-          alert(err.header)
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       )
     }
-  }
-
-  toLicenseStatus(input : string | undefined):boolean | null{
-    switch (input) {
-      case "false":
-        return false;
-      case "true":
-        return true;
-      default:
-        return null;
-    }
-  }
-
-  toNumber(input : string | undefined):number | null{
-    if (input == undefined) {
-      return null;
-    }
-    return parseInt(input);
-  }
-
-  toNumberArray(input : string[] | undefined):number[] | null{
-    if (input == undefined) {
-      return null;
-    }
-    return input.map((item) => parseInt(item));
   }
 
   uploadPicture(event: any) {
@@ -184,11 +157,13 @@ export class EmployeeDetailComponent implements OnInit {
     if (this.selection) {
       this.imageService.uploadProfilePicture(Number(this.selection), formData).subscribe(
         res => {
-          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")).subscribe(data => {
+          this.imageService.getProfilePicture(parseInt(typeof this.selection === "string" ? this.selection : "")
+          ).subscribe(data => {
             this.pfpLink = "data:image/png;base64, "+ String(data);
           })
         }, error => {
-          this.snackbar.open(error.error.message, "" , {duration: 2500, verticalPosition: "top", horizontalPosition: "right"})
+          this.snackbar.open(error.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       )
     }

@@ -1,22 +1,23 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ButtonComponent } from "../../components/button/button.component";
+import {CommonModule} from '@angular/common';
+import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {Task, TaskList} from 'src/app/models/Task';
-import { RouterLink } from '@angular/router';
-import { TaskService } from 'src/app/services/task.service';
-import {TaskType} from "../../models/TaskType";
+import {TaskList} from 'src/app/models/Task';
+import {RouterLink} from '@angular/router';
+import {TaskService} from 'src/app/services/task.service';
 import {TaskTypeService} from "../../services/task-type.service";
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ImageService} from "../../services/image.service";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-task-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, RouterLink, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, DateInputfieldComponent],
+  imports: [CommonModule, ButtonComponent, RouterLink, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule,
+    DateInputfieldComponent],
   templateUrl: './task-overview.component.html',
   styleUrl: './task-overview.component.scss'
 })
@@ -29,7 +30,7 @@ export class TaskOverviewComponent implements OnInit {
   private defaultTo:number;
 
   constructor(public taskService: TaskService, public userService: UserService, public taskTypeService: TaskTypeService,
-              private imageService: ImageService) {
+              private imageService: ImageService, private snackbar: MatSnackBar) {
     this.formGroup = new FormGroup({
       title: new FormControl(''),
       from: new FormControl(null),
@@ -37,7 +38,6 @@ export class TaskOverviewComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe(value => {
       this.filterTaskList(this.formGroup.value);
-      console.log('ValueChanges: ' + value);
     });
 
     // Date Setup for filtering
@@ -59,7 +59,8 @@ export class TaskOverviewComponent implements OnInit {
     let toFilter = this.formGroup.value.to ? Date.parse(this.formGroup.value.to) : this.defaultTo;
 
     this.filteredTasks = this.tasks.filter( task => {
-      return this.isContainedTitle(task, titleFilter ? titleFilter : '') && this.isContainedDate(task, fromFilter, toFilter);
+      return this.isContainedTitle(task, titleFilter ? titleFilter : '')
+        && this.isContainedDate(task, fromFilter, toFilter);
     })
   }
 
@@ -73,21 +74,14 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   deleteTask(id: number) {
-    // TODO Get amount of images
-    this.imageService.deleteTaskImage(id, 1).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
     this.taskService.deleteTask(id).subscribe(
       res => {
-        alert('Task deleted successfully!');
         this.filteredTasks = this.filteredTasks.filter(task => task.id != id)
       },
-      err => alert('Error occured!')
+      err => {
+        this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+          horizontalPosition: "right"})
+      }
     );
   }
 }

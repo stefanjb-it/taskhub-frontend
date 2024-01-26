@@ -8,13 +8,15 @@ import {UnobjectingPipe} from "../../pipes/unobjecting.pipe";
 import {UserService} from "../../services/user.service";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {ImageService} from "../../services/image.service";
+import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-admin-overview',
     standalone: true,
     templateUrl: './admin-overview.component.html',
     styleUrl: './admin-overview.component.scss',
-  imports: [CommonModule, ButtonComponent, RouterLink, UnobjectingPipe, ReactiveFormsModule]
+  imports: [CommonModule, ButtonComponent, RouterLink, UnobjectingPipe, ReactiveFormsModule, InputfieldComponent]
 })
 export class AdminOverviewComponent implements OnInit {
   employees: Employee[] = [];
@@ -23,7 +25,7 @@ export class AdminOverviewComponent implements OnInit {
   filterFormControl = new FormControl('')
 
   constructor(public employeeService: EmployeeService, public userService: UserService, public router: Router,
-              private imageService: ImageService) {
+              private imageService: ImageService, private snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -52,12 +54,16 @@ export class AdminOverviewComponent implements OnInit {
       }
 
       this.employeeService.deleteEmployee(id).subscribe(
-        res => alert('Employee deleted successfully!'),
-        err => alert('Error occured!')
+        res => this.filteredEmployees = this.filteredEmployees.filter(employee => employee.id != id),
+        err => {
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
+        }
       )
-      this.filteredEmployees = this.filteredEmployees.filter(employee => employee.id != id)
+
     } else {
-      alert("Can't delete own User Account. Please ask your Administrator!")
+      this.snackbar.open("Can't delete own User Account. Please ask your Administrator!", "" , {duration: 2500,
+        verticalPosition: "top", horizontalPosition: "right"})
     }
   }
 }

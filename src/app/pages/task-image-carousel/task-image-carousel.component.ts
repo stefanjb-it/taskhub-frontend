@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {NgbCarousel, NgbSlide} from "@ng-bootstrap/ng-bootstrap";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {TaskService} from "../../services/task.service";
 import { Task } from 'src/app/models/Task';
 import {ImageService} from "../../services/image.service";
 import {ImgDirective} from "@coreui/angular";
+import {ButtonComponent} from "../../components/button/button.component";
 
 @Component({
   selector: 'app-task-image-carousel',
   standalone: true,
-  imports: [CommonModule, NgbCarousel, NgbSlide, NgOptimizedImage],
+  imports: [CommonModule, NgbCarousel, NgbSlide, NgOptimizedImage, ButtonComponent, RouterLink],
   templateUrl: './task-image-carousel.component.html',
   styleUrl: './task-image-carousel.component.scss'
 })

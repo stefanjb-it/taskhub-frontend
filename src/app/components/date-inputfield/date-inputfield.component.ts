@@ -54,7 +54,6 @@ export class DateInputfieldComponent implements OnInit, ControlValueAccessor {
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
-      console.log('date live in field: ' + value);
       if (this.conversionFunction) {
         value = this.conversionFunction(value);
       }

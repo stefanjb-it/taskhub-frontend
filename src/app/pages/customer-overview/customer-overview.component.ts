@@ -6,16 +6,14 @@ import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {Customer} from "../../models/Customer";
 import {CustomerService} from "../../services/customer.service";
-import {Employee} from "../../models/Employee";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-
-// SNACKBAR
-// https://material.angular.io/components/snack-bar/examples
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 
 @Component({
   selector: 'app-customer-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, UnobjectingPipe, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, ButtonComponent, UnobjectingPipe, RouterLink, ReactiveFormsModule, InputfieldComponent],
   templateUrl: './customer-overview.component.html',
   styleUrl: './customer-overview.component.scss'
 })
@@ -25,7 +23,8 @@ export class CustomerOverviewComponent implements OnInit {
 
   filterFormControl = new FormControl('')
 
-  constructor(public customerService: CustomerService, public userService: UserService, public route:Router) {
+  constructor(public customerService: CustomerService, public userService: UserService, public route:Router,
+              private snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -47,12 +46,11 @@ export class CustomerOverviewComponent implements OnInit {
   deleteCustomer(id: number) {
     this.customerService.deleteCustomer(id).subscribe(
         res => {
-          alert('customer deleted successfully!');
           this.filteredCustomers = this.filteredCustomers.filter(customer => customer.id != id)
         },
         err => {
-          console.log(err);
-          alert('Please make sure that no orders are assigned to this customer.');
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
     );
   }

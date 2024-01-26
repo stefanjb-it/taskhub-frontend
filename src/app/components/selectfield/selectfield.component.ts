@@ -50,7 +50,6 @@ export class SelectfieldComponent implements OnInit, ControlValueAccessor {
     // OnChange LOGIC
     this.selection = this.fb.control(null, {validators: validator});
     this.selection.valueChanges.subscribe((value) => {
-      console.log(value)
       if (this.conversionFunction) {
         value = this.conversionFunction(value);
       }
@@ -76,7 +75,6 @@ export class SelectfieldComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    console.log(obj);
     this.selection.patchValue(obj, {emitEvent: false});
   }
 }

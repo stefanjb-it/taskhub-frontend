@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {ButtonComponent} from "../../components/button/button.component";
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {SelectfieldComponent} from "../../components/selectfield/selectfield.component";
-import {ChangeTask} from "../../models/Task";
 import {TaskType} from "../../models/TaskType";
 import {TaskStatus} from "../../models/TaskStatus";
 import {Order} from "../../models/Order";
@@ -16,7 +15,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {TaskService} from "../../services/task.service";
 import {TaskTypeService} from "../../services/task-type.service";
 import {TaskStatusService} from "../../services/task-status.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {combineLatestWith} from "rxjs";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
@@ -25,17 +24,18 @@ import {MultipleSelectFieldComponent} from "../../components/multiple-select-fie
 import {ImageService} from "../../services/image.service";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent, SimpleSelectFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent, DateInputfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, SimpleInputFieldComponent,
+    SimpleSelectFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent,
+    DateInputfieldComponent, RouterLink],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss'
 })
 export class TaskDetailComponent implements OnInit {
-  newTask: ChangeTask = {};
-
   taskTypes: TaskType[] = [];
   orders: Order[] = [];
   employees: Employee[] = [];
@@ -43,6 +43,7 @@ export class TaskDetailComponent implements OnInit {
   taskStatuses: TaskStatus[] = [];
 
   selection: string | undefined | null;
+  images: boolean | undefined;
 
   shiftOptions = [{id: 'am', title: 'am'}, {id: 'pm', title: 'pm'}];
 
@@ -53,7 +54,7 @@ export class TaskDetailComponent implements OnInit {
               public vehicleService: VehicleService, public employeeService: EmployeeService,
               public taskTypeService: TaskTypeService, public taskStatusService: TaskStatusService,
               public taskService: TaskService, private route: ActivatedRoute, private router: Router,
-              private imageService: ImageService) {
+              private imageService: ImageService, private snackbar: MatSnackBar) {
     this.formGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
       task_type: new FormControl(null, [Validators.required]),
@@ -120,7 +121,8 @@ export class TaskDetailComponent implements OnInit {
         combineLatestWith(
           this.taskStatusService.getTaskStatuses()
         )
-      ).subscribe(([[[[[employees, task], taskTypes], orders], vehicles], taskStatuses]) => {
+      ).subscribe(([[[[[employees, task], taskTypes], orders],
+        vehicles], taskStatuses]) => {
           this.employees = employees;
           this.taskTypes = taskTypes;
           this.orders = orders;
@@ -128,6 +130,10 @@ export class TaskDetailComponent implements OnInit {
           this.taskStatuses = taskStatuses;
 
           this.shiftOptions.filter(shift => shift.id === task.from_shift || task.to_shift);
+
+          if (task.images) {
+            this.images = task.images?.length > 0;
+          }
 
           this.formGroup.patchValue(task);
           this.formGroup.controls['task_type'].setValue(task.task_type?.id);
@@ -180,7 +186,8 @@ export class TaskDetailComponent implements OnInit {
       this.imageService.uploadTaskImage(Number(this.selection), formData).subscribe(
         res => {
         }, error => {
-          console.log(error)
+          this.snackbar.open(error.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       )
     }
@@ -195,21 +202,21 @@ export class TaskDetailComponent implements OnInit {
     if (this.selection) {
       this.taskService.changeTask(parseInt(this.selection), result).subscribe(
         res => {
-          alert('Task updated successfully!')
           this.router.navigate(['task-overview'])
         },
         err => {
-          alert("There was an error updating the task, Please check your input and try again.")
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       );
     } else {
       this.taskService.createTask(result).subscribe(
         res => {
-          alert('Task created successfully!')
           this.router.navigate(['task-overview'])
         },
         err => {
-          alert("There was an error updating the task, Please check your input and try again.")
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       );
     }

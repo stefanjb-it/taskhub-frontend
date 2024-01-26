@@ -7,6 +7,7 @@ import {VehicleService} from "../../services/vehicle.service";
 import {RouterLink} from "@angular/router";
 import {UnvehicletypePipe} from "../../pipes/unvehicletype.pipe";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-vehicle-overview',
@@ -21,7 +22,7 @@ export class VehicleOverviewComponent implements OnInit {
 
   filteredFormControl= new FormControl('')
 
-  constructor(public vehicleService: VehicleService, public userService: UserService) {
+  constructor(public vehicleService: VehicleService, public userService: UserService, private snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -43,10 +44,12 @@ export class VehicleOverviewComponent implements OnInit {
   deleteVehicle(id: number) {
     this.vehicleService.deleteVehicle(id).subscribe(
       res => {
-        alert('Vehicle deleted successfully!');
         this.filteredVehicles = this.filteredVehicles.filter(vehicle => vehicle.id != id)
       },
-      err => alert('Error occured!')
+      err => {
+        this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+          horizontalPosition: "right"})
+      }
     );
   }
 }

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {ToastrService} from "ngx-toastr";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserService {
   readonly refreshTokenLocalStorageKey = 'refresh_token';
   isLoggedIn$ = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private toastService: ToastrService) {
+  constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService, private snackbar: MatSnackBar) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
       console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
@@ -36,7 +36,7 @@ export class UserService {
           this.router.navigate(['management']);
         },
         error: () => {
-          alert('Login failed, wrong username or password!')
+          this.snackbar.open("Wrong Username or Password!", "" , {duration: 2500, verticalPosition: "top", horizontalPosition: "right"})
         }
       });
   }
@@ -56,7 +56,6 @@ export class UserService {
           localStorage.setItem('access_token', res.access);
         },
         error: () => {
-          TODO: Show error message
           this.toastService.warning('Token refresh failed', 'Authentication error',
             {easeTime: 250, timeOut: 2000});
         }

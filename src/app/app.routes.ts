@@ -21,27 +21,6 @@ import {supervisorGuard} from "./guards/supervisor.guard";
 import {managerGuard} from "./guards/manager.guard";
 
 export const routes: Routes = [
-  /*{ path: '', component: HomeLoginComponent },
-  { path: 'admin-overview', component: AdminOverviewComponent},
-  { path: 'create-user', component: EmployeeDetailComponent},
-  { path: 'edit-user/:id', component: EmployeeDetailComponent},
-  { path: 'customer-overview', component: CustomerOverviewComponent},
-  { path: 'create-customer', component: CustomerDetailsComponent},
-  { path: 'edit-customer/:id', component: CustomerDetailsComponent},
-  { path: 'management', component: ManagementOverviewComponent},
-  { path: 'order-overview', component: OrderOverviewComponent},
-  { path: 'create-order', component: OrderDetailComponent},
-  { path: 'edit-order/:id', component: OrderDetailComponent},
-  { path: 'task-overview', component: TaskOverviewComponent},
-  { path: 'create-task', component: TaskDetailComponent},
-  { path: 'edit-task/:id', component: TaskDetailComponent},
-  { path: 'vehicle-overview', component: VehicleOverviewComponent},
-  { path: 'create-vehicle', component: VehicleDetailComponent},
-  { path: 'edit-vehicle/:id', component: VehicleDetailComponent},
-  { path: 'csl/:id', component: TaskImageCarouselComponent},
-  { path: '**', redirectTo: ''}*/
-
-  //TODO: replace above with below after testing
   { path: '', component: HomeLoginComponent },
   { path: 'admin-overview', component: AdminOverviewComponent, canActivate: [authGuard,adminGuard]},
   { path: 'create-user', component: EmployeeDetailComponent, canActivate: [authGuard,adminGuard]},
@@ -59,6 +38,6 @@ export const routes: Routes = [
   { path: 'vehicle-overview', component: VehicleOverviewComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
   { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard]},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
-  { path: 'csl/:id', component: TaskImageCarouselComponent, canActivate: [authGuard]},
+  { path: 'task-images/:id', component: TaskImageCarouselComponent, canActivate: [authGuard]},
   { path: '**', redirectTo: ''}
 ];

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 import {ButtonComponent} from "../../components/button/button.component";
-import {ChangeVehicle} from "../../models/Vehicle";
 import {UserService} from "../../services/user.service";
 import {VehicleService} from "../../services/vehicle.service";
 import {VehicleTypeService} from "../../services/vehicle-type.service";
@@ -14,11 +13,13 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {MultipleSelectFieldComponent} from "../../components/multiple-select-field/multiple-select-field.component";
 import {combineLatestWith} from "rxjs";
 import {MultiSelectfieldComponent} from "../../components/multi-selectfield/multi-selectfield.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-vehicle-detail',
   standalone: true,
-  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent, ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent],
+  imports: [CommonModule, InputfieldComponent, ButtonComponent, SelectfieldComponent, SimpleInputFieldComponent,
+    ReactiveFormsModule, MultipleSelectFieldComponent, MultiSelectfieldComponent],
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.scss'
 })
@@ -29,7 +30,8 @@ export class VehicleDetailComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(public userService:UserService, public vehicleService:VehicleService,
-              public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute, private router: Router) {
+              public vehicleTypeService:VehicleTypeService, private route: ActivatedRoute,
+              private router: Router, private snackbar: MatSnackBar) {
     this.formGroup = new FormGroup({
       title: new FormControl('', [Validators.required]),
       vehicle_type: new FormControl(null, [Validators.required]),
@@ -74,7 +76,8 @@ export class VehicleDetailComponent implements OnInit {
           this.router.navigate(['vehicle-overview']);
         },
         err => {
-          alert("Something went wrong, please try again.")
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       );
     } else {
@@ -83,7 +86,8 @@ export class VehicleDetailComponent implements OnInit {
           this.router.navigate(['vehicle-overview']);
         },
         err => {
-          alert("Something went wrong, please try again.")
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       );
     }

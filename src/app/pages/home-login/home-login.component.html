@@ -1,5 +1,5 @@
 <div>
-  <div class="row justify-content-center mx-auto">
+  <div *ngIf="!(userService.isLoggedIn$ | async)" class="row justify-content-center mx-auto">
     <div class="contentBox centerBox p-3 mt-4 mb-4 justify-content-center">
       <div class="row pt-2 pb-2">
         <div class="col-md-5 d-flex justify-content-center align-items-center">
@@ -11,14 +11,15 @@
           </div>
           <form  (submit)="userLogin()" [formGroup]="formGroup">
             <div class="row mb-4">
-              <app-simple-input-field [required]="true" id="username" type="text" formControlName="username"
-                                      placeholder="Enter Name" svgType="user"></app-simple-input-field>
+              <app-inputfield [required]="true" type="text" formControlName="username"
+                              placeholder="Enter Name" labelText="Enter Name" svgIconName="name"></app-inputfield>
             </div>
             <div class="row mb-4">
-              <app-simple-input-field [required]="true" id="password" type="password" formControlName="password" svgType="password"></app-simple-input-field>
+              <app-inputfield [required]="true" formControlName="password" labelText="Password"
+                              placeholder="* * * * * * * * *" svgIconName="password" type="password"></app-inputfield>
             </div>
             <div class="row">
-                <app-button [buttonText]="'Login'" type="submit" class="d-flex justify-content-end"></app-button>
+                <app-button buttonText="Login" type="submit" class="d-flex justify-content-end"></app-button>
             </div>
           </form>
         </div>

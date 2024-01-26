@@ -14,16 +14,17 @@ import {combineLatestWith} from "rxjs";
 import {SimpleInputFieldComponent} from "../../components/simple-input-field/simple-input-field.component";
 import {SimpleSelectFieldComponent} from "../../components/simple-select-field/simple-select-field.component";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule, SimpleInputFieldComponent, SimpleSelectFieldComponent, DateInputfieldComponent],
+  imports: [CommonModule, ButtonComponent, InputfieldComponent, SelectfieldComponent, ReactiveFormsModule,
+    SimpleInputFieldComponent, SimpleSelectFieldComponent, DateInputfieldComponent],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })
 export class OrderDetailComponent implements OnInit {
-  newOrder : ChangeOrder = {}
   customers: Customer[] = [];
   selection : string | undefined | null;
   formGroup: FormGroup;
@@ -31,7 +32,8 @@ export class OrderDetailComponent implements OnInit {
   states: any[] = [{id: false, name: "No"}, {id: true, name: "Yes"}];
 
   constructor(public userService:UserService, public customerService:CustomerService,
-              public orderService:OrderService, private route:ActivatedRoute, private router: Router) {
+              public orderService:OrderService, private route:ActivatedRoute, private router: Router,
+              private snackbar: MatSnackBar) {
     this.formGroup = new FormGroup( {
       order_nr: new FormControl(''),
       title: new FormControl(''),
@@ -68,41 +70,35 @@ export class OrderDetailComponent implements OnInit {
     )
   }
 
-  toName(input: Customer):string | null {
-    if (input == undefined) {
-      return null;
-    }
-    return input.name;
-  }
-
   handleSubmit() {
-    this.newOrder = this.formGroup.value;
-    if (!this.newOrder.order_date){
-      this.newOrder.order_date = new Date().toISOString();
+    let result = this.formGroup.value;
+    if (!result.order_date){
+      result.order_date = new Date().toISOString();
     }
     if (this.selection) {
-      this.orderService.changeOrder(parseInt(this.selection), this.newOrder).subscribe(
+      this.orderService.changeOrder(parseInt(this.selection), result).subscribe(
         res => {
-          alert('Order updated successfully!')
           this.router.navigate(['order-overview'])
         },
         err => {
-          alert(err.header)
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
         }
       );
     } else {
-      if (!this.newOrder.is_completed){
-        delete this.newOrder.is_completed;
+      if (!result.is_completed){
+        delete result.is_completed;
       }
 
-      this.orderService.createOrder(this.newOrder).subscribe(
+      this.orderService.createOrder(result).subscribe(
         res => {
-          alert('Order created successfully!')
           this.router.navigate(['order-overview'])
         },
         err => {
-          alert(err.header)
-        });
+          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+            horizontalPosition: "right"})
+        }
+      );
     }
   }
 }
