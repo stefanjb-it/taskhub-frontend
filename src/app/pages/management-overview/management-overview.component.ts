@@ -13,5 +13,12 @@ import {Router, RouterLink} from "@angular/router";
 })
 export class ManagementOverviewComponent {
   constructor(public userService:UserService, public router: Router) {
+    this.isAdmin = userService.hasGroup(["Administrator"]);
+    this.isManager = userService.hasGroup(["Manager"]);
+    this.isSupervisor = userService.hasGroup(["Supervisor"]);
   }
+
+  isAdmin:boolean = false;
+  isManager:boolean = false;
+  isSupervisor:boolean = false;
 }

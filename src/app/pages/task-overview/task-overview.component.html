@@ -24,7 +24,7 @@
                     <p class="search-head mb-4 mb-md-auto">Task Overview</p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-end">
-                    <app-button [buttonText]="'Create Task'" [routerLink]="'/create-task'"></app-button>
+                    <app-button *ngIf="isManager"  [buttonText]="'Create Task'" [routerLink]="'/create-task'"></app-button>
                 </div>
             </div>
           <form [formGroup]="formGroup">

@@ -13,11 +13,11 @@
       </div>
       <div class="col-md-4 d-flex align-items-start flex-column">
         <p class="search-head mb-4 mb-md-auto">Vehicle Overview</p>
-        <form class="customSearchField mb-4 mb-md-0">
-          <input class="form-control customSearch" type="search" [formControl]="filteredFormControl" placeholder="Search Vehicle" aria-label="Search">
+        <form class="customSearchField mt-4 mb-4 mb-md-0">
+          <app-inputfield [required]="false" [labelText]="'Search Vehicle'" placeholder="vehicle name..." [formControl]="filteredFormControl"></app-inputfield>
         </form>
       </div>
-      <div class="col-md-3 d-flex justify-content-center align-items-end">
+      <div class="col-md-3 d-flex justify-content-center align-items-center">
         <app-button [buttonText]="'Create Vehicle'" [routerLink]="'/create-vehicle'"></app-button>
       </div>
     </div>

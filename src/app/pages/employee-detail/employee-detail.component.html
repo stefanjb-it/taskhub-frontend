@@ -75,7 +75,7 @@
                            hint="not mandatory" labelText="Do you have a Driver's License?"></app-selectfield>
         </div>
         <div class="col-md-6 mb-4">
-          <app-multi-selectfield [items]="employeeGroups" [required]="false"
+          <app-multi-selectfield [items]="employeeGroups" [required]="!selection"
                                  formControlName="groups"></app-multi-selectfield>
         </div>
       </div>

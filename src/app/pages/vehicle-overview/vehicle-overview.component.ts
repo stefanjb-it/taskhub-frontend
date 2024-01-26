@@ -8,11 +8,12 @@ import {RouterLink} from "@angular/router";
 import {UnvehicletypePipe} from "../../pipes/unvehicletype.pipe";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {InputfieldComponent} from "../../components/inputfield/inputfield.component";
 
 @Component({
   selector: 'app-vehicle-overview',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, RouterLink, UnvehicletypePipe, ReactiveFormsModule],
+  imports: [CommonModule, ButtonComponent, RouterLink, UnvehicletypePipe, ReactiveFormsModule, InputfieldComponent],
   templateUrl: './vehicle-overview.component.html',
   styleUrl: './vehicle-overview.component.scss'
 })

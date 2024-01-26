@@ -28,6 +28,7 @@ export class TaskOverviewComponent implements OnInit {
   formGroup:FormGroup;
   private defaultFrom:number;
   private defaultTo:number;
+  isManager:boolean = false;
 
   constructor(public taskService: TaskService, public userService: UserService, public taskTypeService: TaskTypeService,
               private imageService: ImageService, private snackbar: MatSnackBar) {
@@ -49,6 +50,7 @@ export class TaskOverviewComponent implements OnInit {
         this.updateTaskList([this.formGroup.value.from, new Date(value)]);
       }
     });
+    this.isManager = userService.hasGroup(["Manager"]);
 
     // Date Setup for filtering
     let now = new Date();
@@ -97,7 +99,7 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   isContainedTitle(task:TaskList, titleFilter:string) : boolean {
-    return task.title.toLowerCase().includes(titleFilter.toLowerCase()) || 
+    return task.title.toLowerCase().includes(titleFilter.toLowerCase()) ||
       task.order_title.toLowerCase().includes(titleFilter.toLowerCase());
   }
 
@@ -109,6 +111,7 @@ export class TaskOverviewComponent implements OnInit {
   deleteTask(id: number) {
     this.taskService.deleteTask(id).subscribe(
       res => {
+        this.tasks = this.tasks.filter(task => task.id != id)
         this.filteredTasks = this.filteredTasks.filter(task => task.id != id)
       },
       err => {
