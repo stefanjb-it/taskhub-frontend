@@ -1,5 +1,5 @@
 
-<mat-stepper #stepper>
+<mat-stepper #stepper class="step-box p-3">
   <mat-step [stepControl]="customerFormGroup" errorMessage="Customer is required.">
     <form [formGroup]="customerFormGroup">
       <ng-template matStepLabel>Create a Customer</ng-template>
@@ -16,7 +16,7 @@
         <app-selectfield hint="mandatory" formControlName="is_company" labelText="Is the customer a company?" [items]="is_companyList"  [required]="true"></app-selectfield>
       </div>
       <div>
-        <p>Go ahead and create an Order for this Customer.</p>
+        <p>Create a customer and corresponding order.</p>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
