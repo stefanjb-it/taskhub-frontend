@@ -58,7 +58,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
+              "optimization": false,defaultConfiguration
               "extractLicenses": false,
               "sourceMap": true
             }
@@ -72,7 +72,8 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "taskhub-frontend:build:production"
+              "buildTarget": "taskhub-frontend:build:production",
+              "proxyConfig": "prod.proxy.conf.json"
             },
             "development": {
               "buildTarget": "taskhub-frontend:build:development"
