@@ -197,7 +197,7 @@ export class TaskDetailComponent implements OnInit {
     let result = this.formGroup.value;
 
     result.employees = result.employees.map((item: string) => parseInt(item));
-    result.vehicles = result.vehicles.map((item: string) => parseInt(item));
+    result.vehicles = result.vehicles?.map((item: string) => parseInt(item)) ?? [];
 
     if (this.selection) {
       this.taskService.changeTask(parseInt(this.selection), result).subscribe(

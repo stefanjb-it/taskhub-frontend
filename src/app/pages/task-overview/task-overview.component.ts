@@ -39,11 +39,22 @@ export class TaskOverviewComponent implements OnInit {
     this.formGroup.valueChanges.subscribe(value => {
       this.filterTaskList(this.formGroup.value);
     });
+    this.formGroup.controls['from'].valueChanges.subscribe(value => {
+      if (value && value < this.defaultFrom) {
+        this.updateTaskList([new Date(value), this.formGroup.value.to]);
+      }
+    });
+    this.formGroup.controls['to'].valueChanges.subscribe(value => {
+      if (value && value > this.defaultTo) {
+        this.updateTaskList([this.formGroup.value.from, new Date(value)]);
+      }
+    });
 
     // Date Setup for filtering
     let now = new Date();
-    this.defaultFrom = now.setMonth(now.getMonth() - 1);
-    this.defaultTo = now.setMonth(now.getMonth() + 2); // 2 'cause object is changed in the first setMonth
+    let nowCP = new Date();
+    this.defaultFrom = nowCP.setDate(nowCP.getDate() - 7); // 1 week in the past
+    this.defaultTo = now.setMonth(now.getMonth() + 1); // 1 month ahead
   }
 
   ngOnInit() {
@@ -51,6 +62,31 @@ export class TaskOverviewComponent implements OnInit {
       this.tasks = tasks;
       this.filteredTasks = tasks;
     });
+  }
+
+  updateTaskList([fromDate, toDate]: [Date, Date]) {
+    console.log(fromDate, toDate);
+    let paramArray : (string | undefined)[] = []
+    if (fromDate) {
+      fromDate.setDate(fromDate.getDate() + 1);
+      paramArray.push(fromDate.toISOString().slice(0, 10));
+    } else {
+      toDate.setDate(toDate.getDate() + 1);
+      paramArray.push(undefined);
+    }
+    if (toDate) {
+      paramArray.push(toDate.toISOString().slice(0, 10));
+    }
+    else {
+      paramArray.push(undefined);
+    }
+    console.log(paramArray);
+    this.taskService.getTasks(paramArray[0], paramArray[1]).subscribe(tasks => {
+      console.log(tasks);
+      this.tasks = tasks;
+      this.filteredTasks = tasks;
+    });
+
   }
 
   filterTaskList(val:any) {

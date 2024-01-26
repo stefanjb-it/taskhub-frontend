@@ -12,10 +12,15 @@ export class TaskService {
   constructor(private http:HttpClient) { }
 
   getTasks(begin?: string, end?: string) {
-    let params: HttpParams = new HttpParams()
-    if (begin) params.append("begin", begin)
-    if (end) params.append("end", end)
-    return this.http.get<TaskList[]>(baseurl, { params })
+    let currentURL = baseurl;
+    if (begin && end){
+      currentURL += '?begin=' + begin + '&end=' + end;
+    } else if (begin){
+      currentURL += '?begin=' + begin;
+    } else if (end){
+      currentURL += '?end=' + end;
+    }
+    return this.http.get<TaskList[]>(currentURL)
   }
 
   getTask(id: number) {
