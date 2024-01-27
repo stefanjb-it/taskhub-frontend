@@ -47,6 +47,7 @@ export class CustomerOverviewComponent implements OnInit {
     this.customerService.deleteCustomer(id).subscribe(
         res => {
           this.filteredCustomers = this.filteredCustomers.filter(customer => customer.id != id)
+          this.customers = this.customers.filter(customer => customer.id != id)
         },
         err => {
           this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",

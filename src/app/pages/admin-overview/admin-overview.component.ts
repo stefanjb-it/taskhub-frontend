@@ -54,7 +54,10 @@ export class AdminOverviewComponent implements OnInit {
       }
 
       this.employeeService.deleteEmployee(id).subscribe(
-        res => this.filteredEmployees = this.filteredEmployees.filter(employee => employee.id != id),
+        res => {
+          this.filteredEmployees = this.filteredEmployees.filter(employee => employee.id != id)
+          this.employees = this.employees.filter(employee => employee.id != id)
+        },
         err => {
           this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
             horizontalPosition: "right"})

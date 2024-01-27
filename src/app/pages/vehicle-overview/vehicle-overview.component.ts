@@ -46,6 +46,7 @@ export class VehicleOverviewComponent implements OnInit {
     this.vehicleService.deleteVehicle(id).subscribe(
       res => {
         this.filteredVehicles = this.filteredVehicles.filter(vehicle => vehicle.id != id)
+        this.vehicles = this.vehicles.filter(vehicle => vehicle.id != id)
       },
       err => {
         this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",

@@ -13,14 +13,22 @@ import {OrderService} from "../../services/order.service";
 import {ChangeCustomer} from "../../models/Customer";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ButtonComponent} from "../../components/button/button.component";
+import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-stepper-order',
   standalone: true,
   imports: [CommonModule, MatStepperModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule,
-    SelectfieldComponent, InputfieldComponent, DateInputfieldComponent],
+    SelectfieldComponent, InputfieldComponent, DateInputfieldComponent, ButtonComponent],
   templateUrl: './stepper-order.component.html',
-  styleUrl: './stepper-order.component.scss'
+  styleUrl: './stepper-order.component.scss',
+  providers:[
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
+  ]
 })
 export class StepperOrderComponent {
   customer: ChangeCustomer = {};

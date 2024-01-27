@@ -1,5 +1,4 @@
-
-<mat-stepper #stepper class="step-box p-3">
+<mat-stepper #stepper class="stepper-box p-3">
   <mat-step [stepControl]="customerFormGroup" errorMessage="Customer is required.">
     <form [formGroup]="customerFormGroup">
       <ng-template matStepLabel>Create a Customer</ng-template>
@@ -16,7 +15,6 @@
         <app-selectfield hint="mandatory" formControlName="is_company" labelText="Is the customer a company?" [items]="is_companyList"  [required]="true"></app-selectfield>
       </div>
       <div>
-        <p>Create a customer and corresponding order.</p>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
@@ -37,6 +35,7 @@
         <app-date-inputfield formControlName="order_date" labelText="OrderDate" hint="Please select the order's date." [required]="false"></app-date-inputfield>
       </div>
       <div>
+        <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
@@ -46,7 +45,7 @@
     <p>Check your values and click Submit.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="createOrderAndCustomer()">Submit</button>
+      <button [disabled]="!(customerFormGroup.valid) || !(customerFormGroup.valid)" mat-button (click)="createOrderAndCustomer()">Submit</button>
     </div>
   </mat-step>
 </mat-stepper>

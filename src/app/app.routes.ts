@@ -37,6 +37,6 @@ export const routes: Routes = [
   { path: 'create-vehicle', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard]},
   { path: 'edit-vehicle/:id', component: VehicleDetailComponent, canActivate: [authGuard,managerGuard,supervisorGuard]},
   { path: 'task-images/:id', component: TaskImageCarouselComponent, canActivate: [authGuard]},
-  { path: 'customer-order', component: StepperOrderComponent},
+  { path: 'customer-order', component: StepperOrderComponent, canActivate: [authGuard,managerGuard]},
   { path: '**', redirectTo: ''}
 ];

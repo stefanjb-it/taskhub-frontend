@@ -12,6 +12,7 @@ import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ImageService} from "../../services/image.service";
 import {DateInputfieldComponent} from "../../components/date-inputfield/date-inputfield.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Image} from "../../models/Image";
 
 @Component({
   selector: 'app-task-overview',
@@ -109,10 +110,19 @@ export class TaskOverviewComponent implements OnInit {
   }
 
   deleteTask(id: number) {
+    let taskimages: Image[] | null = [];
+
+    this.taskService.getTask(id).subscribe(task => {
+      taskimages = task.images;
+    });
+
     this.taskService.deleteTask(id).subscribe(
       res => {
         this.tasks = this.tasks.filter(task => task.id != id)
         this.filteredTasks = this.filteredTasks.filter(task => task.id != id)
+        taskimages?.forEach(image => {
+          this.imageService.deleteTaskImage(id, image.id).subscribe();
+        });
       },
       err => {
         this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",

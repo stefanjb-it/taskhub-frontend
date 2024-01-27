@@ -50,6 +50,7 @@ export class OrderOverviewComponent implements OnInit {
     this.orderService.deleteOrder(id).subscribe(
       res => {
         this.filteredOrders = this.filteredOrders.filter(order => order.id != id)
+        this.orders = this.orders.filter(order => order.id != id)
       },
       err => {
         this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
