@@ -134,6 +134,7 @@ export class TaskDetailComponent implements OnInit {
           if (task.images) {
             this.images = task.images?.length > 0;
           }
+          console.log(task.images)
 
           this.formGroup.patchValue(task);
           this.formGroup.controls['task_type'].setValue(task.task_type?.id);
@@ -167,6 +168,11 @@ export class TaskDetailComponent implements OnInit {
             employee.first_name = parts.join(' ').replace(employee.last_name, '');
             return employee;
           });
+
+        if (task.images) {
+          this.images = task.images?.length > 0;
+        }
+
           this.formGroup.controls['employees'].setValue(task.employees?.map(employee => employee.id));
           this.orders = [task.order as Order];
           this.formGroup.controls['order'].setValue(task.order?.id);
