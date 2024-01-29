@@ -134,7 +134,6 @@ export class TaskDetailComponent implements OnInit {
           if (task.images) {
             this.images = task.images?.length > 0;
           }
-          console.log(task.images)
 
           this.formGroup.patchValue(task);
           this.formGroup.controls['task_type'].setValue(task.task_type?.id);
@@ -143,7 +142,6 @@ export class TaskDetailComponent implements OnInit {
           this.formGroup.controls['order'].setValue(task.order?.id);
           this.formGroup.controls['vehicles'].setValue(task.vehicles?.map(vehicle => vehicle.id));
         }, error => {
-          console.log(error);
           this.router.navigate(['management'])
         }
       )

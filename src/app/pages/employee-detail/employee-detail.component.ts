@@ -111,7 +111,7 @@ export class EmployeeDetailComponent implements OnInit {
       try {
         this.randomNumber = employee.username?.slice(6,9) ? parseInt(employee.username?.slice(6,9)) : Math.floor(Math.random() * 100);
       } catch (e) {
-        console.log('no username supplied...')
+        //console.log('no username supplied...')
       }
 
         this.formGroup.patchValue(employee);
@@ -143,8 +143,14 @@ export class EmployeeDetailComponent implements OnInit {
           this.router.navigate(['admin-overview'])
         },
         err => {
-          this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
-            horizontalPosition: "right"})
+          if (err.error.message.includes("ValidationError")) {
+            let errorMsg = err.error.message.substring(20, err.error.message.length-18)
+            this.snackbar.open(errorMsg, "" , {duration: 2500, verticalPosition: "top",
+              horizontalPosition: "right"})
+          } else {
+            this.snackbar.open(err.error.message, "" , {duration: 2500, verticalPosition: "top",
+              horizontalPosition: "right"})
+          }
         }
       )
     } else {
