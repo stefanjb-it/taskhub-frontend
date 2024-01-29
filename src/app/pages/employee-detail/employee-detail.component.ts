@@ -93,7 +93,8 @@ export class EmployeeDetailComponent implements OnInit {
           this.employeeGroups = res
         }
       )
-      this.randomNumber = Math.floor(Math.random() * 100);
+      let testUsernumber = Math.floor(Math.random() * 100);
+      this.randomNumber = (testUsernumber < 10 || testUsernumber > 99) ? 42 : testUsernumber
       return;
     }
 
@@ -109,7 +110,13 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeGroups = employeeGroups
 
       try {
-        this.randomNumber = employee.username?.slice(6,9) ? parseInt(employee.username?.slice(6,9)) : Math.floor(Math.random() * 100);
+          let testUsername = parseInt(employee.username?.slice(employee.username.length-2, employee.username.length))
+        if (testUsername) {
+          this.randomNumber = testUsername
+        } else {
+          let testUsernumber = Math.floor(Math.random() * 100)
+          this.randomNumber = (testUsernumber < 10 || testUsernumber > 99) ? 42 : testUsernumber
+        }
       } catch (e) {
         //console.log('no username supplied...')
       }
