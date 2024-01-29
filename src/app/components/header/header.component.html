@@ -1,11 +1,11 @@
 <nav class="navbar header">
   <div class="container">
     <a *ngIf="!(userService.isLoggedIn$ | async)" class="header-text navbar-brand align-items-center justify-content-center d-flex" routerLink="">
-      <img src="assets/svg/Truck.svg" width="44" height="44">
+      <img class="me-2" src="assets/svg/Truck.svg" width="44" height="44">
        TaskHub
     </a>
     <a *ngIf="userService.isLoggedIn$ | async" class="header-text navbar-brand align-items-center justify-content-center d-flex" routerLink="management">
-      <img src="assets/svg/Truck.svg" width="44" height="44" class="me-2">
+      <img class="me-2" src="assets/svg/Truck.svg" width="44" height="44">
        TaskHub
     </a>
     <div class="ms-auto d-none d-md-flex">

@@ -1,4 +1,4 @@
-import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, isDevMode} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -6,6 +6,7 @@ import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {ToastrModule, ToastrService} from "ngx-toastr";
 import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
+import { provideServiceWorker } from '@angular/service-worker';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -26,6 +27,10 @@ export const appConfig: ApplicationConfig = {
         positionClass: 'toast-top-right',
         preventDuplicates: true,
     }), BrowserAnimationsModule),
-    provideAnimations()
+    provideAnimations(),
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
 ],
 };
