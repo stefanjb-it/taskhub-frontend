@@ -15,6 +15,10 @@ An account must be created / available to use the application. Therefore, the ba
 The UI structure was laid with Bootstrap, while tags were styled with SCSS.
 Angular Material UI is implemented for the use of production-ready components.
 
+### Backend
+
+The backend can be found at [Taskhub API](https://github.com/Caperino/taskhub).
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
